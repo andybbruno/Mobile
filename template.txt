@@ -1,0 +1,58 @@
+server
+    Login manutentore {POST}
+        \login
+
+    Numero persone macchinetta [POST, GET]
+        \<ID>\status -> {persone: N}
+            livelli stock
+            numero persone
+
+    regista acquisto [POST]
+        \<ID>\order -> {order: <ID di cosa ha preso>, timestamp:}
+            registra l'aquiso di una genericoa bevanda
+
+    Manutenzione [POST, GET]
+        \<ID>\mngt
+            {GET}
+                statisti sui guadagni
+                ultima manutenzione
+                guadagni
+            {POST}
+                Check per l'effettuata manutenzione
+                check per l'effettuata refill degli ingrtedienti
+
+    Registra macchinetta
+        \register -> {new:ID, posizione: , informazioni generali}
+    Elimina macchinetta
+        \delete -> {ID: <ID>}
+
+
+Rasp
+    POST
+        Tipologia di bevenad acquistata
+        NUmerso di persone in un istante (per le statistiche che bisogna creare sull' affluenxza)
+        Check per l'effettuata manutenzione
+        check per l'effettuata refill degli ingrtedienti
+    GET
+        Nunero persone in un istante ( per richedere nel momento del cosiglio all'utente)
+        livelli di stock dei vari ingredianti
+        ultima manutenzione/pulizia
+
+
+funzioni in generale del sistama
+    + monitoraggio vendite per tipologia di bevanda
+    + statistiche su:
+        - orari di punta
+        - sulle bevande che vanno di "moda"
+    + guadagni
+    + refill/manutanzione preventivo dei vari ingredianti/macchine
+    + pulizia sistematica dopo un tot di utilizzi
+    + spegnimento ed accensione della macchinetta in base a gli orari
+    + customer satistaction (verifico, tramite le api, quanto un consumatore e felice o no di quelo che ha preso)
+    + Se sis crea un app o un interfaccia puoi anche mettere delle critiche o comemnti sul servizio
+    + Indicazione di quale machcienatta usare in base a gli orari e alla presenza di persone al momento della richesta
+
+
+
+
+Rasp        Server          Simulatore
