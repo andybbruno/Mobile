@@ -19,7 +19,7 @@ possible_transaction = ("rfid", "cash", "app")
 # https://github.com/keleshev/schema
 class Validator(object):
 
-    def new_order(toValidate, possible_orders):
+    def validate_order(toValidate, possible_orders):
         try:
             Schema({
                     "trnsaction_type": And(str, lambda x: x in possible_transaction),
@@ -32,7 +32,7 @@ class Validator(object):
             return False
         return True
 
-    def new_machine(toValidate):
+    def validate_machine(toValidate):
         try:
             Schema({
                     Optional("ID"): int,
@@ -60,8 +60,8 @@ class Validator(object):
 
 if __name__ == '__main__':
     #test dei validatori
-    Validator.new_machine({"ID": 67484, "orders": {"caffe": 1}})
-    Validator.new_order(
+    Validator.validate_machine({"ID": 67484, "orders": {"caffe": 1}})
+    Validator.validate_order(
     {"trnsaction_type": "ash",
     "prodotto": "caffe",
     "satisfaction": 0.5,

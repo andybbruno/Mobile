@@ -51,7 +51,7 @@ def new_machine():
             TRUE se la rigistrazione è avventua FALSE altrimenti
     """
     jsonReq = request.get_json(silent=True, force=True)
-    if not Validator.new_machine(jsonReq):
+    if not Validator.validate_machine(jsonReq):
         return "Not Valid JSON"
 
     currTime = (int) (data.timestamp(data.now()))
@@ -149,7 +149,7 @@ def new_order(ID):
     timestamp = (int) (data.timestamp(data.now()))
     currMachine = machineTable.find_one({"ID", ID})
 
-    if not Validator.new_order(jsonReq, currMachine["possible_orders"].keys()):
+    if not Validator.validate_order(jsonReq, currMachine["possible_orders"].keys()):
         return "Not Valid JSON"
 
     #Inserimento transazione
