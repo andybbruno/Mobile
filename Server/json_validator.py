@@ -1,6 +1,6 @@
 from schema import Schema, And, Use, Optional
 
-mylist = ('caffe', 'cioccolato')
+prod_list = ('caffe', 'cioccolato')
 
 # https://github.com/keleshev/schema
 class Validator(object):
@@ -16,12 +16,12 @@ class Validator(object):
     def validate_machine(toValidate):
         return Schema({
                 "ID": int,
-                'orders': Use(lambda s: True if s in mylist else False),
+                'products': Use(lambda s: any([True if x.lower in prod_list else False for x in s ])),
             }, ignore_extra_keys = True).validate(toValidate)
 
 if __name__ == '__main__':
     #test dei validatori
-    Validator.validate_machine({"ID": 67484, "orders": "caffe"})
+    Validator.validate_machine({"ID": 67484, "products": ["caffe"]})
     Validator.validate_order(
     {"trnsaction_type": "cash",
     "prodotto": "caffe",
