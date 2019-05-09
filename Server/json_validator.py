@@ -5,7 +5,7 @@ mylist = ('caffe', 'cioccolato')
 # https://github.com/keleshev/schema
 class Validator(object):
 
-    def new_order(toValidate, possible_orders):
+    def validate_order(toValidate, possible_orders):
         return Schema({
             "trnsaction_type": And(str, lambda x: x in ("rfid", "cash", "app")),
             "prodotto":  And(str, lambda x: x in possible_orders),
@@ -13,16 +13,16 @@ class Validator(object):
             "people_detected": And(int, lambda x: x > 0)
             }).validate(toValidate)
 
-    def new_machine(toValidate):
+    def validate_machine(toValidate):
         return Schema({
                 "ID": int,
-                'orders': Use(lambda s: any([True if x.lower in mylist else False for x in s ])),
+                'orders': Use(lambda s: True if s in mylist else False),
             }, ignore_extra_keys = True).validate(toValidate)
 
 if __name__ == '__main__':
     #test dei validatori
-    Validator.new_machine({"ID": 67484, "orders": ["caffe"]})
-    Validator.new_order(
+    Validator.validate_machine({"ID": 67484, "orders": "caffe"})
+    Validator.validate_order(
     {"trnsaction_type": "cash",
     "prodotto": "caffe",
     "satisfaction": 0.5,

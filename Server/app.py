@@ -41,7 +41,7 @@ def machine():
     print(jsonReq)
     
     try:
-        new_machine.validate(jsonReq)# valido il json avuto
+        validate_machine.validate(jsonReq)# valido il json avuto
     except SchemaError  as e:
         return "Not Valid JSON"
 
@@ -81,7 +81,7 @@ def neworder():
             TRUE se la rigistrazione è avventua FALSE altrimenti
     """
     jsonReq = request.get_json(silent=True, force=True)
-    Validator.new_order(jsonReq, machineTable.find_one({"ID", ID})["possible_orders"])
+    Validator.validate_order(jsonReq, machineTable.find_one({"ID", ID})["possible_orders"])
     return True
 
 
