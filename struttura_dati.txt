@@ -1,12 +1,12 @@
 TABELLA MACCHINETTE
 macchina = {
     "ID":<str, len(10)>,                                                \\ ID della macchinetta
-    "possible_orders": <list((str, price)), can be contain [("caffe", 0.1), "cioccolato", ...]>  \\ Possibili ordine che si possono fare
-    "position_GEO": <                                                   \\ posizione in coordinate geografiche
-    "position_Description": <str,                                               \\ Descrizione della posizione all'interno dell'edificio
+    "possible_orders": <json,esempio {"caffe": 0.8, "cioccolato": 1.5}>  \\ Possibili ordine che si possono fare
+    "position_geo": <                                                   \\ posizione in coordinate geografiche
+    "position_des": <str,                                               \\ Descrizione della posizione all'interno dell'edificio
     "persone in fila": <int, [0, inf]>
-    "manutenzione": {
-        "ingredienti_levels":{
+    "maintenance": {
+        "ingredient_levels":{
             <lista degli ingredianti>
             "caffe": <float, range[0, 1]>
             ...
@@ -15,10 +15,10 @@ macchina = {
             "bicchieri": <float, range[0, 1]>
             ...
         }
-        "ultima_manutenzione": <data>
-        "ultima_pulizia": <data>
+        "last_maintenance": <data>
+        "last_cleaning": <data>
     }
-    "mnagment": {
+    "management": {
         "owner": <str>  \\ comapgnia o istituzione che ha "affittato" la macchinetta
         "count_orders": {
             <all possible order of machine>
@@ -29,7 +29,7 @@ macchina = {
         "affluenza": [] \\ indice di affluenza in un particolare range orario ( 15 min ogni slice)  vettore di 24*4 elementi
         "spegni in time range": <(int, int), (2300, 0630)> \\ numero intero a 4 cifre per memorizzare lorario di spegnimento
         "satisfaction level": <float> \\ livello di soddisfazione generale dei prodotti della macchinetta
-
+        "installation_date": <timestamp>
     }
 }
 
