@@ -1,4 +1,4 @@
-from flask import Flask, request
+from flask import Flask, request, render_template
 import pymongo
 from datetime import datetime as data
 from random import randint
@@ -16,13 +16,18 @@ detectionTable = mobile_db["testDetection"]
 
 app = Flask(__name__)
 
+logged_in = False;
+
 @app.route('/')
 def homepage():
-    return 'Dashboard'
+    if (logged_in):
+        return render_template('index.html')
+    else:
+        return render_template('login.html')
 
 @app.route('/login', methods=['POST'])
 def login():
-    return 'login'
+    return 'Login'
 
 def genereteID():
     n = 5
@@ -117,14 +122,14 @@ def del_machine():
     return 'Delete machine'
 
 
-@app.route('/<ID>', methods=['POST', 'GET'])
-def status():
-    jsonReq = request.get_json(silent=True, force=True)
-    if request.method == 'POST':
-        # Per questa orerazione è richiesto l'ID dell'operatore
-        return registerMaintainOperation()
-    else:
-        return getMaintainStatus()
+# @app.route('/<ID>', methods=['POST', 'GET'])
+# def status():
+#     jsonReq = request.get_json(silent=True, force=True)
+#     if request.method == 'POST':
+#         # Per questa orerazione è richiesto l'ID dell'operatore
+#         return registerMaintainOperation()
+#     else:
+#         return getMaintainStatus()
 
 
 @app.route('/<ID>/order', methods=['POST'])
@@ -201,4 +206,9 @@ def delete_():
     return str(list)
 
 
-app.run(host='0.0.0.0', port='3000', debug=True)
+@app.errorhandler(404)
+def page_not_found(e):
+    # note that we set the 404 status explicitly
+    return render_template('404.html'), 404
+
+app.run(host='127.0.0.1', port='3000', debug=True)
