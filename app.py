@@ -17,6 +17,7 @@ def homepage():
 
 @app.route('/machine', methods=['POST', 'DELETE'])
 def machine():
+    
     """
         struttura macchinetta
         {
@@ -27,6 +28,9 @@ def machine():
         }
     """
     jsonReq = request.get_json(silent=True, force=True)
+
+    print(jsonReq)
+    
     try:
         new_machine.validate(jsonReq)# valido il json avuto
     except SchemaError  as e:
