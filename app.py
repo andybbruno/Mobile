@@ -1,12 +1,16 @@
 from flask import Flask, request
 import pymongo
 
-from json_validator import new_machine
-
 from schema import SchemaError
+
+from json_validator import Validator
+
+from opsHandler import maintain
 
 mongoDB = pymongo.MongoClient("mongodb://localhost:27017/")
 mobile_db = mongoDB["test_db"]
+
+machineTable = mobile_db["testTable"]
 
 
 app = Flask(__name__)
@@ -14,6 +18,11 @@ app = Flask(__name__)
 @app.route('/')
 def homepage():
     return 'Dashboard'
+
+@app.route('/login', methods=['POST'])
+def login():
+    return 'login'
+
 
 @app.route('/machine', methods=['POST', 'DELETE'])
 def machine():
@@ -32,7 +41,7 @@ def machine():
     except SchemaError  as e:
         return "Not Valid JSON"
 
-    machineTable = mobile_db["testTable"]
+
     if request.method == 'POST':
         x = machineTable.insert_one(jsonReq)
         print("New", x)
@@ -45,28 +54,40 @@ def machine():
 
 @app.route('/<ID>', methods=['POST', 'GET'])
 def status():
+    jsonReq = request.get_json(silent=True, force=True)
     if request.method == 'POST':
-        return 'Status updated'
+        # Per questa orerazione è richiesto l'ID dell'operatore
+        return registerMaintainOperation()
     else:
-        return 'Status returned'
+        return getMaintainStatus()
 
 
 @app.route('/<ID>/order', methods=['POST'])
 def neworder():
-    return 'New order'
+    """
+        La macchinetta utilizza questa funzione pre registrare un ordine.
+        JSON in entrata:
+            {
+                "trnsaction_type": <str, one of (conante, contacless))
+                "prodotto": <str, one of possible_orders registered>
+                "satisfaction": <float, satisfaction level of customer>
+                "people_detected": <int, people detected during order>
+            }
+        RETURN
+            TRUE se la rigistrazione è avventua FALSE altrimenti
+    """
+    jsonReq = request.get_json(silent=True, force=True)
+    Validator.new_order(jsonReq, machineTable.find_one({"ID", ID})["possible_orders"])
+    return True
 
 
 @app.route('/<ID>/mngt', methods=['POST', 'GET'])
 def manage():
+    jsonReq = request.get_json(silent=True, force=True)
     if request.method == 'POST':
         return 'Management updated'
     else:
         return 'Management returned'
-
-@app.route('/login', methods=['POST'])
-def login():
-    return 'login'
-
 
 
 # ------------------------Funzioni di Test e Gesitone -------------------------

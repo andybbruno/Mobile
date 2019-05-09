@@ -3,7 +3,7 @@ macchina = {
     "ID":<str, len(10)>,                                                \\ ID della macchinetta
     "possible_orders": <list((str, price)), can be contain [("caffe", 0.1), "cioccolato", ...]>  \\ Possibili ordine che si possono fare
     "position_GEO": <                                                   \\ posizione in coordinate geografiche
-    "position_Des": <str,                                               \\ Descrizione della posizione all'interno dell'edificio
+    "position_Description": <str,                                               \\ Descrizione della posizione all'interno dell'edificio
     "persone in fila": <int, [0, inf]>
     "manutenzione": {
         "ingredienti_levels":{
