@@ -41,7 +41,7 @@ def machine():
     print(jsonReq)
     
     try:
-        validate_machine.validate(jsonReq)# valido il json avuto
+        Validator.validate_machine(jsonReq)# valido il json avuto
     except SchemaError  as e:
         return "Not Valid JSON"
 
