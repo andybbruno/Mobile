@@ -37,7 +37,6 @@ def login():
         return render_template('login.html')
 
 
-
 def genereteID():
     n = 5
     return randint(10**(n-1), (10**n)-1)
@@ -56,8 +55,7 @@ def new_machine():
             "position_geo": <                >
             "position_des": <str, maxlen(255), descrizione della posizione>
             "owner": <str, ente a cui sono affidate le macchiene>
-            "ingredient_list": <list(str>), lista degli ingrdienti>
-            "stuff_list": <list(str), lista degli oggetti>
+            "consumable_list": <list(str>), lista degli oggetti di consumo>
         }
         * campo opzionale
 
@@ -79,9 +77,7 @@ def new_machine():
         "position_geo": jsonReq.get("position_geo", None),
         "position_des": jsonReq["position_des"],
         "maintenance": {
-            "ingredient_levels":{
-            },
-            "stuff_levels": {
+            "consumable_list":{
             },
             "last_maintenance": currTime,
             "last_cleaning": currTime,
@@ -97,13 +93,8 @@ def new_machine():
 
     # popolare ingredienti_levels
     to_add = {}
-    [to_add.update({ingr: 0}) for ingr in jsonReq["ingredient_list"]]
-    machine["maintenance"]["ingredient_levels"].update(to_add)
-
-    # popolare  stuff_levels
-    to_add = {}
-    [to_add.update({stuff: 0}) for stuff in jsonReq["stuff_list"]]
-    machine["maintenance"]["stuff_levels"].update(to_add)
+    [to_add.update({ingr: 0}) for ingr in jsonReq["consumable_list"]]
+    machine["maintenance"]["consumable_list"].update(to_add)
 
     # popolare count_orders
     to_add = {}
@@ -159,6 +150,10 @@ def new_order(ID):
                 "product": <str, one of possible_orders registered>
                 "satisfaction": <float, satisfaction level of customer>
                 "people_detected": <int, people detected during order>
+                *"new_levels":{
+                    "<consumable>": <int, new_level,
+                    ...
+                }
             }
         RETURN
             TRUE se la rigistrazione è avventua FALSE altrimenti
@@ -189,10 +184,16 @@ def new_order(ID):
         "people_detected": jsonReq["people_detected"]
     })
     # aggiorna il numero di vendite sulla macchnetta
-    result = machineTable.update_one({"ID": ID}, {"$inc":{"management.count_orders."+jsonReq["product"]: 1}})
+    machineTable.update_one({"ID": ID}, {"$inc":{"management.count_orders."+jsonReq["product"]: 1}})
     # modifica satisfaction_level della macchinetta (media armonica)
     currSat, newSat = currMachine["satisfaction_level"], jsonReq["satisfaction"]
-    result = machineTable.update_one({"ID": ID}, {"$set":{"satisfaction_level": (2*currSat*newSat)/(newSat+currSat)}})
+    machineTable.update_one({"ID": ID}, {"$set":{"satisfaction_level": (2*currSat*newSat)/(newSat+currSat)}})
+    # modifico i livelli degli oggetti di consumo che hanno avuto ua variazione
+    if jsonReq.get("new_levels", None):
+        to_modify = {}
+        for k, v in jsonReq["new_levels"].items():
+            to_modify = {"maintenance.consumable_list."+k: v}
+        machineTable.update_one({"ID": ID}, {"$set": to_modify})
     return "Transaction registered"
 
 

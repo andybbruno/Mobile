@@ -10,9 +10,16 @@ all_products = Schema({
     Optional('laghine'): And(Or(float, int), lambda x: x > 0),
 })
 
-all_ingredients = ("caffe", "zucchero", "latte", "te concentrato", "cioccolato concentrato")
+all_consumable_S = Schema({
+    Optional('bicchiere'): And(Or(float, int), lambda x: x > 0 and x < 100),
+    Optional('palettina'): And(Or(float, int), lambda x: x > 0 and x < 100),
+    Optional('caffe'): And(Or(float, int), lambda x: x > 0 and x < 100),
+    Optional('zucchero'): And(Or(float, int), lambda x: x > 0 and x < 100),
+    Optional('te concentrato'): And(Or(float, int), lambda x: x > 0 and x < 100),
+    Optional('cioccolato concentrato'): And(Or(float, int), lambda x: x > 0 and x < 100),
+})
 
-all_stuff = ("bicchiere", "palettina")
+all_consumable_L = ("bicchiere", "palettina", "caffe", "zucchero", "latte", "te concentrato", "cioccolato concentrato")
 
 possible_transaction = ("rfid", "cash", "app")
 
@@ -25,7 +32,8 @@ class Validator(object):
                     "transaction_type": And(str, lambda x: x in possible_transaction),
                     "product":  And(str, lambda x: x in possible_orders),
                     "satisfaction": And(float, lambda x: x > 0 and x < 1),
-                    "people_detected": And(int, lambda x: x > 0)
+                    "people_detected": And(int, lambda x: x > 0),
+                    Optional("new_levels"): Use(lambda x: all_consumable_S.validate(x)),
                 }).validate(toValidate)
         except SchemaError as e:
             print("new_order -> ", e)
@@ -40,8 +48,7 @@ class Validator(object):
                     Optional("position_geo"): str,
                     "position_des": And(str, lambda x: len(x) < 255),
                     "owner": str,
-                    "ingredient_list": And(list, lambda x: all([True if e in all_ingredients else False for e in x])),
-                    "stuff_list": And(list, lambda x: all([True if e in all_stuff else False for e in x]))
+                    "consumable_list": And(list, lambda x: all([True if e in all_consumable_L else False for e in x])),
                 }).validate(toValidate)
         except SchemaError as e:
             print("new_machine -> ", e)

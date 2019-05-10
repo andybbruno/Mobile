@@ -6,13 +6,9 @@ macchina = {
     "position_des": <str,                                               \\ Descrizione della posizione all'interno dell'edificio
     "persone in fila": <int, [0, inf]>
     "maintenance": {
-        "ingredient_levels":{
+        "consumable_list":{
             <lista degli ingredianti>
             "caffe": <float, range[0, 1]>
-            ...
-        }
-        "stuff_levels": { \\ livelli di cose tipo stecchette, bicchiedi ecc.
-            "bicchieri": <float, range[0, 1]>
             ...
         }
         "last_maintenance": <data>
@@ -55,4 +51,12 @@ TABELLA PERSONE DIFRONTE ALLA macchinetta
     "timestamp":
     "machineID":
     "people_detected": <int>
+}
+
+TABELLA USER
+"user": {
+    "ID": <int>,
+    "role": <str, in ["manager", "operator", "refiller"]>
+    "username": <str>
+    "password": <str>
 }
