@@ -1,10 +1,8 @@
-from flask import Flask, request, render_template
-import pymongo
+from flask import Flask, request, render_template, redirect, session
+import pymongo, os
 from datetime import datetime as data
 from random import randint
-
 from json_validator import Validator
-
 from opsHandler import maintain
 
 mongoDB = pymongo.MongoClient("mongodb://localhost:27017/")
@@ -15,19 +13,23 @@ transactionTable = mobile_db["testTransaction"]
 detectionTable = mobile_db["testDetection"]
 
 app = Flask(__name__)
-
-logged_in = False;
+app.secret_key = os.urandom(16)
 
 @app.route('/')
 def homepage():
-    if (logged_in):
+    if ('logged' in session):
         return render_template('index.html')
     else:
         return render_template('login.html')
 
+
 @app.route('/login', methods=['POST'])
 def login():
-    return 'Login'
+    if request.method == 'POST':
+        # TODO: verificare la login
+        session['logged'] = True
+        return redirect('/')
+
 
 def genereteID():
     n = 5
