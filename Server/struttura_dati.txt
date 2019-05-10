@@ -28,7 +28,7 @@ macchina = {
         }
         "affluenza": [] \\ indice di affluenza in un particolare range orario ( 15 min ogni slice)  vettore di 24*4 elementi
         "spegni in time range": <(int, int), (2300, 0630)> \\ numero intero a 4 cifre per memorizzare lorario di spegnimento
-        "satisfaction level": <float> \\ livello di soddisfazione generale dei prodotti della macchinetta
+        "satisfaction_level": <float> \\ livello di soddisfazione generale dei prodotti della macchinetta
         "installation_date": <timestamp>
     }
 }

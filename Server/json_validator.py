@@ -22,8 +22,8 @@ class Validator(object):
     def validate_order(toValidate, possible_orders):
         try:
             Schema({
-                    "trnsaction_type": And(str, lambda x: x in possible_transaction),
-                    "prodotto":  And(str, lambda x: x in possible_orders),
+                    "transaction_type": And(str, lambda x: x in possible_transaction),
+                    "product":  And(str, lambda x: x in possible_orders),
                     "satisfaction": And(float, lambda x: x > 0 and x < 1),
                     "people_detected": And(int, lambda x: x > 0)
                 }).validate(toValidate)

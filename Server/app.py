@@ -29,11 +29,8 @@ def login():
         username = request.form['username']
         password = request.form['password']
 
-
         # TODO: verificare la login
         session['username'] = username
-
-
 
         return redirect('/')
     else:
@@ -71,9 +68,13 @@ def new_machine():
     if not Validator.validate_machine(jsonReq):
         return "Not Valid JSON"
 
+    ID = jsonReq.get("ID", genereteID())
+    if machineTable.find_one({"ID": ID}):
+        return "Machine already exist"
+
     currTime = (int) (data.timestamp(data.now()))
     machine = {
-        "ID": jsonReq.get("ID", genereteID()),
+        "ID": ID,
         "possible_orders": jsonReq["orders"],
         "position_geo": jsonReq.get("position_geo", None),
         "position_des": jsonReq["position_des"],
@@ -90,6 +91,7 @@ def new_machine():
             "count_orders": {
             }
         },
+        "satisfaction_level": 0.5,
         "installation_date": currTime,
     }
 
@@ -126,7 +128,6 @@ def del_machine():
             TRUE se la rigistrazione è avventua FALSE altrimenti
     """
     jsonReq = request.get_json(silent=True, force=True)
-
     if not Validator.del_machine(jsonReq):
         return "Not Valid JSON"
 
@@ -144,7 +145,7 @@ def del_machine():
 #         return getMaintainStatus()
 
 
-@app.route('/<ID>/order', methods=['POST'])
+@app.route('/<int:ID>/order', methods=['POST'])
 def new_order(ID):
     """
         La macchinetta utilizza questa funzione pre registrare un ordine.
@@ -164,7 +165,9 @@ def new_order(ID):
     """
     jsonReq = request.get_json(silent=True, force=True)
     timestamp = (int) (data.timestamp(data.now()))
-    currMachine = machineTable.find_one({"ID", ID})
+    currMachine = machineTable.find_one({"ID": ID})
+    if not currMachine:
+        return "Not Valid Machine"
 
     if not Validator.validate_order(jsonReq, currMachine["possible_orders"].keys()):
         return "Not Valid JSON"
@@ -183,13 +186,17 @@ def new_order(ID):
     detectionTable.insert_one({
         "timestamp": timestamp,
         "machineID": ID,
-        "people_detected": jsonReq["people_detected"]})
-    # TODO aggiornare il numero di vendite sulla macchnetta
-    # TODO modificare satisfaction_level della macchinetta in base a questo
-    return True
+        "people_detected": jsonReq["people_detected"]
+    })
+    # aggiorna il numero di vendite sulla macchnetta
+    result = machineTable.update_one({"ID": ID}, {"$inc":{"management.count_orders."+jsonReq["product"]: 1}})
+    # modifica satisfaction_level della macchinetta (media armonica)
+    currSat, newSat = currMachine["satisfaction_level"], jsonReq["satisfaction"]
+    result = machineTable.update_one({"ID": ID}, {"$set":{"satisfaction_level": (2*currSat*newSat)/(newSat+currSat)}})
+    return "Transaction registered"
 
 
-@app.route('/<ID>/mngt', methods=['POST', 'GET'])
+@app.route('/<int:ID>/mngt', methods=['POST', 'GET'])
 def manage():
     jsonReq = request.get_json(silent=True, force=True)
     if request.method == 'POST':
