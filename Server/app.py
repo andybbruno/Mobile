@@ -17,18 +17,28 @@ app.secret_key = os.urandom(16)
 
 @app.route('/')
 def homepage():
-    if ('logged' in session):
-        return render_template('index.html')
+    if ('username' in session):
+        return render_template('index.html', username=session['username'])
+    else:
+        return redirect('/login')
+
+
+@app.route('/login', methods=['POST', 'GET'])
+def login():
+    if request.method == 'POST':
+        username = request.form['username']
+        password = request.form['password']
+
+
+        # TODO: verificare la login
+        session['username'] = username
+
+
+
+        return redirect('/')
     else:
         return render_template('login.html')
 
-
-@app.route('/login', methods=['POST'])
-def login():
-    if request.method == 'POST':
-        # TODO: verificare la login
-        session['logged'] = True
-        return redirect('/')
 
 
 def genereteID():
