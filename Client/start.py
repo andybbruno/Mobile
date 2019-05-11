@@ -120,19 +120,21 @@ try:
 
             elapsed_time = time.time() - start_time
 
+            print("<", people, " people, ", faces,
+                  "faces> ", elapsed_time, " seconds")
+
             trn = trans[random.randint(1, len(trans) - 1)]
             prd = prod[random.randint(1, len(prod) - 1)]
 
             url = ec2 + '/' + str(ID) + '/order'
-            requests.post(ec2, data={"trnsaction_type": trn,
+            r = requests.post(ec2, data={"trnsaction_type": trn,
                                      "prodotto": prd,
                                      "satisfaction": random.random(),
                                      "people_detected": people,
                                      "face_recognised": faces
                                      })
-
-            print("<", people, " people, ", faces,
-                  "faces> ", elapsed_time, " seconds")
+            print(r)
+            
 
 
 except Exception as e:
