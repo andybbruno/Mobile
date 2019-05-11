@@ -79,7 +79,7 @@ def new_machine():
         }
         * campo opzionale
     """
-    is_ok, error = handlerMachine.new_machine(request.get_json(silent=True, force=True))
+    is_ok, error = handler.new_machine(request.get_json(silent=True, force=True))
     if is_ok: return 'New machine Added'
     return 'Some error occurred -> '+ error
 

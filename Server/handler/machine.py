@@ -66,7 +66,5 @@ def new_machine(jsonReq):
     [to_add.update({product: 0}) for product in jsonReq["orders"].keys()]
     machine["management"]["count_orders"].update(to_add)
 
-    print("New", machine)
     machineTable.insert_one(machine)
-
     return True, None
