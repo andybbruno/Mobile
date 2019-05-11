@@ -3,7 +3,7 @@ from datetime import datetime as data
 from .db import machineTable, userTable, operazionTable
 from json_validator import Validator
 
-def register_operation():
+def register_operation(machineID, jsonReq):
     """
         Elimina la macchine con l'id specificato dalla tabella delle macchine
         JSON in entrata:

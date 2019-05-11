@@ -3,7 +3,7 @@ from datetime import datetime as data
 from .db import machineTable, transactionTable, detectionTable
 from json_validator import Validator
 
-def register_order(jsonReq):
+def register_order(ID, jsonReq):
     """
         La macchinetta utilizza questa funzione pre registrare un ordine.
         Durente la reigistrazione dell'ordine vengono registrate anche:
@@ -26,7 +26,9 @@ def register_order(jsonReq):
             TRUE se la rigistrazione è avventua FALSE altrimenti
     """
     timestamp = int(data.timestamp(data.now()))
+    
     currMachine = machineTable.find_one({"ID": ID})
+    
     if not currMachine:
         return False, "Not Valid Machine"
 

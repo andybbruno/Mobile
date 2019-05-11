@@ -28,12 +28,12 @@ def register():
         password1 = request.form['password1']
         password2 = request.form['password2']
 
-        if userTable.find_one({"username": username}):
+        if db.userTable.find_one({"username": username}):
             return render_template('register.html', error='Username already in use!')
         elif password1 != password2:
             return render_template('register.html', error="Please check the passwords")
         else:
-            userTable.insert_one({"username": username, "password": password1})
+            db.userTable.insert_one({"username": username, "password": password1})
             session['username'] = username
             return redirect('/reg')
     else:
@@ -50,7 +50,7 @@ def login():
         username = request.form['username']
         password = request.form['password']
 
-        if userTable.find_one({"username": username, "password": password}):
+        if db.userTable.find_one({"username": username, "password": password}):
             session['username'] = username
             session['logged'] = True
             return redirect('/')
@@ -106,7 +106,7 @@ def new_operation(machineID):
             "type": <str, in ["refill", "cleaning", "repair", "standard check"]>
         }
     """
-    is_ok, error = handler.register_operation(request.get_json(silent=True, force=True))
+    is_ok, error = handler.register_operation(machineID , request.get_json(silent=True, force=True))
     if is_ok: return "Opertion registered"
     return "Some error occurred -> " + error
 
@@ -116,7 +116,7 @@ def get_status(ID):
     """
         Restituisce tutte le info della macchina.
     """
-    machine = machineTable.find_one({"ID": ID})
+    machine = db.machineTable.find_one({"ID": ID})
     if machine: return machine
     return "Machine ID not valid"
 
@@ -143,7 +143,7 @@ def new_order(ID):
                 }
             }
     """
-    is_ok, error = handler.register_order(request.get_json(silent=True, force=True))
+    is_ok, error = handler.register_order(ID , request.get_json(silent=True, force=True))
     if is_ok: return "Transaction registered"
     return "Some error occurred -> "+ error
 
