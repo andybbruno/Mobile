@@ -123,7 +123,7 @@ try:
             trn = trans[random.randint(1, len(trans) - 1)]
             prd = prod[random.randint(1, len(prod) - 1)]
 
-            url = ec2 + '/' + ID + '/order'
+            url = ec2 + '/' + str(ID) + '/order'
             requests.post(ec2, data={"trnsaction_type": trn,
                                      "prodotto": prd,
                                      "satisfaction": random.random(),
