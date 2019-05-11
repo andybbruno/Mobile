@@ -8,6 +8,8 @@ import random
 import numpy as np
 from PIL import Image
 
+# Machine ID
+ID = 45222
 
 # Lists
 prod = ["bicchiere", "palettina", "caffe", "zucchero",
@@ -121,6 +123,7 @@ try:
             trn = trans[random.randint(1, len(trans) - 1)]
             prd = prod[random.randint(1, len(prod) - 1)]
 
+            url = ec2 + '/' + str(ID) + '/order'
             requests.post(ec2, data={"trnsaction_type": trn,
                                      "prodotto": prd,
                                      "satisfaction": random.random(),
