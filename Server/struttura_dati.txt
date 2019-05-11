@@ -4,11 +4,10 @@ macchina = {
     "possible_orders": <json,esempio {"caffe": 0.8, "cioccolato": 1.5}>  \\ Possibili ordine che si possono fare
     "position_geo": <                                                   \\ posizione in coordinate geografiche
     "position_des": <str,                                               \\ Descrizione della posizione all'interno dell'edificio
-    "persone in fila": <int, [0, inf]>
     "maintenance": {
         "consumable_list":{
-            <lista degli ingredianti>
-            "caffe": <float, range[0, 1]>
+            <list of consumable stuff>
+            "<name>": <float, range[0, 1]>
             ...
         }
         "last_maintenance": <data>
@@ -18,8 +17,7 @@ macchina = {
         "owner": <str>  \\ comapgnia o istituzione che ha "affittato" la macchinetta
         "count_orders": {
             <all possible order of machine>
-            "caffe": <int>
-            "cioccolato": <int>
+            "<name>": <int>
             ...
         }
         "affluenza": [] \\ indice di affluenza in un particolare range orario ( 15 min ogni slice)  vettore di 24*4 elementi
@@ -47,7 +45,7 @@ TABELLA OPERZIONI DEI MANUTENTORI
     "timestamp": <data>
 }
 
-TABELLA PERSONE DIFRONTE ALLA macchinetta
+TABELLA PERSONE DIFRONTE ALLA MACCHINETTA
 "people_detection": {
     "machineID": <int>
     "people_detected": <int>
