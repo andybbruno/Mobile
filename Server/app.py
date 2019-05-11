@@ -196,19 +196,23 @@ def new_operation(machineID):
     })
 
     if op_type == "refill":
-        #TODO richiedere i nuovi livelli alla macchinetta se è stato fatto un refill
+        # TODO richiedere i nuovi livelli alla macchinetta se è stato fatto un refill
         #new_level = request_to_macchientta()
-        new_level = {"bicchiere":50, "palettina":50, "caffe":50, "cioccolato concentrato":50, "zucchero":50}
+        new_level = {"bicchiere": 50, "palettina": 50, "caffe": 50,
+                     "cioccolato concentrato": 50, "zucchero": 50}
         to_modify = {}
         for k, v in new_levels.items():
             to_modify = {"maintenance.consumable_list."+k: v}
         machineTable.update_one({"ID": ID}, {"$set": to_modify})
     if op_type == "cleaning":
-        machineTable.update_one({"ID": machineID}, {"$set":{"maintenance.last_cleaning":currTime}})
+        machineTable.update_one(
+            {"ID": machineID}, {"$set": {"maintenance.last_cleaning": currTime}})
     if op_type in ["repair", "standard check"]:
-        machineTable.update_one({"ID": machineID}, {"$set":{"maintenance.last_maintenance":currTime}})
+        machineTable.update_one(
+            {"ID": machineID}, {"$set": {"maintenance.last_maintenance": currTime}})
 
     return "Operarione registrata"
+
 
 @app.route('/<int:ID>/maintenance', methods=['GET'])
 def get_status(ID):
@@ -221,6 +225,7 @@ def get_status(ID):
         return machine
     else:
         return "Machine ID not valid"
+
 
 @app.route('/<int:ID>/order', methods=['POST'])
 def new_order(ID):
@@ -295,38 +300,47 @@ def manage():
 
 
 # ------------------------Funzioni di Test e Gesitone -------------------------
+
+def readTable(table):
+    cursor = table.find()
+    list = []
+    for document in cursor:
+        list.append(document)
+    return list
+
+
 # TODO: Da aliminare
 @app.route('/all', methods=['GET', "DELETE"])
 def allData():
-    def readTable(table):
-        cursor = table.find()
-        list = []
-        for document in cursor:
-            list.append(document)
-        return list
-
-    listMachine = readTable(machineTable)
-    listTransaction = readTable(transactionTable)
-    listDetection = readTable(detectionTable)
-    listUser = readTable(userTable)
-    listOperazion = readTable(operazionTable)
 
     if request.method == "DELETE":
         userTable.drop
         machineTable.drop
         transactionTable.drop
         detectionTable.drop
+        return "All deleted!"
+    else:
+        listMachine = readTable(machineTable)
+        listTransaction = readTable(transactionTable)
+        listDetection = readTable(detectionTable)
+        listUser = readTable(userTable)
+        listOperazion = readTable(operazionTable)
 
-    return "Machine\n "+listMachine+" \n\n Transaction\n "+listTransaction+" \n\n Detection\n "+listDetection+" \n\nUser\n "+listUser+" \n\nOperation\n"+listOperazion
+        ret = "Machine\n " + str(listMachine) + " \n\n Transaction\n " + str(listTransaction) + " \n\n Detection\n " + \
+            str(listDetection) + " \n\nUser\n " + str(listUser) + " \n\nOperation\n" + str(listOperazion)
+
+        return ret
+
 
 @app.route('/addUser', methods=["POST"])
 def addUser():
     jsonReq = request.get_json(silent=True, force=True)
-    #TODO: Aggiungere Validazione se diventa una funzione "Finale"
+    # TODO: Aggiungere Validazione se diventa una funzione "Finale"
     userTable.insert_one(jsonReq)
     return "User Added"
 
 # IDEA: bot telegram
+
 
 @app.errorhandler(404)
 def page_not_found(e):

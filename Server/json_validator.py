@@ -19,23 +19,26 @@ all_consumable_S = Schema({
     Optional('cioccolato concentrato'): And(Or(float, int), lambda x: x > 0 and x < 100),
 })
 
-all_consumable_L = ("bicchiere", "palettina", "caffe", "zucchero", "latte", "te concentrato", "cioccolato concentrato")
+all_consumable_L = ("bicchiere", "palettina", "caffe", "zucchero",
+                    "latte", "te concentrato", "cioccolato concentrato")
 
 possible_transaction = ("rfid", "cash", "app")
 possible_operation = ("refill", "cleaning", "repair", "standard check")
 
 # https://github.com/keleshev/schema
+
+
 class Validator(object):
 
     def validate_order(toValidate, possible_orders):
         try:
             Schema({
-                    "transaction_type": And(str, lambda x: x in possible_transaction),
-                    "product":  And(str, lambda x: x in possible_orders),
-                    "satisfaction": And(float, lambda x: x > 0 and x < 1),
-                    "people_detected": And(int, lambda x: x > 0),
-                    Optional("new_levels"): Use(lambda x: all_consumable_S.validate(x)),
-                }).validate(toValidate)
+                "transaction_type": And(str, lambda x: x in possible_transaction),
+                "product":  And(str, lambda x: x in possible_orders),
+                "satisfaction": And(float, lambda x: x > 0 and x < 1),
+                "people_detected": And(int, lambda x: x > 0),
+                Optional("new_levels"): Use(lambda x: all_consumable_S.validate(x)),
+            }).validate(toValidate)
         except SchemaError as e:
             print("new_order -> ", e)
             return False
@@ -44,13 +47,13 @@ class Validator(object):
     def validate_machine(toValidate):
         try:
             Schema({
-                    Optional("ID"): int,
-                    "orders": Use(lambda x: all_products.validate(x)),
-                    Optional("position_geo"): str,
-                    "position_des": And(str, lambda x: len(x) < 255),
-                    "owner": str,
-                    "consumable_list": And(list, lambda x: all([True if e in all_consumable_L else False for e in x])),
-                }).validate(toValidate)
+                Optional("ID"): int,
+                "orders": Use(lambda x: all_products.validate(x)),
+                Optional("position_geo"): str,
+                "position_des": And(str, lambda x: len(x) < 255),
+                "owner": str,
+                "consumable_list": And(list, lambda x: all([True if e in all_consumable_L else False for e in x])),
+            }).validate(toValidate)
         except SchemaError as e:
             print("new_machine -> ", e)
             return False
@@ -59,8 +62,8 @@ class Validator(object):
     def del_machine(toValidate):
         try:
             Schema({
-                    "ID": int,
-                }).validate(toValidate)
+                "ID": int,
+            }).validate(toValidate)
         except SchemaError as e:
             print("new_machine -> ", e)
             return False
@@ -77,11 +80,12 @@ class Validator(object):
             return False
         return True
 
+
 if __name__ == '__main__':
-    #test dei validatori
+    # test dei validatori
     Validator.validate_machine({"ID": 67484, "orders": {"caffe": 1}})
     Validator.validate_order(
-    {"trnsaction_type": "ash",
-    "prodotto": "caffe",
-    "satisfaction": 0.5,
-    "people_detected": 1}, ["caffe","cioccolato"])
+        {"trnsaction_type": "ash",
+         "prodotto": "caffe",
+         "satisfaction": 0.5,
+         "people_detected": 1}, ["caffe", "cioccolato"])
