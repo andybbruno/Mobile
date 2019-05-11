@@ -29,12 +29,12 @@ def login():
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
-        
+
         if userTable.find_one({"username": username, "password": password}):
             session['username'] = username
             return redirect('/')
         else:
-            return render_template('login.html', error="Incorrect username or password") 
+            return render_template('login.html', error="Incorrect username or password")
     else:
         return render_template('login.html')
 
@@ -209,23 +209,30 @@ def manage():
 
 # ------------------------Funzioni di Test e Gesitone -------------------------
 # TODO: Da aliminare
-@app.route('/allData', methods=['GET'])
+@app.route('/all', methods=['GET', "DELETE"])
 def allData():
-    cursor = mobile_db["testTable"].find()
-    list = []
-    for document in cursor:
-        list.append(document)
-    return str(list)
+    def readTable(table):
+        curso = machineTable.find()
+        list = []
+        for document in cursor:
+            list.append(document)
+        return list
 
-@app.route('/all', methods=['DELETE'])
-def delete_():
-    cursor = mobile_db["testTable"].find()
-    list = []
-    for document in cursor:
-        list.append(document)
-        mobile_db["testTable"].delete_many(document)
-    return str(list)
+    listMachine = readTable(machineTable)
+    listTransaction = readTable(transactionTable)
+    listDetection = readTable(detectionTable)
+    listUser = readTable(userTable)
 
+    if request.method == "DELETE":
+        machineTable.delete_many(listMachine)
+        transactionTable.delete_many(listTransaction)
+        detectionTable.delete_many(listDetection)
+        userTable.delete_many(listUser)
+
+    return "Machine\n "+listMachine+" \n\n Transaction\n "+listTransaction+" \n\n Detection\n "+listDetection+" \n\nUser\n "+listUser+" \n\n"
+
+#IDEA: bot telegram
+#TODO:
 
 @app.errorhandler(404)
 def page_not_found(e):
