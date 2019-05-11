@@ -127,13 +127,16 @@ try:
             prd = prod[random.randint(1, len(prod) - 1)]
 
             url = ec2 + '/' + str(ID) + '/order'
-            r = requests.post(ec2, data={"transaction_type": trn,
-                                         "product": prd,
-                                         "satisfaction": random.random(),
-                                         "people_detected": people,
-                                         "face_recognised": faces,
-                                         "new_levels": {"zucchero": 50}
-                                         })
+
+            data = {"transaction_type": trn,
+                    "product": prd,
+                    "satisfaction": random.random(),
+                    "people_detected": people,
+                    "face_recognised": faces,
+                    "new_levels": {"zucchero": 50}
+                    }
+            r = requests.post(ec2, data=data)
+            print(data)
             print(url)
             print(r)
 
