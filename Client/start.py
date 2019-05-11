@@ -125,15 +125,14 @@ try:
 
             url = ec2 + '/' + str(ID) + '/order'
 
-            send = {"transaction_type": "cash",
+            data = {"transaction_type": "cash",
                     "product": "caffe",
                     "satisfaction": random.random(),
                     "people_detected": people,
                     "face_recognised": faces
                     }
-            r = requests.post(
-                ec2, headers={'Content-Type': 'application/json'}, data=send)
-            print(send)
+            r = requests.post(ec2,json=json.dumps(data))
+            print(data)
             print(url)
             print(r)
 
