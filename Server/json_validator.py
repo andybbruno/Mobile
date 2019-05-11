@@ -69,7 +69,7 @@ class Validator(object):
     def validate_operation(toValidate):
         try:
             Schema({
-                "operatorID": str
+                "operatorID": str,
                 "type": And(list, lambda x: all([True if e in all_consumable_L else False for e in x])),
             }).validate(toValidate)
         except SchemaError as e:

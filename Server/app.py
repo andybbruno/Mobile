@@ -219,8 +219,8 @@ def new_order(ID):
         "transaction_type": jsonReq["transaction_type"],
         "product": jsonReq["product"],
         "cost": cost,
-        "satisfaction": jsonReq["satisfaction"]
-        "timestamp": timestamp,
+        "satisfaction": jsonReq["satisfaction"],
+        "timestamp": timestamp
     })
     #Inserimento della people detection durante l'acquisto
     detectionTable.insert_one({
@@ -274,7 +274,7 @@ def allData():
         userTable.delete_many(listUser)
         operazionTable.delete_many(listOperazion)
 
-    return "Machine\n "+listMachine+" \n\n Transaction\n "+listTransaction+" \n\n Detection\n "+listDetection+" \n\nUser\n "+listUser+" \n\nOperation\n+"listOperazion
+    return "Machine\n "+listMachine+" \n\n Transaction\n "+listTransaction+" \n\n Detection\n "+listDetection+" \n\nUser\n "+listUser+" \n\nOperation\n"+listOperazion
 
 @app.route('/addUser', methods=["POST"])
 def addUser():
