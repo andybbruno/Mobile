@@ -118,8 +118,8 @@ try:
 
             elapsed_time = time.time() - start_time
 
-            trn = trans[random.randint(1, len(trans))]
-            prd = prod[random.randint(1, len(prod))]
+            trn = trans[random.randint(1, len(trans) - 1)]
+            prd = prod[random.randint(1, len(prod) - 1)]
 
             requests.post(ec2, data={"trnsaction_type": trn,
                                      "prodotto": prd,
