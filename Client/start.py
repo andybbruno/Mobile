@@ -123,7 +123,6 @@ try:
             print("<", people, " people, ", faces,
                   "faces> ", elapsed_time, " seconds")
 
-
             url = ec2 + '/' + str(ID) + '/order'
 
             send = {"transaction_type": "cash",
@@ -132,7 +131,8 @@ try:
                     "people_detected": people,
                     "face_recognised": faces
                     }
-            r = requests.post(ec2, data=send)
+            r = requests.post(
+                ec2, headers={'Content-Type': 'application/json'}, data=send)
             print(send)
             print(url)
             print(r)
