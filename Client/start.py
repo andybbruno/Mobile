@@ -4,9 +4,16 @@ from picamera import PiCamera
 from picamera.array import PiRGBArray
 import cv2
 import os
+import random
 import numpy as np
 from PIL import Image
 
+
+# Lists
+prod = ["bicchiere", "palettina", "caffe", "zucchero",
+        "latte", "te concentrato", "cioccolato concentrato"]
+
+trans = ["rfid", "cash", "app"]
 
 # Amazon URL
 ec2 = 'http://ec2-18-212-110-170.compute-1.amazonaws.com:3000'
@@ -111,10 +118,16 @@ try:
 
             elapsed_time = time.time() - start_time
 
-            requests.post(ec2, data={"trnsaction_type": "cash",
-                                     "prodotto": "caffe",
-                                     "satisfaction": 0.5,
-                                     "people_detected": 1})
+            trn = trans[random.randint(1, len(trans))]
+            prd = prod[random.randint(1, len(prod))]
+
+            requests.post(ec2, data={"trnsaction_type": trn,
+                                     "prodotto": prd,
+                                     "satisfaction": random.random(),
+                                     "people_detected": people,
+                                     "face_recognised": faces
+                                     })
+
             print("<", people, " people, ", faces,
                   "faces> ", elapsed_time, " seconds")
 

@@ -272,7 +272,8 @@ def new_order(ID):
     detectionTable.insert_one({
         "timestamp": timestamp,
         "machineID": ID,
-        "people_detected": jsonReq["people_detected"]
+        "people_detected": jsonReq["people_detected"],
+        "face_recognised": jsonReq["face_recognised"]
     })
     # aggiorna il numero di vendite sulla macchnetta
     machineTable.update_one(

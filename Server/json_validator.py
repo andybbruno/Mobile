@@ -36,7 +36,8 @@ class Validator(object):
                 "transaction_type": And(str, lambda x: x in possible_transaction),
                 "product":  And(str, lambda x: x in possible_orders),
                 "satisfaction": And(float, lambda x: x > 0 and x < 1),
-                "people_detected": And(int, lambda x: x > 0),
+                "people_detected": And(int, lambda x: x >= 0),
+                "face_recognised": And(int, lambda x: x >= 0),
                 Optional("new_levels"): Use(lambda x: all_consumable_S.validate(x)),
             }).validate(toValidate)
         except SchemaError as e:
