@@ -12,6 +12,7 @@ machineTable = mobile_db["testTable"]
 transactionTable = mobile_db["testTransaction"]
 detectionTable = mobile_db["testDetection"]
 userTable = mobile_db["testUser"]
+operazionTable = mobile_db["testOperation"]
 
 app = Flask(__name__)
 app.secret_key = os.urandom(16)
@@ -72,7 +73,7 @@ def new_machine():
     if machineTable.find_one({"ID": ID}):
         return "Machine already exist"
 
-    currTime = (int) (data.timestamp(data.now()))
+    currTime = int(data.timestamp(data.now()))
     machine = {
         "ID": ID,
         "possible_orders": jsonReq["orders"],
@@ -128,14 +129,56 @@ def del_machine():
     return 'Delete machine'
 
 
-# @app.route('/<ID>', methods=['POST', 'GET'])
-# def status():
-#     jsonReq = request.get_json(silent=True, force=True)
-#     if request.method == 'POST':
-#         # Per questa orerazione è richiesto l'ID dell'operatore
-#         return registerMaintainOperation()
-#     else:
-#         return getMaintainStatus()
+@app.route('/<int:ID>/maintenance', methods=['POST', 'GET'])
+def status(machineID):
+    """
+        Elimina la macchine con l'id specificato dalla tabella delle macchine
+        JSON in entrata:
+        {
+            "operatorID": <str>
+            "type": <str, in ["refill", "cleaning", "repair", "standard check"]>
+        }
+
+        RETURN
+            TRUE se la rigistrazione è avventua FALSE altrimenti
+    """
+    jsonReq = request.get_json(silent=True, force=True)
+    if request.method == 'POST':
+        # Per questa orerazione è richiesto l'ID dell'operatore
+        if not Validator.validate_operation(jsonReq):
+            return "Not Valid JSON"
+
+        operatorID = int(jsonReq["operatorID"])
+        if machineTable.find_one({"ID": machineID}):
+            return "Machine ID not valid"
+        if userTable.find_one({"ID": operatorID}):
+            return "Operator ID not valid"
+
+        op_type = jsonReq["type"]
+        currTime = int(data.timestamp(data.now()))
+        operazionTable.insert_one({
+            "operatorID": operatorID,
+            "machineID": machineID,
+            "type": op_type,
+            "timestamp": currTime
+        })
+
+        if op_type == "refill":
+            #TODO richiedere i nuovi livelli alla macchinetta se è stato fatto un refill
+            #new_level = request_to_macchientta()
+            new_level = {"bicchiere":50, "palettina":50, "caffe":50, "cioccolato concentrato":50, "zucchero":50}
+            to_modify = {}
+            for k, v in new_levels.items():
+                to_modify = {"maintenance.consumable_list."+k: v}
+            machineTable.update_one({"ID": ID}, {"$set": to_modify})
+        if op_type == "cleaning":
+            machineTable.update_one({"ID": machineID}, {"$set":{"maintenance.last_cleaning":currTime}})
+        if op_type in ["repair", "standard check"]:
+            machineTable.update_one({"ID": machineID}, {"$set":{"maintenance.last_maintenance":currTime}})
+
+        return "Operarione registrata"
+    else:
+        return "Risultato richiesto"
 
 
 @app.route('/<int:ID>/order', methods=['POST'])
@@ -161,7 +204,7 @@ def new_order(ID):
             TRUE se la rigistrazione è avventua FALSE altrimenti
     """
     jsonReq = request.get_json(silent=True, force=True)
-    timestamp = (int) (data.timestamp(data.now()))
+    timestamp = int(data.timestamp(data.now()))
     currMachine = machineTable.find_one({"ID": ID})
     if not currMachine:
         return "Not Valid Machine"
@@ -172,12 +215,12 @@ def new_order(ID):
     #Inserimento transazione
     cost = currMachine["possible_orders"][jsonReq["product"]]
     transactionTable.insert_one({
-        "timestamp": timestamp,
-        "id_machine": ID,
+        "machineID": ID,
         "transaction_type": jsonReq["transaction_type"],
         "product": jsonReq["product"],
         "cost": cost,
         "satisfaction": jsonReq["satisfaction"]
+        "timestamp": timestamp,
     })
     #Inserimento della people detection durante l'acquisto
     detectionTable.insert_one({
@@ -222,14 +265,23 @@ def allData():
     listTransaction = readTable(transactionTable)
     listDetection = readTable(detectionTable)
     listUser = readTable(userTable)
+    listOperazion = readTable(operazionTable)
 
     if request.method == "DELETE":
         machineTable.delete_many(listMachine)
         transactionTable.delete_many(listTransaction)
         detectionTable.delete_many(listDetection)
         userTable.delete_many(listUser)
+        operazionTable.delete_many(listOperazion)
 
-    return "Machine\n "+listMachine+" \n\n Transaction\n "+listTransaction+" \n\n Detection\n "+listDetection+" \n\nUser\n "+listUser+" \n\n"
+    return "Machine\n "+listMachine+" \n\n Transaction\n "+listTransaction+" \n\n Detection\n "+listDetection+" \n\nUser\n "+listUser+" \n\nOperation\n+"listOperazion
+
+@app.route('/addUser', methods=["POST"])
+def addUser():
+    jsonReq = request.get_json(silent=True, force=True)
+    #TODO: Aggiungere Validazione se diventa una funzione "Finale"
+    userTable.insert_one(jsonReq)
+    return "User Added"
 
 #IDEA: bot telegram
 

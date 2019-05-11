@@ -22,6 +22,7 @@ all_consumable_S = Schema({
 all_consumable_L = ("bicchiere", "palettina", "caffe", "zucchero", "latte", "te concentrato", "cioccolato concentrato")
 
 possible_transaction = ("rfid", "cash", "app")
+possible_operation = ("refill", "cleaning", "repair", "standard check")
 
 # https://github.com/keleshev/schema
 class Validator(object):
@@ -60,6 +61,17 @@ class Validator(object):
             Schema({
                     "ID": int,
                 }).validate(toValidate)
+        except SchemaError as e:
+            print("new_machine -> ", e)
+            return False
+        return True
+
+    def validate_operation(toValidate):
+        try:
+            Schema({
+                "operatorID": str
+                "type": And(list, lambda x: all([True if e in all_consumable_L else False for e in x])),
+            }).validate(toValidate)
         except SchemaError as e:
             print("new_machine -> ", e)
             return False
