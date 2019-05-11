@@ -129,6 +129,7 @@ try:
             trn = trans[random.randint(1, len(trans) - 1)]
             prd = prod[random.randint(1, len(prod) - 1)]
 
+            # TODO: add products levels 
             tmp = {"transaction_type": trn,
                    "product": prd,
                    "satisfaction": random.random(),
