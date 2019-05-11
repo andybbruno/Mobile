@@ -126,16 +126,16 @@ try:
 
             url = ec2 + '/' + str(ID) + '/order'
 
-            data = {"transaction_type": "cash",
-                    "product": "caffe",
+            trn = trans[random.randint(1, len(trans) - 1)]
+            prd = prod[random.randint(1, len(prod) - 1)]
+
+            dat = {"transaction_type": trn,
+                    "product": prd,
                     "satisfaction": random.random(),
                     "people_detected": people,
                     "face_recognised": faces
                     }
-            r = requests.post(ec2,json=json.dumps(data))
-            print(data)
-            print(url)
-            print(r)
+            r = requests.post(url, data=dat)
 
 
 except Exception as e:
