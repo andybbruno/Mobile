@@ -123,14 +123,12 @@ def del_machine():
     """
     jsonReq = request.get_json(silent=True, force=True)
     if not Validator.del_machine(jsonReq):
-        return "Not Valid JSON"
-
-    print("Del", machineTable.delete_one(jsonReq))
-    return 'Delete machine'
+        return "You must specify ID of machine to delete"
+    return 'Machine deleteed'
 
 
-@app.route('/<int:ID>/maintenance', methods=['POST', 'GET'])
-def status(machineID):
+@app.route('/<int:machineID>/maintenance', methods=['POST'])
+def new_operation(machineID):
     """
         Elimina la macchine con l'id specificato dalla tabella delle macchine
         JSON in entrata:
@@ -143,43 +141,51 @@ def status(machineID):
             TRUE se la rigistrazione è avventua FALSE altrimenti
     """
     jsonReq = request.get_json(silent=True, force=True)
-    if request.method == 'POST':
-        # Per questa orerazione è richiesto l'ID dell'operatore
-        if not Validator.validate_operation(jsonReq):
-            return "Not Valid JSON"
+    # Per questa orerazione è richiesto l'ID dell'operatore
+    if not Validator.validate_operation(jsonReq):
+        return "Not Valid JSON"
 
-        operatorID = int(jsonReq["operatorID"])
-        if machineTable.find_one({"ID": machineID}):
-            return "Machine ID not valid"
-        if userTable.find_one({"ID": operatorID}):
-            return "Operator ID not valid"
+    operatorID = int(jsonReq["operatorID"])
+    if machineTable.find_one({"ID": machineID}):
+        return "Machine ID not valid"
+    if userTable.find_one({"ID": operatorID}):
+        return "Operator ID not valid"
 
-        op_type = jsonReq["type"]
-        currTime = int(data.timestamp(data.now()))
-        operazionTable.insert_one({
-            "operatorID": operatorID,
-            "machineID": machineID,
-            "type": op_type,
-            "timestamp": currTime
-        })
+    op_type = jsonReq["type"]
+    currTime = int(data.timestamp(data.now()))
+    operazionTable.insert_one({
+        "operatorID": operatorID,
+        "machineID": machineID,
+        "type": op_type,
+        "timestamp": currTime
+    })
 
-        if op_type == "refill":
-            #TODO richiedere i nuovi livelli alla macchinetta se è stato fatto un refill
-            #new_level = request_to_macchientta()
-            new_level = {"bicchiere":50, "palettina":50, "caffe":50, "cioccolato concentrato":50, "zucchero":50}
-            to_modify = {}
-            for k, v in new_levels.items():
-                to_modify = {"maintenance.consumable_list."+k: v}
-            machineTable.update_one({"ID": ID}, {"$set": to_modify})
-        if op_type == "cleaning":
-            machineTable.update_one({"ID": machineID}, {"$set":{"maintenance.last_cleaning":currTime}})
-        if op_type in ["repair", "standard check"]:
-            machineTable.update_one({"ID": machineID}, {"$set":{"maintenance.last_maintenance":currTime}})
+    if op_type == "refill":
+        #TODO richiedere i nuovi livelli alla macchinetta se è stato fatto un refill
+        #new_level = request_to_macchientta()
+        new_level = {"bicchiere":50, "palettina":50, "caffe":50, "cioccolato concentrato":50, "zucchero":50}
+        to_modify = {}
+        for k, v in new_levels.items():
+            to_modify = {"maintenance.consumable_list."+k: v}
+        machineTable.update_one({"ID": ID}, {"$set": to_modify})
+    if op_type == "cleaning":
+        machineTable.update_one({"ID": machineID}, {"$set":{"maintenance.last_cleaning":currTime}})
+    if op_type in ["repair", "standard check"]:
+        machineTable.update_one({"ID": machineID}, {"$set":{"maintenance.last_maintenance":currTime}})
 
-        return "Operarione registrata"
+    return "Operarione registrata"
+
+@app.route('/<int:ID>/maintenance', methods=['GET'])
+def get_status(ID):
+    """
+        Restituisce tutte le info della macchina.
+    """
+    operatorID = int(jsonReq["operatorID"])
+    machine = machineTable.find_one({"ID": machineID})
+    if machine:
+        return machine
     else:
-        return "Risultato richiesto"
-
+        return "Machine ID not valid"
 
 @app.route('/<int:ID>/order', methods=['POST'])
 def new_order(ID):
@@ -255,7 +261,7 @@ def manage():
 @app.route('/all', methods=['GET', "DELETE"])
 def allData():
     def readTable(table):
-        curso = machineTable.find()
+        cursor = table.find()
         list = []
         for document in cursor:
             list.append(document)
@@ -282,8 +288,6 @@ def addUser():
     #TODO: Aggiungere Validazione se diventa una funzione "Finale"
     userTable.insert_one(jsonReq)
     return "User Added"
-
-#IDEA: bot telegram
 
 @app.errorhandler(404)
 def page_not_found(e):
