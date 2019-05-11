@@ -20,14 +20,6 @@
       <div class="content-wrapper d-flex align-items-center auth auth-bg-1 theme-one">
         <div class="row w-100">
           <div class="col-lg-4 mx-auto">
-<div class="row purchace-popup">
-    <div class="col-12">
-        <span class="d-block d-md-flex align-items-center">
-            <p>Incorrect Username or Password.</p>
-            <i class="mdi mdi-close popup-dismiss d-none d-md-block"></i>
-        </span>
-    </div>
-</div>
             <div class="auto-form-wrapper">
               <form action="" method="POST">
                 <div class="form-group">
@@ -53,6 +45,15 @@
                 <div class="form-group">
                   <button class="btn btn-primary submit-btn btn-block">Login</button>
                 </div>
+              {% if error %}
+                <div class="row purchace-popup">
+                  <div class="col-12">
+                      <span class="d-block d-md-flex align-items-center">
+                          <p>Incorrect Username or Password.</p>
+                      </span>
+                  </div>
+              {%  endif %}
+              </div>
               </form>
             </div>
           </div>

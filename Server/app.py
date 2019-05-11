@@ -29,13 +29,12 @@ def login():
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
-
-        if userTable.find({"username": username, "password": password}):
+        
+        if userTable.find_one({"username": username, "password": password}):
             session['username'] = username
             return redirect('/')
         else:
-            print("Errore di autenticazione")
-            return render_template('login.html', error="Incorrect User") 
+            return render_template('login.html', error="Incorrect username or password") 
     else:
         return render_template('login.html')
 
@@ -233,4 +232,4 @@ def page_not_found(e):
     # note that we set the 404 status explicitly
     return render_template('404.html'), 404
 
-app.run(host='0.0.0.0', port='3000', debug=True)
+app.run(host='127.0.0.1', port='5000', debug=True)
