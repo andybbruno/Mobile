@@ -122,18 +122,18 @@ try:
 
             print("<", people, " people, ", faces,
                   "faces> ", elapsed_time, " seconds")
-                  
-            trn = trans[random.randint(1, len(trans))]
-            prd = prod[random.randint(1, len(prod))]
+
+            trn = trans[random.randint(1, len(trans) - 1)]
+            prd = prod[random.randint(1, len(prod) - 1)]
 
             url = ec2 + '/' + str(ID) + '/order'
-            requests.post(ec2, data={"trnsaction_type": trn,
+            r = requests.post(ec2, data={"trnsaction_type": trn,
                                      "prodotto": prd,
                                      "satisfaction": random.random(),
                                      "people_detected": people,
                                      "face_recognised": faces
                                      })
-
+            print(r)
             
 
 
