@@ -27,7 +27,11 @@ def register():
         username = request.form['username']
         password1 = request.form['password1']
         password2 = request.form['password2']
+<<<<<<< HEAD
 
+=======
+        # TODO inserire un id personalizzato all'utente
+>>>>>>> 489bb4a92cc9769ef2041d31c192b805dfcbad91
         if db.userTable.find_one({"username": username}):
             return render_template('register.html', error='Username already in use!')
         elif password1 != password2:
