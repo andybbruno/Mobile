@@ -131,7 +131,8 @@ try:
                                          "product": prd,
                                          "satisfaction": random.random(),
                                          "people_detected": people,
-                                         "face_recognised": faces
+                                         "face_recognised": faces,
+                                         "new_levels": {"zucchero": 50}
                                          })
             print(url)
             print(r)
