@@ -11,6 +11,7 @@ mobile_db = mongoDB["test_db"]
 machineTable = mobile_db["testTable"]
 transactionTable = mobile_db["testTransaction"]
 detectionTable = mobile_db["testDetection"]
+userTable = mobile_db["testUser"]
 
 app = Flask(__name__)
 app.secret_key = os.urandom(16)
@@ -29,10 +30,12 @@ def login():
         username = request.form['username']
         password = request.form['password']
 
-        # TODO: verificare la login
-        session['username'] = username
-
-        return redirect('/')
+        if userTable.find({"username": username, "password": password}):
+            session['username'] = username
+            return redirect('/')
+        else:
+            print("Errore di autenticazione")
+            return render_template('login.html', error="Incorrect User") 
     else:
         return render_template('login.html')
 
@@ -195,7 +198,6 @@ def new_order(ID):
             to_modify = {"maintenance.consumable_list."+k: v}
         machineTable.update_one({"ID": ID}, {"$set": to_modify})
     return "Transaction registered"
-
 
 @app.route('/<int:ID>/mngt', methods=['POST', 'GET'])
 def manage():
