@@ -31,26 +31,27 @@ macchina = {
 
 TABELLA TRANSAZIONI
 "transaction": {
-    "timestamp":
-    "id_machine":
-    "trnsaction type": < str, in (conante, contacless))
-    "prodotto": < str>
-    "cost":
-    "satisfaction": float
+    "machineID": <int>
+    "transaction_type": < str, in (conante, contacless))
+    "product": < str>
+    "cost": <float>
+    "satisfaction": <float>
+    "timestamp": <data>
 }
 
 TABELLA OPERZIONI DEI MANUTENTORI
 "operation": {
-    "operatorID": <str , len(10)>
-    "type": <refill, pulizia, riparazione, controllo standard, ecc.>
-    "timestamp":
+    "operatorID": <int>
+    "machineID": <int>
+    "type": <str, in ["refill", "cleaning", "repair", "standard check"]>
+    "timestamp": <data>
 }
 
 TABELLA PERSONE DIFRONTE ALLA macchinetta
 "people_detection": {
-    "timestamp":
-    "machineID":
+    "machineID": <int>
     "people_detected": <int>
+    "timestamp": <data>
 }
 
 TABELLA USER
