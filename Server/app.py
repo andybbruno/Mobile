@@ -314,10 +314,11 @@ def readTable(table):
 def allData():
 
     if request.method == "DELETE":
-        userTable.drop
-        machineTable.drop
-        transactionTable.drop
-        detectionTable.drop
+        
+        userTable.delete_many({})
+        machineTable.delete_many({})
+        transactionTable.delete_many({})
+        detectionTable.delete_many({})
         return "All deleted!"
     else:
         listMachine = readTable(machineTable)
