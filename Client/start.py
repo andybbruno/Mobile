@@ -127,14 +127,14 @@ try:
             prd = prod[random.randint(1, len(prod) - 1)]
 
             url = ec2 + '/' + str(ID) + '/order'
-            r = requests.post(ec2, data={"trnsaction_type": trn,
-                                     "prodotto": prd,
-                                     "satisfaction": random.random(),
-                                     "people_detected": people,
-                                     "face_recognised": faces
-                                     })
+            r = requests.post(ec2, data={"transaction_type": trn,
+                                         "product": prd,
+                                         "satisfaction": random.random(),
+                                         "people_detected": people,
+                                         "face_recognised": faces
+                                         })
+            print(url)
             print(r)
-            
 
 
 except Exception as e:
