@@ -2,6 +2,7 @@ from datetime import datetime as data
 from random import randint
 
 from .db import machineTable
+from json_validator import Validator
 
 def _genereteID():
     n = 5

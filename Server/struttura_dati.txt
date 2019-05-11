@@ -49,6 +49,7 @@ TABELLA PERSONE DIFRONTE ALLA MACCHINETTA
 "people_detection": {
     "machineID": <int>
     "people_detected": <int>
+    "face_recognised": <int>
     "timestamp": <data>
 }
 

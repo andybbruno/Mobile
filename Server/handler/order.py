@@ -1,6 +1,7 @@
 from datetime import datetime as data
 
 from .db import machineTable, transactionTable, detectionTable
+from json_validator import Validator
 
 def register_order(jsonReq):
     """

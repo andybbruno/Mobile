@@ -106,49 +106,9 @@ def new_operation(machineID):
             "type": <str, in ["refill", "cleaning", "repair", "standard check"]>
         }
     """
-<<<<<<< HEAD
     is_ok, error = handler.register_operation(request.get_json(silent=True, force=True))
     if is_ok: return "Opertion registered"
     return "Some error occurred -> " + error
-=======
-    jsonReq = request.get_json(silent=True, force=True)
-    # Per questa orerazione è richiesto l'ID dell'operatore
-    if not Validator.validate_operation(jsonReq):
-        return "Not Valid JSON"
-
-    operatorID = int(jsonReq["operatorID"])
-    if machineTable.find_one({"ID": machineID}):
-        return "Machine ID not valid"
-    if userTable.find_one({"ID": operatorID}):
-        return "Operator ID not valid"
-
-    op_type = jsonReq["type"]
-    currTime = int(data.timestamp(data.now()))
-    operazionTable.insert_one({
-        "operatorID": operatorID,
-        "machineID": machineID,
-        "type": op_type,
-        "timestamp": currTime
-    })
-
-    if op_type == "refill":
-        # TODO richiedere i nuovi livelli alla macchinetta se è stato fatto un refill
-        #new_level = request_to_macchientta()
-        new_level = {"bicchiere": 50, "palettina": 50, "caffe": 50,
-                     "cioccolato concentrato": 50, "zucchero": 50}
-        to_modify = {}
-        for k, v in new_levels.items():
-            to_modify = {"maintenance.consumable_list."+k: v}
-        machineTable.update_one({"ID": ID}, {"$set": to_modify})
-    if op_type == "cleaning":
-        machineTable.update_one(
-            {"ID": machineID}, {"$set": {"maintenance.last_cleaning": currTime}})
-    if op_type in ["repair", "standard check"]:
-        machineTable.update_one(
-            {"ID": machineID}, {"$set": {"maintenance.last_maintenance": currTime}})
-
-    return "Operarione registrata"
->>>>>>> 97e9bc24bd8e49c8dd5bee470905a0267389539d
 
 
 @app.route('/<int:ID>/maintenance', methods=['GET'])
@@ -176,6 +136,7 @@ def new_order(ID):
                 "product": <str, one of possible_orders registered>
                 "satisfaction": <float, satisfaction level of customer>
                 "people_detected": <int, people detected during order>
+                "face_recognised": <int, number of face recognised>
                 *"new_levels":{
                     "<consumable>": <int, new_level,
                     ...
@@ -246,4 +207,4 @@ def page_not_found(e):
     # note that we set the 404 status explicitly
     return render_template('404.html'), 404
 
-app.run(host='0.0.0.0', port='3000', debug=True)
+app.run(host='0.0.0.0', port='3001', debug=True)
