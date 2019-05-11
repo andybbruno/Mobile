@@ -120,8 +120,11 @@ try:
 
             elapsed_time = time.time() - start_time
 
-            trn = trans[random.randint(1, len(trans) - 1)]
-            prd = prod[random.randint(1, len(prod) - 1)]
+            print("<", people, " people, ", faces,
+                  "faces> ", elapsed_time, " seconds")
+                  
+            trn = trans[random.randint(1, len(trans))]
+            prd = prod[random.randint(1, len(prod))]
 
             url = ec2 + '/' + str(ID) + '/order'
             requests.post(ec2, data={"trnsaction_type": trn,
@@ -131,8 +134,7 @@ try:
                                      "face_recognised": faces
                                      })
 
-            print("<", people, " people, ", faces,
-                  "faces> ", elapsed_time, " seconds")
+            
 
 
 except Exception as e:
