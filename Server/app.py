@@ -27,13 +27,13 @@ def register():
         username = request.form['username']
         password1 = request.form['password1']
         password2 = request.form['password2']
-
-        if userTable.find_one({"username": username}):
+        # TODO inserire un id personalizzato all'utente
+        if db.userTable.find_one({"username": username}):
             return render_template('register.html', error='Username already in use!')
         elif password1 != password2:
             return render_template('register.html', error="Please check the passwords")
         else:
-            userTable.insert_one({"username": username, "password": password1})
+            db.userTable.insert_one({"username": username, "password": password1})
             session['username'] = username
             return redirect('/reg')
     else:
@@ -50,7 +50,7 @@ def login():
         username = request.form['username']
         password = request.form['password']
 
-        if userTable.find_one({"username": username, "password": password}):
+        if db.userTable.find_one({"username": username, "password": password}):
             session['username'] = username
             session['logged'] = True
             return redirect('/')
