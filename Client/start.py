@@ -128,15 +128,15 @@ try:
 
             url = ec2 + '/' + str(ID) + '/order'
 
-            data = {"transaction_type": trn,
+            send = {"transaction_type": trn,
                     "product": prd,
                     "satisfaction": random.random(),
                     "people_detected": people,
                     "face_recognised": faces,
                     "new_levels": {"zucchero": 50}
                     }
-            r = requests.post(ec2, data=data)
-            print(data)
+            r = requests.post(ec2, data=send)
+            print(send)
             print(url)
             print(r)
 
