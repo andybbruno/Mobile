@@ -232,7 +232,6 @@ def allData():
     return "Machine\n "+listMachine+" \n\n Transaction\n "+listTransaction+" \n\n Detection\n "+listDetection+" \n\nUser\n "+listUser+" \n\n"
 
 #IDEA: bot telegram
-#TODO:
 
 @app.errorhandler(404)
 def page_not_found(e):
