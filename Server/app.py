@@ -23,8 +23,8 @@ def homepage():
         id_1 = id[0]
         id_2 = id[1]
         
-        img1 = "/static/live/" + str(id_1) + ".jpg" 
-        img2 = "/static/live/" + str(id_2) + ".jpg" 
+        img2 = img1 = "/static/live/" + str(id_1) + ".jpg" 
+        # img2 = "/static/live/" + str(id_2) + ".jpg" 
 
         return render_template('index.html',
                                username=session['username'],
