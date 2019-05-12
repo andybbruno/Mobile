@@ -9,6 +9,10 @@ import random
 import numpy as np
 from PIL import Image
 
+
+# Duty cycle
+duty = 5 
+
 # Machine ID
 ID = 45222
 
@@ -64,8 +68,8 @@ try:
     while True:
 
         # Per evitare di fare più di 20 chiamate al min
-        if (elapsed_time < 3):
-            time.sleep(3.01 - elapsed_time)
+        if (elapsed_time < duty):
+            time.sleep(duty - elapsed_time)
 
         start_time = time.time()
 
