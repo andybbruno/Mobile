@@ -11,23 +11,24 @@ app = Flask(__name__)
 app.secret_key = os.urandom(16)
 
 
-# ----------------------------------TEST CHART-----------------------------------------
-@app.route('/logout', methods=['GET'])
-def logout():
-    session.clear()
-    return redirect('/')
-
-
 # ----------------------------------WEB-----------------------------------------
 @app.route('/')
 def homepage():
     if ('username' in session) and ('logged' in session):
         return render_template('index.html',
                                username=session['username'],
-
+                               # TODO: retrieve the real IDs 
+                               ID1=1111,
+                               ID2=2222
                                )
     else:
         return redirect('/login')
+
+
+@app.route('/logout', methods=['GET'])
+def logout():
+    session.clear()
+    return redirect('/')
 
 
 @app.route('/register', methods=['POST', 'GET'])
