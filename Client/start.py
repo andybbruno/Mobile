@@ -65,7 +65,7 @@ try:
 
         # Per evitare di fare più di 20 chiamate al min
         if (elapsed_time < 3):
-            time.sleep(3.5 - elapsed_time)
+            time.sleep(3.01 - elapsed_time)
 
         start_time = time.time()
 
@@ -131,16 +131,22 @@ try:
                    "people_detected": people,
                    "face_recognised": faces
                    }
-            requests.post(url_ord, json=json.dumps(tmp))
+
+            try:
+                requests.post(url_ord, json=json.dumps(tmp))
+            except Exception as e:
+                print('Error:' + e)
+
 
             url_frame = ec2 + '/' + str(ID) + '/live'
             path = str(ID) + ".jpg"
             cv2.imwrite(path,frame)
 
             with open(path, 'rb') as f:
-                requests.post(url_frame, files={"frame": f})
-
+                try:
+                    requests.post(url_frame, files={"frame": f})
+                except Exception as e:
+                    print('Error:' + e)
 
 except Exception as e:
-    print('Error:')
-    print(e)
+    print('Error:' + e)

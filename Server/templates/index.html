@@ -12,7 +12,7 @@
 
   <script>
     function refresh(node) {
-      var times = 3000; // gap in Milli Seconds;
+      var times = 2000; // gap in Milli Seconds;
 
       (function startRefresh() {
         var address;
@@ -20,7 +20,7 @@
           address = node.src.split('?')[0];
         else
           address = node.src;
-        node.src = address + "?time=" + new Date().getTime();
+        node.src = address;
 
         setTimeout(startRefresh, times);
       })();
