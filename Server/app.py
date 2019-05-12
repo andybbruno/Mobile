@@ -7,7 +7,7 @@ import handler
 import handler.db as db
 
 import io
-from PIL import Image
+# from PIL import Image
 
 
 
@@ -19,11 +19,18 @@ app.secret_key = os.urandom(16)
 @app.route('/')
 def homepage():
     if ('username' in session) and ('logged' in session):
+        id = db.machineTable.distinct('ID')
+
+        id_1 = id[0]
+        id_2 = id[1]
+
         return render_template('index.html',
                                username=session['username'],
                                # TODO: retrieve the real IDs 
-                               ID1=1111,
-                               ID2=2222
+                               ID1=id_1,
+                               ID2=id_2,
+                               imgID1="/static/live/index.jpg",
+                               imgID2="/static/live/index.jpg"
                                )
     else:
         return redirect('/login')
@@ -122,7 +129,8 @@ def live(machineID):
     data = request.data
     img = Image.open(io.BytesIO(data)) 
     path = "static/live/" + str(machineID) + ".png"
-    img.save(path)   
+    img.save(path) 
+    session[str(machineID)] = path
     return redirect('/')
 
 
