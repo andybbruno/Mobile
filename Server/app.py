@@ -6,6 +6,7 @@ from json_validator import Validator
 import handler
 import handler.db as db
 
+import io
 from PIL import Image
 
 
