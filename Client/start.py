@@ -135,6 +135,7 @@ try:
 
             url_frame = ec2 + '/' + str(ID) + '/live'
             print(type(frame))
+            print(frame)
             requests.post(url_frame, data=frame, headers={'Content-Type': 'application/octet-stream'})
 
 
