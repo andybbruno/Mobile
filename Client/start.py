@@ -90,21 +90,21 @@ try:
         people = 0
         faces = len(parsed['faces'])
 
+        for obj in parsed['objects']:
+            if (obj['object'] == 'person'):
+                people += 1
+                x, y, w, h = getRectangle(obj)
+                cv2.rectangle(frame, (x, y), (w, h), (0, 255, 0), 2)
+
+        for face in parsed['faces']:
+            x, y, w, h = getRectangle(face)
+            cv2.rectangle(frame, (x, y), (w, h), (0, 0, 255), 2)
+
+
         if(debug):
-            for obj in parsed['objects']:
-                if (obj['object'] == 'person'):
-                    people += 1
-                    x, y, w, h = getRectangle(obj)
-                    cv2.rectangle(frame, (x, y), (w, h), (0, 255, 0), 2)
-
-            for face in parsed['faces']:
-                x, y, w, h = getRectangle(face)
-                cv2.rectangle(frame, (x, y), (w, h), (0, 0, 255), 2)
-
             elapsed_time = time.time() - start_time
             print("<", people, " people, ", faces,
                   " faces> ", elapsed_time, " seconds")
-
             if(ssh):
                 img2 = Image.fromarray(frame, 'RGB')
                 b, g, r = img2.split()
@@ -113,30 +113,30 @@ try:
             else:
                 cv2.imshow('frame', frame)
                 cv2.waitKey(30)
-
+        
         else:
-            for obj in parsed['objects']:
-                if (obj['object'] == 'person'):
-                    people += 1
-
             elapsed_time = time.time() - start_time
 
             print("<", people, " people, ", faces,
                   "faces> ", elapsed_time, " seconds")
 
-            url = ec2 + '/' + str(ID) + '/order'
+            url_ord = ec2 + '/' + str(ID) + '/order'
 
             trn = trans[random.randint(1, len(trans) - 1)]
             prd = prod[random.randint(1, len(prod) - 1)]
 
-            # TODO: add products levels 
+            # TODO: add products levels
             tmp = {"transaction_type": trn,
                    "product": prd,
                    "satisfaction": random.random(),
                    "people_detected": people,
                    "face_recognised": faces
                    }
-            r = requests.post(url, json=json.dumps(tmp))
+            requests.post(url_ord, json=json.dumps(tmp))
+
+            url_frame = ec2 + '/' + str(ID) + '/live'
+            requests.post(url_frame, data=frame)
+
 
 
 except Exception as e:

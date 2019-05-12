@@ -112,6 +112,14 @@ def del_machine():
     return 'Machine deleteed'
 
 
+
+@app.route('/<int:machineID>/live', methods=['POST'])
+def live(machineID):
+    print(request.form['data'])
+    return redirect('/')
+
+
+
 @app.route('/<int:machineID>/maintenance', methods=['POST'])
 def new_operation(machineID):
     """
