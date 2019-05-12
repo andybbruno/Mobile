@@ -7,7 +7,7 @@ import handler
 import handler.db as db
 
 import io
-from PIL import Image
+# from PIL import Image
 
 
 
@@ -126,12 +126,14 @@ def del_machine():
 
 @app.route('/<int:machineID>/live', methods=['POST'])
 def live(machineID):
-    data = request.data
-    img = Image.open(io.BytesIO(data)) 
-    path = "static/live/" + str(machineID) + ".png"
-    img.save(path) 
-    session[str(machineID)] = path
-    return redirect('/')
+    if 'file' in request.files:
+        file = request.files['file']
+        img = Image.open(io.BytesIO(file)) 
+        path = "static/live/" + str(machineID) + ".png"
+        img.save(path) 
+        session[str(machineID)] = path
+        return redirect('/')
+    
 
 
 
