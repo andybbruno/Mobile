@@ -134,9 +134,11 @@ try:
             requests.post(url_ord, json=json.dumps(tmp))
 
             url_frame = ec2 + '/' + str(ID) + '/live'
-            a = cv2.imencode('.jpg', frame)[1].tostring()
-            files = {'file': a}
-            requests.post(url_frame, files=files, headers={'Content-Type': 'application/octet-stream'})
+            path = "frame.jpg"
+            frame.save(path)
+
+            with open(path, 'rb') as f:
+                requests.post(url_frame, files={'frame.jpg': f})
 
 
 except Exception as e:
