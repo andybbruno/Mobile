@@ -134,7 +134,7 @@ def live(machineID):
         session[str(machineID)] = path
         return redirect('/')
     else:
-        return redirect('/'), 404
+        return render_template('404.html'), 404
 
 
 
