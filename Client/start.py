@@ -135,7 +135,7 @@ try:
             requests.post(url_ord, json=json.dumps(tmp))
 
             url_frame = ec2 + '/' + str(ID) + '/live'
-            requests.post(url_frame, files=frame)
+            requests.post(url_frame, data=frame)
 
 
 
