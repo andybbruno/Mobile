@@ -64,8 +64,8 @@ try:
     while True:
 
         # Per evitare di fare più di 20 chiamate al min
-        if (elapsed_time < 3.1):
-            time.sleep(3 - elapsed_time)
+        if (elapsed_time < 3):
+            time.sleep(3.5 - elapsed_time)
 
         start_time = time.time()
 
