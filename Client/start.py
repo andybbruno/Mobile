@@ -139,7 +139,7 @@ try:
             try:
                 requests.post(url_ord, json=json.dumps(tmp))
             except Exception as e:
-                print('Error:' + e)
+                print('Error:' , e)
 
 
             url_frame = ec2 + '/' + str(ID) + '/live'
@@ -150,7 +150,7 @@ try:
                 try:
                     requests.post(url_frame, files={"frame": f})
                 except Exception as e:
-                    print('Error:' + e)
+                    print('Error:' , e)
 
 except Exception as e:
-    print('Error:' + e)
+    print('Error:' , e)
