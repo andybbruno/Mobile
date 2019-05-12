@@ -134,13 +134,8 @@ try:
             requests.post(url_ord, json=json.dumps(tmp))
 
             url_frame = ec2 + '/' + str(ID) + '/live'
-
-            
-            img2 = Image.fromarray(frame, 'RGB')
-            b, g, r = img2.split()
-            img2 = Image.merge("RGB", (r, g, b))
-            print(type(img2))
-            requests.post(url_frame, data=img2, headers={'Content-Type': 'application/octet-stream'})
+            print(type(frame))
+            requests.post(url_frame, data=frame, headers={'Content-Type': 'application/octet-stream'})
 
 
 except Exception as e:
