@@ -133,7 +133,8 @@ def live(machineID):
         img.save(path) 
         session[str(machineID)] = path
         return redirect('/')
-    
+    else:
+        return 400
 
 
 
