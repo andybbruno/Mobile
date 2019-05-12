@@ -39,20 +39,36 @@ Rasp
         ultima manutenzione/pulizia
 
 
-funzioni in generale del sistama
-    + monitoraggio vendite per tipologia di bevanda
-    + statistiche su:
-        - orari di punta
-        - sulle bevande che vanno di "moda"
-    + guadagni
-    + refill/manutanzione preventivo dei vari ingredianti/macchine
-    + pulizia sistematica dopo un tot di utilizzi
-    + spegnimento ed accensione della macchinetta in base a gli orari
-    + customer satistaction (verifico, tramite le api, quanto un consumatore e felice o no di quelo che ha preso)
-    + Se sis crea un app o un interfaccia puoi anche mettere delle critiche o comemnti sul servizio
-    + Indicazione di quale machcienatta usare in base a gli orari e alla presenza di persone al momento della richesta
+Funzioni in generale del sistama
+    + Managment
+        - lista per controllo delle macchinette:
+            * Manutenzione
+            * refill
+            * pulizia
+            * customer satisfaction
+        - Grafici e/o statistiche per il monitoraggio:
+            * vendite/guadagni
+            * macchinete utilizzate
+            * frequenza rottura
+            * orari di punta
+            * bevande più consumate
+            * customer satisfaction
+        - Controllo per lo spegnimento delle macchine (per orari in cui non c'è nessuno) 
 
-
-
-
-Rasp        Server          Simulatore
+        @ tutto puo essere raggruppato
+            + azieda
+            + zona
+            + operatore
+        
+    + Customer
+        - suggerimento per la macchinetta da utilizzare
+            * al momento
+            * in futuro
+        - ordinazione di una bevanda e ritiro tramite riconoscimento facciale
+    
+    + Operator
+        - scheduling operazioni di
+            * refill necessario e preventivo in base alla zona delle macchinette
+            * riparazioni
+            * pulizie 
+            * controllo standard
