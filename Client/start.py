@@ -90,15 +90,15 @@ try:
         people = 0
         faces = len(parsed['faces'])
 
-        # for obj in parsed['objects']:
-        #     if (obj['object'] == 'person'):
-        #         people += 1
-        #         x, y, w, h = getRectangle(obj)
-        #         cv2.rectangle(frame, (x, y), (w, h), (0, 255, 0), 2)
+        for obj in parsed['objects']:
+            if (obj['object'] == 'person'):
+                people += 1
+                x, y, w, h = getRectangle(obj)
+                cv2.rectangle(frame, (x, y), (w, h), (0, 255, 0), 2)
 
-        # for face in parsed['faces']:
-        #     x, y, w, h = getRectangle(face)
-        #     cv2.rectangle(frame, (x, y), (w, h), (0, 0, 255), 2)
+        for face in parsed['faces']:
+            x, y, w, h = getRectangle(face)
+            cv2.rectangle(frame, (x, y), (w, h), (0, 0, 255), 2)
 
 
         if(debug):
@@ -135,6 +135,7 @@ try:
             requests.post(url_ord, json=json.dumps(tmp))
 
             url_frame = ec2 + '/' + str(ID) + '/live'
+            print(type(frame))
             requests.post(url_frame, data=frame)
 
 
