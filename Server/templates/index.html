@@ -28,9 +28,10 @@
     }
 
     window.onload = function () {
-      var node = document.getElementById('live');
-      refresh(node);
-      // you can refresh as many images you want just repeat above steps
+      var node1 = document.getElementById('live_1');
+      refresh(node1);
+      var node2 = document.getElementById('live_2');
+      refresh(node2);
     }
   </script>
 </head>
@@ -149,7 +150,7 @@
               <div class="card">
                 <div class="card-body" style="text-align: center">
                   <h4 class="card-title">Machine #{{ ID1 }}</h4>
-                  <img id="live" src="{{ imgID1 }}" width="100%">
+                  <img id="live_1" src="{{ imgID1 }}" width="100%">
                 </div>
               </div>
             </div>
@@ -157,7 +158,7 @@
               <div class="card">
                 <div class="card-body" style="text-align: center">
                   <h4 class="card-title">Machine #{{ ID2 }}</h4>
-                  <img id="live" src="{{ imgID2 }}" width="100%">
+                  <img id="live_2" src="{{ imgID2 }}" width="100%">
                 </div>
               </div>
             </div>
