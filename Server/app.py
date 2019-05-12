@@ -7,8 +7,7 @@ import handler
 import handler.db as db
 
 from PIL import Image
-import matplotlib.pyplot as plt
-import matplotlib.image as mpimg
+
 
 
 app = Flask(__name__)
@@ -119,12 +118,10 @@ def del_machine():
 
 @app.route('/<int:machineID>/live', methods=['POST'])
 def live(machineID):
-    a = request.data
-
-    stream = io.BytesIO(r_data)
-    img = Image.open(stream) 
-    img.save("a_test.png")   
-    return redirect('/')
+    data = request.data
+    img = Image.open(io.BytesIO(data))
+    img.save("static/live/" + machineID + ".png")
+    return redirect('/index')
 
 
 
