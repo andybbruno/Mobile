@@ -100,7 +100,6 @@ try:
             x, y, w, h = getRectangle(face)
             cv2.rectangle(frame, (x, y), (w, h), (0, 0, 255), 2)
 
-
         if(debug):
             elapsed_time = time.time() - start_time
             print("<", people, " people, ", faces,
@@ -113,7 +112,7 @@ try:
             else:
                 cv2.imshow('frame', frame)
                 cv2.waitKey(30)
-        
+
         else:
             elapsed_time = time.time() - start_time
 
@@ -135,10 +134,13 @@ try:
             requests.post(url_ord, json=json.dumps(tmp))
 
             url_frame = ec2 + '/' + str(ID) + '/live'
-            
-            print(type(frame))
-            requests.post(url_frame, data=frame)
 
+            
+            img2 = Image.fromarray(frame, 'RGB')
+            b, g, r = img2.split()
+            img2 = Image.merge("RGB", (r, g, b))
+            print(type(img2))
+            requests.post(url_frame, data=img2)
 
 
 except Exception as e:
