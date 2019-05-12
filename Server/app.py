@@ -134,7 +134,7 @@ def live(machineID):
         session[str(machineID)] = path
         return redirect('/')
     else:
-        return 400
+        abort(404)
 
 
 
