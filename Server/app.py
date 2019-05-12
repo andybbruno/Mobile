@@ -6,6 +6,10 @@ from json_validator import Validator
 import handler
 import handler.db as db
 
+from PIL import Image
+import matplotlib.pyplot as plt
+import matplotlib.image as mpimg
+
 
 app = Flask(__name__)
 app.secret_key = os.urandom(16)
@@ -115,7 +119,12 @@ def del_machine():
 
 @app.route('/<int:machineID>/live', methods=['POST'])
 def live(machineID):
-    print(request.form['data'])
+    a = request.data
+    fh = BytesIO(a)
+    img=mpimg.imread(fh)
+    imgplot = plt.imshow(img)
+    plt.show()
+    
     return redirect('/')
 
 
