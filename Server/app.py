@@ -126,11 +126,11 @@ def del_machine():
 
 @app.route('/<int:machineID>/live', methods=['POST'])
 def live(machineID):
+    path = "static/live/" + str(machineID) + ".png"
+
     if 'frame' in request.files:
         file = request.files['frame']
-        img = Image.open(io.BytesIO(file)) 
-        path = "static/live/" + str(machineID) + ".png"
-        img.save(path) 
+        file.save(path)
         session[str(machineID)] = path
         return redirect('/')
     else:
