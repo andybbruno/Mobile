@@ -120,11 +120,10 @@ def del_machine():
 @app.route('/<int:machineID>/live', methods=['POST'])
 def live(machineID):
     a = request.data
-    fh = BytesIO(a)
-    img=mpimg.imread(fh)
-    imgplot = plt.imshow(img)
-    plt.show()
-    
+
+    stream = io.BytesIO(r_data)
+    img = Image.open(stream) 
+    img.save("a_test.png")   
     return redirect('/')
 
 
