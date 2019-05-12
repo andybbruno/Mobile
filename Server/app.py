@@ -122,7 +122,8 @@ def live(machineID):
     data = request.data
     stream = io.BytesIO(data)
     img = Image.open(stream) 
-    img.save("static/live/"+ str(machineID) + ".png")   
+    path = "./static/live/"+ str(machineID) + ".png"
+    img.save(path)   
     return redirect('/')
 
 
