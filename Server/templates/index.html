@@ -17,12 +17,14 @@
     <nav class="navbar default-layout col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
       <div class="navbar-menu-wrapper d-flex align-items-center">
         <ul class="navbar-nav navbar-nav-left">
-          <li class="profile-text" style="margin-left:30px; font-size:1rem">Hello, {{ username }} </li>
+          <li class="profile-text" style="margin-left:30px; font-size:1rem">Hello, {{ username }}! </li>
         </ul>
         <ul class="navbar-nav navbar-nav-right">
           <div style="margin-left: 20px">
             <span class="btn btn-danger btn-rounded">
-              <span class="mdi mdi-close-circle icon-sm" style="color:white"></span>
+              <a href="./logout">
+                <span class="mdi mdi-close-circle icon-sm" style="color:white"></span>
+              </a>
             </span>
           </div>
         </ul>
@@ -119,7 +121,7 @@
             <div class="col-lg-6 grid-margin stretch-card">
               <div class="card">
                 <div class="card-body">
-                  <h4 class="card-title">TEST</h4>
+                  <h4 class="card-title">Machine #1</h4>
                   <canvas id="Machine-1" style="height:230px"></canvas>
                 </div>
               </div>
@@ -127,7 +129,7 @@
             <div class="col-lg-6 grid-margin stretch-card">
               <div class="card">
                 <div class="card-body">
-                  <h4 class="card-title">TEST</h4>
+                  <h4 class="card-title">Machine #2</h4>
                   <canvas id="Machine-2" style="height:230px"></canvas>
                 </div>
               </div>
@@ -483,7 +485,7 @@
         </div>
         <!-- content-wrapper ends -->
         <!-- partial:partials/_footer.html -->
-        <footer class="footer">
+        <!-- <footer class="footer">
           <div class="container-fluid clearfix">
             <span class="text-muted d-block text-center text-sm-left d-sm-inline-block">Copyright © 2018
               <a href="http://www.bootstrapdash.com/" target="_blank">Bootstrapdash</a>. All rights reserved.</span>
@@ -491,7 +493,7 @@
               <i class="mdi mdi-heart text-danger"></i>
             </span>
           </div>
-        </footer>
+        </footer> -->
         <!-- partial -->
       </div>
       <!-- main-panel ends -->

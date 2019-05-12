@@ -11,13 +11,14 @@ app = Flask(__name__)
 app.secret_key = os.urandom(16)
 
 
-#----------------------------------TEST CHART-----------------------------------------
-@app.route('/chart')
-def chart():
-    return render_template('chart.html')
+# ----------------------------------TEST CHART-----------------------------------------
+@app.route('/logout', methods=['GET'])
+def logout():
+    session.clear()
+    return redirect('/')
 
 
-#----------------------------------WEB-----------------------------------------
+# ----------------------------------WEB-----------------------------------------
 @app.route('/')
 def homepage():
     if ('username' in session) and ('logged' in session):
@@ -27,6 +28,7 @@ def homepage():
                                )
     else:
         return redirect('/login')
+
 
 @app.route('/register', methods=['POST', 'GET'])
 def register():
@@ -40,16 +42,19 @@ def register():
         elif password1 != password2:
             return render_template('register.html', error="Please check the passwords")
         else:
-            db.userTable.insert_one({"username": username, "password": password1})
+            db.userTable.insert_one(
+                {"username": username, "password": password1})
             session['username'] = username
             return redirect('/reg')
     else:
         return render_template('register.html')
 
+
 @app.route('/reg', methods=['GET'])
 def reg_complete():
     print(session['username'])
     return render_template('regcomplete.html', user=session['username'])
+
 
 @app.route('/login', methods=['POST', 'GET'])
 def login():
@@ -67,7 +72,7 @@ def login():
         return render_template('login.html')
 
 
-#---------------------------------IOT------------------------------------------
+# ---------------------------------IOT------------------------------------------
 @app.route('/machine', methods=['POST'])
 def new_machine():
     """
@@ -86,9 +91,12 @@ def new_machine():
         }
         * campo opzionale
     """
-    is_ok, error = handler.new_machine(request.get_json(silent=True, force=True))
-    if is_ok: return 'New machine Added'
-    return 'Some error occurred -> '+ error
+    is_ok, error = handler.new_machine(
+        request.get_json(silent=True, force=True))
+    if is_ok:
+        return 'New machine Added'
+    return 'Some error occurred -> ' + error
+
 
 @app.route('/machine', methods=['DELETE'])
 def del_machine():
@@ -113,8 +121,10 @@ def new_operation(machineID):
             "type": <str, in ["refill", "cleaning", "repair", "standard check"]>
         }
     """
-    is_ok, error = handler.register_operation(machineID , request.get_json(silent=True, force=True))
-    if is_ok: return "Opertion registered"
+    is_ok, error = handler.register_operation(
+        machineID, request.get_json(silent=True, force=True))
+    if is_ok:
+        return "Opertion registered"
     return "Some error occurred -> " + error
 
 
@@ -124,9 +134,9 @@ def get_status(ID):
         Restituisce tutte le info della macchina.
     """
     machine = db.machineTable.find_one({"ID": ID})
-    if machine: return machine
+    if machine:
+        return machine
     return "Machine ID not valid"
-
 
 
 @app.route('/<int:ID>/order', methods=['POST'])
@@ -150,9 +160,11 @@ def new_order(ID):
                 }
             }
     """
-    is_ok, error = handler.register_order(ID , request.get_json(silent=True, force=True))
-    if is_ok: return "Transaction registered"
-    return "Some error occurred -> "+ error
+    is_ok, error = handler.register_order(
+        ID, request.get_json(silent=True, force=True))
+    if is_ok:
+        return "Transaction registered"
+    return "Some error occurred -> " + error
 
 
 @app.route('/<int:ID>/mngt', methods=['POST', 'GET'])
@@ -199,6 +211,7 @@ def allData():
     return "Machine\n {} \n\n Transaction\n {} \n\n Detection\n {} \n\nUser\n {} \n\nOperation\n{}".format(
         str(listMachine), str(listTransaction), str(listDetection), str(listUser), str(listOperazion))
 
+
 @app.route('/addUser', methods=["POST"])
 def addUser():
     jsonReq = request.get_json(silent=True, force=True)
@@ -206,12 +219,13 @@ def addUser():
     db.userTable.insert_one(jsonReq)
     return "User Added"
 
-#-----------------------------Telegram Bot--------------------------------------
+# -----------------------------Telegram Bot--------------------------------------
 
 
 @app.errorhandler(404)
 def page_not_found(e):
     # note that we set the 404 status explicitly
     return render_template('404.html'), 404
+
 
 app.run(host='0.0.0.0', port='3000', debug=True)
