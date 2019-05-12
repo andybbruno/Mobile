@@ -7,7 +7,7 @@ import handler
 import handler.db as db
 
 import io
-# from PIL import Image
+from PIL import Image
 
 
 

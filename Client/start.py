@@ -140,7 +140,7 @@ try:
             b, g, r = img2.split()
             img2 = Image.merge("RGB", (r, g, b))
             print(type(img2))
-            requests.post(url_frame, data=img2)
+            requests.post(url_frame, data=img2, headers={'Content-Type': 'application/octet-stream'})
 
 
 except Exception as e:
