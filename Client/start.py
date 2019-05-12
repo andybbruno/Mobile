@@ -136,8 +136,8 @@ try:
             url_frame = ec2 + '/' + str(ID) + '/live'
             print(type(frame))
             print(frame)
-
-            files = {'file': frame}
+            a = cv2.imencode('.jpg', frame)[1].tostring()
+            files = {'file': a}
             requests.post(url_frame, files=files, headers={'Content-Type': 'application/octet-stream'})
 
 
