@@ -10,6 +10,13 @@ import handler.db as db
 app = Flask(__name__)
 app.secret_key = os.urandom(16)
 
+
+#----------------------------------TEST CHART-----------------------------------------
+@app.route('/chart')
+def chart():
+    return render_template('chart.html')
+
+
 #----------------------------------WEB-----------------------------------------
 @app.route('/')
 def homepage():
