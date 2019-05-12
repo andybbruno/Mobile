@@ -5,52 +5,88 @@ $(function () {
    */
   'use strict';
 
-  var browserTrafficData = {
-    datasets: [{
-      data: [20, 20, 10, 30, 20],
-      backgroundColor: [
-        'rgba(255,99,132,1)',
-        'rgba(54, 162, 235, 1)',
-        'rgba(255, 206, 86, 1)',
-        'rgba(75, 192, 192, 1)',
-        'rgba(75, 192, 117, 1)',
-        'rgba(255, 159, 64, 1)'
-      ],
-      borderColor: [
-        'rgba(255,99,132,1)',
-        'rgba(54, 162, 235, 1)',
-        'rgba(255, 206, 86, 1)',
-        'rgba(75, 192, 192, 1)',
-        'rgba(75, 192, 117, 1)',
-        'rgba(255, 159, 64, 1)'
-      ],
-    }],
+  var val_1 = [80, 32, 45, 14, 52, 29, 96];
+  var val_2 = [12, 42, 75, 23, 78, 32, 67];
 
-    // These labels appear in the legend and in the tooltips when hovering different arcs
-    labels: [
-      'Firefox',
-      'Safari',
-      'Explorer',
-      'Chrome',
-      'Opera Mini'
-    ]
-  };
-
-
-  var doughnutPieOptions = {
-    responsive: true,
-    animation: {
-      animateScale: true,
-      animateRotate: true
+  var options = {
+    scales: {
+      yAxes: [{
+        ticks: {
+          beginAtZero: true
+        }
+      }]
+    },
+    legend: {
+      display: false
+    },
+    elements: {
+      point: {
+        radius: 0
+      }
     }
   };
 
-  if ($("#browserTrafficChart").length) {
-    var doughnutChartCanvas = $("#browserTrafficChart").get(0).getContext("2d");
-    var doughnutChart = new Chart(doughnutChartCanvas, {
-      type: 'doughnut',
-      data: browserTrafficData,
-      // options: doughnutPieOptions
+
+  var color_1 = [
+    'rgba(255, 0, 0, 0.2)',
+    'rgba(255, 165, 0, 0.2)',
+    'rgba(255, 230, 0, 0.2)',
+    'rgba(0, 180, 0, 0.2)',
+    'rgba(0, 0, 255, 0.2)',
+    'rgba(75, 0, 130, 0.2)',
+    'rgba(238, 130, 238, 0.2)'
+  ];
+
+  var color_2 = [
+    'rgba(255, 0, 0, 1)',
+    'rgba(255, 165, 0, 1)',
+    'rgba(255, 230, 0, 1)',
+    'rgba(0, 180, 0, 1)',
+    'rgba(0, 0, 255, 1)',
+    'rgba(75, 0, 130, 1)',
+    'rgba(238, 130, 238, 1)'
+  ];
+
+  var data1 = {
+    labels: ["bicchiere", "palettina", "caffe", "zucchero", "latte", "te", "cioccolato"],
+    datasets: [{
+      data: val_1,
+      backgroundColor: color_1,
+      borderColor: color_2,
+      borderWidth: 1
+    }]
+  };
+
+
+  if ($("#Machine-1").length) {
+    var barChartCanvas = $("#Machine-1").get(0).getContext("2d");
+    // This will get the first returned node in the jQuery collection.
+    var barChart = new Chart(barChartCanvas, {
+      type: 'bar',
+      data: data1,
+      options: options
     });
   }
+
+
+  var data2 = {
+    labels: ["bicchiere", "palettina", "caffe", "zucchero", "latte", "te", "cioccolato"],
+    datasets: [{
+      data: val_2,
+      backgroundColor: color_1,
+      borderColor: color_2,
+      borderWidth: 1
+    }]
+  };
+
+  if ($("#Machine-2").length) {
+    var barChartCanvas = $("#Machine-2").get(0).getContext("2d");
+    // This will get the first returned node in the jQuery collection.
+    var barChart = new Chart(barChartCanvas, {
+      type: 'bar',
+      data: data2,
+      options: options
+    });
+  }
+
 });
