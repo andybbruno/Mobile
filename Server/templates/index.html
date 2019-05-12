@@ -9,7 +9,34 @@
   <link rel="stylesheet" href="static/vendors/css/vendor.bundle.base.css">
   <link rel="stylesheet" href="static/vendors/css/vendor.bundle.addons.css">
   <link rel="stylesheet" href="static/css/style.css">
+
+  <script>
+    function refresh(node) {
+      var times = 3000; // gap in Milli Seconds;
+
+      (function startRefresh() {
+        var address;
+        if (node.src.indexOf('?') > -1)
+          address = node.src.split('?')[0];
+        else
+          address = node.src;
+        node.src = address + "?time=" + new Date().getTime();
+
+        setTimeout(startRefresh, times);
+      })();
+
+    }
+
+    window.onload = function () {
+      var node = document.getElementById('live');
+      refresh(node);
+      // you can refresh as many images you want just repeat above steps
+    }
+  </script>
 </head>
+
+
+
 
 <body>
   <div class="container-scroller">
@@ -122,7 +149,7 @@
               <div class="card">
                 <div class="card-body" style="text-align: center">
                   <h4 class="card-title">Machine #{{ ID1 }}</h4>
-                  <img src="{{ imgID1 }}" width="100%">
+                  <img id="live" src="{{ imgID1 }}" width="100%">
                 </div>
               </div>
             </div>
@@ -130,7 +157,7 @@
               <div class="card">
                 <div class="card-body" style="text-align: center">
                   <h4 class="card-title">Machine #{{ ID2 }}</h4>
-                  <img src="{{ imgID2 }}" width="100%">
+                  <img id="live" src="{{ imgID2 }}" width="100%">
                 </div>
               </div>
             </div>
