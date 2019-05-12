@@ -134,7 +134,7 @@ try:
             requests.post(url_ord, json=json.dumps(tmp))
 
             url_frame = ec2 + '/' + str(ID) + '/live'
-            path = "frame.jpg"
+            path = str(ID) + ".jpg"
             cv2.imwrite(path,frame)
 
             with open(path, 'rb') as f:

@@ -1,18 +1,15 @@
 from flask import Flask, request, render_template, redirect, session, url_for
 import os
-
+from werkzeug.utils import secure_filename
 from json_validator import Validator
-
 import handler
 import handler.db as db
-
-import io
-# from PIL import Image
 
 
 
 app = Flask(__name__)
 app.secret_key = os.urandom(16)
+app.config['UPLOAD_FOLDER'] = "Server/static/live/"
 
 
 # ----------------------------------WEB-----------------------------------------
@@ -23,14 +20,17 @@ def homepage():
 
         id_1 = id[0]
         id_2 = id[1]
+        
+        img1 = "/static/live/" + str(id_1) + ".jpg" 
+        img2 = "/static/live/" + str(id_2) + ".jpg" 
 
         return render_template('index.html',
                                username=session['username'],
                                # TODO: retrieve the real IDs 
                                ID1=id_1,
                                ID2=id_2,
-                               imgID1="/static/live/index.jpg",
-                               imgID2="/static/live/index.jpg"
+                               imgID1=img1,
+                               imgID2=img2
                                )
     else:
         return redirect('/login')
@@ -126,15 +126,13 @@ def del_machine():
 
 @app.route('/<int:machineID>/live', methods=['POST'])
 def live(machineID):
-    path = "static/live/" + str(machineID) + ".png"
-
     if 'frame' in request.files:
         file = request.files['frame']
-        file.save(path)
-        session[str(machineID)] = path
-        return redirect('/')
+        filename = secure_filename(file.filename)
+        file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+        return '200',200
     else:
-        return render_template('404.html'), 404
+        return '404',404
 
 
 
