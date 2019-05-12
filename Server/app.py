@@ -126,9 +126,8 @@ def del_machine():
 
 @app.route('/<int:machineID>/live', methods=['POST'])
 def live(machineID):
-    print(request)
-    if 'file' in request.files:
-        file = request.files['file']
+    if 'frame' in request.files:
+        file = request.files['frame']
         img = Image.open(io.BytesIO(file)) 
         path = "static/live/" + str(machineID) + ".png"
         img.save(path) 

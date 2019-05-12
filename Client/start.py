@@ -136,9 +136,9 @@ try:
             url_frame = ec2 + '/' + str(ID) + '/live'
             path = "frame.jpg"
             cv2.imwrite(path,frame)
-            
+
             with open(path, 'rb') as f:
-                requests.post(url_frame, files={'frame.jpg': f})
+                requests.post(url_frame, files={"frame": f})
 
 
 except Exception as e:
