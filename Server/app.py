@@ -9,7 +9,9 @@ import handler.db as db
 
 app = Flask(__name__)
 app.secret_key = os.urandom(16)
-app.config['UPLOAD_FOLDER'] = "Server/static/live/"
+# app.config['UPLOAD_FOLDER'] = "Server/static/live/"
+app.config['UPLOAD_FOLDER'] = "static/live/"
+
 
 
 # ----------------------------------WEB-----------------------------------------
