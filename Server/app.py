@@ -14,31 +14,38 @@ app.secret_key = os.urandom(16)
 app.config['UPLOAD_FOLDER'] = "static/live/"
 
 
-# ----------------------------------WEB-----------------------------------------
-@app.route('/')
-def homepage():
+# ----------------------------------WEB-----------------------------------------ù
+
+def renderWith(renderedContent):
     if ('username' in session) and ('logged' in session):
-        id = db.machineTable.distinct('ID')
-
-        id_1 = id[0]
-        id_2 = id[1]
-        
-        img2 = img1 = "/static/live/" + str(id_1) + ".jpg" 
-        # img2 = "/static/live/" + str(id_2) + ".jpg" 
-
-        main_content = render_template("main-panel/test.html",  # TODO: retrieve the real IDs 
-                               ID1=id_1,
-                               ID2=id_2,
-                               imgID1=img1,
-                               imgID2=img2
-                               )
-
         return render_template('index.html',
                                 username = session['username'],
-                                content = main_content
-                               )
+                                content = renderedContent )
     else:
         return redirect('/login')
+
+@app.route('/')
+def homepage():
+    id = db.machineTable.distinct('ID')
+
+    id_1 = id[0]
+    id_2 = id[1]
+    
+    img2 = img1 = "/static/live/" + str(id_1) + ".jpg" 
+    # img2 = "/static/live/" + str(id_2) + ".jpg" 
+
+    content = render_template("main-panel/test.html",  # TODO: retrieve the real IDs 
+                            ID1=id_1,
+                            ID2=id_2,
+                            imgID1=img1,
+                            imgID2=img2 )
+
+    return renderWith(content)
+
+
+@app.route('/machines')
+def machinelist():
+    return renderWith(render_template("main-panel/listMachines.html"))
 
 
 @app.route('/logout', methods=['GET'])
