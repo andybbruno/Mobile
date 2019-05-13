@@ -143,8 +143,7 @@ try:
 
             url_frame = ec2 + '/' + str(ID) + '/live'
             path = str(ID) + ".jpg"
-            res = cv2.resize(frame, (640,360), interpolation = cv2.INTER_AREA) 
-            cv2.imwrite(path,res)
+            cv2.imwrite(path,frame)
 
             with open(path, 'rb') as f:
                 try:
