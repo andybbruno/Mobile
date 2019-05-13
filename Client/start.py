@@ -17,7 +17,7 @@ duty = 5
 ID = 11222
 
 # Lists
-prod = ["caffe", "cioccolato", "te", "acqua calda","bicchiere vuoto", "cappucino", "laghine"]
+prod = ["caffe", "cioccolato", "te", "cappucino", "laghine"]
 
 trans = ["rfid", "cash", "app"]
 
@@ -143,7 +143,8 @@ try:
 
             url_frame = ec2 + '/' + str(ID) + '/live'
             path = str(ID) + ".jpg"
-            cv2.imwrite(path,frame)
+            res = cv2.resize(frame, (640,360), interpolation = cv2.INTER_AREA) 
+            cv2.imwrite(path,res)
 
             with open(path, 'rb') as f:
                 try:
