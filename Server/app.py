@@ -14,30 +14,38 @@ app.secret_key = os.urandom(16)
 app.config['UPLOAD_FOLDER'] = "static/live/"
 
 
+# ----------------------------------WEB-----------------------------------------ù
 
-# ----------------------------------WEB-----------------------------------------
-@app.route('/')
-def homepage():
+def renderWith(renderedContent):
     if ('username' in session) and ('logged' in session):
-        id = db.machineTable.distinct('ID')
-
-        id_1 = 11222
-        #id_1 = id[0]
-        id_2 = id[1]
-        
-        img2 = img1 = "/static/live/" + str(id_1) + ".jpg" 
-        # img2 = "/static/live/" + str(id_2) + ".jpg" 
-
         return render_template('index.html',
-                               username=session['username'],
-                               # TODO: retrieve the real IDs 
-                               ID1=id_1,
-                               ID2=id_2,
-                               imgID1=img1,
-                               imgID2=img2
-                               )
+                                username = session['username'],
+                                content = renderedContent )
     else:
         return redirect('/login')
+
+@app.route('/')
+def homepage():
+    id = db.machineTable.distinct('ID')
+
+    id_1 = id[0]
+    id_2 = id[1]
+    
+    img2 = img1 = "/static/live/" + str(id_1) + ".jpg" 
+    # img2 = "/static/live/" + str(id_2) + ".jpg" 
+
+    content = render_template("main-panel/test.html",  # TODO: retrieve the real IDs 
+                            ID1=id_1,
+                            ID2=id_2,
+                            imgID1=img1,
+                            imgID2=img2 )
+
+    return renderWith(content)
+
+
+@app.route('/machines')
+def machinelist():
+    return renderWith(render_template("main-panel/listMachines.html"))
 
 
 @app.route('/logout', methods=['GET'])
@@ -257,4 +265,4 @@ def page_not_found(e):
     return render_template('404.html'), 404
 
 
-app.run(host='0.0.0.0', port='3000', debug=True)
+app.run(host='0.0.0.0', port='3001', debug=True)
