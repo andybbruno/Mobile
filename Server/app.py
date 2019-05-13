@@ -27,13 +27,16 @@ def homepage():
         img2 = img1 = "/static/live/" + str(id_1) + ".jpg" 
         # img2 = "/static/live/" + str(id_2) + ".jpg" 
 
-        return render_template('index.html',
-                               username=session['username'],
-                               # TODO: retrieve the real IDs 
+        main_content = render_template("main_panel/test,html",  # TODO: retrieve the real IDs 
                                ID1=id_1,
                                ID2=id_2,
                                imgID1=img1,
                                imgID2=img2
+                               )
+
+        return render_template('index.html',
+                                username = session['username'],
+                                content = main_content
                                )
     else:
         return redirect('/login')
@@ -256,4 +259,4 @@ def page_not_found(e):
     return render_template('404.html'), 404
 
 
-app.run(host='0.0.0.0', port='3000', debug=True)
+app.run(host='0.0.0.0', port='3001', debug=True)
