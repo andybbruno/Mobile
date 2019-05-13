@@ -28,7 +28,8 @@ def renderWith(renderedContent):
 def homepage():
     id = db.machineTable.distinct('ID')
 
-    id_1 = id[0]
+    id_1 = 11222
+    # id_1 = id[0]
     id_2 = id[1]
     
     img2 = img1 = "/static/live/" + str(id_1) + ".jpg" 
