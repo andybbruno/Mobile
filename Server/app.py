@@ -53,9 +53,9 @@ def get_status(ID):
     """
         Renderizza la pagina con tutte le info della macchina.
     """
-     content = render_template("main-panel/infoMachine.html",  # TODO: retrieve the real info 
-                            id=ID,
-                            info="info inutile ma sto provando")
+    content = render_template("main-panel/infoMachine.html",  # TODO: retrieve the real info 
+                                id=ID,
+                                info="info inutile ma sto provando")
     return renderWith(content)
     #machine = db.machineTable.find_one({"ID": ID})
     #if machine:
