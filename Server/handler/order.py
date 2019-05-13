@@ -25,6 +25,10 @@ def register_order(ID, jsonReq):
         RETURN
             TRUE se la rigistrazione è avventua FALSE altrimenti
     """
+
+    print(ID)
+    print(jsonReq)
+    
     timestamp = int(data.timestamp(data.now()))
     
     currMachine = machineTable.find_one({"ID": ID})
