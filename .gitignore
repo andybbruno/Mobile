@@ -3,3 +3,4 @@
 __pycache__/
 Client/key
 Server/static/live/
+.vscode/
