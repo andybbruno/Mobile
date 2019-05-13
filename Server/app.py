@@ -188,7 +188,7 @@ def new_order(ID):
             }
     """
     is_ok, error = handler.register_order(
-        ID, request.get_json(silent=True, force=True))
+        ID, json.loads(request.get_json(silent=True, force=True)))
     if is_ok:
         return "Transaction registered"
     return "Some error occurred -> " + error
