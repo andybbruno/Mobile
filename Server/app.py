@@ -1,25 +1,39 @@
 from flask import Flask, request, render_template, redirect, session, url_for
 import os
-
+from werkzeug.utils import secure_filename
 from json_validator import Validator
-
 import handler
 import handler.db as db
+import json
+
 
 
 app = Flask(__name__)
 app.secret_key = os.urandom(16)
+# app.config['UPLOAD_FOLDER'] = "Server/static/live/"
+app.config['UPLOAD_FOLDER'] = "static/live/"
+
 
 
 # ----------------------------------WEB-----------------------------------------
 @app.route('/')
 def homepage():
     if ('username' in session) and ('logged' in session):
+        id = db.machineTable.distinct('ID')
+
+        id_1 = id[0]
+        id_2 = id[1]
+        
+        img2 = img1 = "/static/live/" + str(id_1) + ".jpg" 
+        # img2 = "/static/live/" + str(id_2) + ".jpg" 
+
         return render_template('index.html',
                                username=session['username'],
                                # TODO: retrieve the real IDs 
-                               ID1=1111,
-                               ID2=2222
+                               ID1=id_1,
+                               ID2=id_2,
+                               imgID1=img1,
+                               imgID2=img2
                                )
     else:
         return redirect('/login')
@@ -112,6 +126,19 @@ def del_machine():
     return 'Machine deleteed'
 
 
+
+@app.route('/<int:machineID>/live', methods=['POST'])
+def live(machineID):
+    if 'frame' in request.files:
+        file = request.files['frame']
+        filename = secure_filename(file.filename)
+        file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+        return '200',200
+    else:
+        return '404',404
+
+
+
 @app.route('/<int:machineID>/maintenance', methods=['POST'])
 def new_operation(machineID):
     """
@@ -162,7 +189,7 @@ def new_order(ID):
             }
     """
     is_ok, error = handler.register_order(
-        ID, request.get_json(silent=True, force=True))
+        ID, json.loads(request.get_json(silent=True, force=True)))
     if is_ok:
         return "Transaction registered"
     return "Some error occurred -> " + error
@@ -209,7 +236,7 @@ def allData():
         db.transactionTable.drop
         db.detectionTable.drop
 
-    return "Machine\n {} \n\n Transaction\n {} \n\n Detection\n {} \n\nUser\n {} \n\nOperation\n{}".format(
+    return "Machine</br> {} </br></br> Transaction</br> {} </br></br> Detection</br> {} </br></br>User</br> {} </br></br>Operation</br>{}".format(
         str(listMachine), str(listTransaction), str(listDetection), str(listUser), str(listOperazion))
 
 

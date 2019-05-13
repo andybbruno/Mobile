@@ -2,4 +2,5 @@
 .DS_Store
 __pycache__/
 Client/key
+Server/static/live/
 .vscode/

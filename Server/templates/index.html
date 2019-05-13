@@ -9,7 +9,36 @@
   <link rel="stylesheet" href="static/vendors/css/vendor.bundle.base.css">
   <link rel="stylesheet" href="static/vendors/css/vendor.bundle.addons.css">
   <link rel="stylesheet" href="static/css/style.css">
+
+  <script>
+    function refresh(node) {
+      var times = 5000; // gap in Milli Seconds;
+
+      (function startRefresh() {
+        var address;
+        if (node.src.indexOf('?') > -1)
+          address = node.src.split('?')[0];
+        else
+          address = node.src;
+        
+        node.src = address+"?time="+new Date().getTime();
+
+        setTimeout(startRefresh, times);
+      })();
+
+    }
+
+    window.onload = function () {
+      var node1 = document.getElementById('live_1');
+      refresh(node1);
+      var node2 = document.getElementById('live_2');
+      refresh(node2);
+    }
+  </script>
 </head>
+
+
+
 
 <body>
   <div class="container-scroller">
@@ -113,6 +142,24 @@
                   <p class="text-muted mt-3 mb-0">
                     <i class="mdi mdi-reload mr-1" aria-hidden="true"></i> Product-wise sales
                   </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-6 grid-margin stretch-card">
+              <div class="card">
+                <div class="card-body" style="text-align: center">
+                  <h4 class="card-title">Machine #{{ ID1 }}</h4>
+                  <img id="live_1" src="{{ imgID1 }}" width="100%">
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-6 grid-margin stretch-card">
+              <div class="card">
+                <div class="card-body" style="text-align: center">
+                  <h4 class="card-title">Machine #{{ ID2 }}</h4>
+                  <img id="live_2" src="{{ imgID2 }}" width="100%">
                 </div>
               </div>
             </div>
@@ -515,7 +562,7 @@
   <!-- Custom js for this page-->
   <script src="static/js/dashboard.js"></script>
   <!-- End custom js for this page-->
-  <script src="static/js/data.js"></script>
+  <script src="static/js/chart.js"></script>
 </body>
 
 </html>
