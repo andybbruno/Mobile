@@ -36,10 +36,24 @@
     }
 
     #nav-input input:focus{
-        border-bottom: 2px solid rgba(255, 255, 255, 0.8);
+        border-bottom: 2px solid rgba(255, 255, 255, 1);
         color: #fff
     }
   </style>
+  <script>
+      function openLink() {
+        var x = event.charCode || event.keyCode;
+          
+          var inp = document.getElementById("demo");
+          if(x == 13)
+            if(inp.value != "") 
+              location.href = inp.value+"/maintenance"
+            else
+              inp.style = "border-bottom: 2px solid #ff6258;"
+          else
+            inp.style = "border-bottom: 2px solid #ff6258;"
+      }
+      </script>
 </head>
 
 <body>
@@ -151,7 +165,7 @@
                   class="dropdown-item-icon ti-dashboard"></i></a>
               <a class="dropdown-item">Messages<i class="dropdown-item-icon ti-comment-alt"></i></a>
               <a class="dropdown-item">Activity<i class="dropdown-item-icon ti-location-arrow"></i></a>
-              <a class="dropdown-item" href="./logout">Sign Out<i class="dropdown-item-icon ti-power-off"></i></a>
+              <a class="dropdown-item" href="/logout">Sign Out<i class="dropdown-item-icon ti-power-off"></i></a>
             </div>
           </li>
         </ul>
@@ -194,12 +208,12 @@
             <div class="collapse" id="ui-basic">
               <ul class="nav flex-column sub-menu">
                 <li class="nav-item">
-                  <a class="nav-link" href="../../pages/ui-features/buttons.html">List of all</a>
+                  <a class="nav-link" href="/machines">List of all</a>
                 </li>
                 <li class="nav-item">
                   <div class="nav-link">
                     <div id="nav-input">
-                      <input type="text" placeholder="Machine ID" required>
+                      <input type="text" id="nav-input-id" placeholder="Machine ID" onkeypress="openLink" required>
                     </div>
                   </div>
                 </li>
