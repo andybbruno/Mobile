@@ -14,11 +14,11 @@ from PIL import Image
 duty = 5 
 
 # Machine ID
-ID = 45222
+ID = 11222
 
 # Lists
-prod = ["bicchiere", "palettina", "caffe", "zucchero",
-        "latte", "te concentrato", "cioccolato concentrato"]
+prod = ["caffe", "cioccolato", "te", "acqua calda",
+        "bicchiere vuoto", "cappucino", "laghine"]
 
 trans = ["rfid", "cash", "app"]
 
