@@ -23,7 +23,7 @@ def homepage():
 
         id_1 = 11222
         #id_1 = id[0]
-        #id_2 = id[1]
+        id_2 = id[1]
         
         img2 = img1 = "/static/live/" + str(id_1) + ".jpg" 
         # img2 = "/static/live/" + str(id_2) + ".jpg" 
