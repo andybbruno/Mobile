@@ -833,3 +833,19 @@
     display: none; }
 
 /*# sourceMappingURL=style.css.map */
+
+.nav-input input {
+    border: 0;
+    width: 100%;
+    background: transparent;
+    color: #BBDEFB;
+ }
+ 
+ .nav-input input::placeholder {
+    color: rgba(255, 255, 255, 0.8);;
+ }
+ 
+ .nav-input input:focus{
+    border-bottom: 2px solid rgba(255, 255, 255, 0.8);
+    color: #fff
+ }
