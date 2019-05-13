@@ -28,7 +28,7 @@
       border: 0;
       width: 100%;
       background: transparent;
-      color: #BBDEFB;
+      color: rgba(255, 255, 255, 1);
     }
 
     #nav-input input::placeholder {
@@ -44,8 +44,7 @@
       function openLink() {
         var x = event.charCode || event.keyCode;
           
-          var inp = document.getElementById("demo");
-          alert("ok")
+          var inp = document.getElementById("nav-input-id");
           if(x == 13)
             if(inp.value != "") 
               location.href = inp.value+"/maintenance"
@@ -214,7 +213,7 @@
                 <li class="nav-item">
                   <div class="nav-link">
                     <div id="nav-input">
-                      <input type="text" id="nav-input-id" placeholder="Machine ID" onkeypress="openLink" required>
+                      <input type="text" id="nav-input-id" placeholder="Machine ID" onkeypress="openLink()" required>
                     </div>
                   </div>
                 </li>
