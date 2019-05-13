@@ -32,11 +32,10 @@ def homepage():
                                imgID1=img1,
                                imgID2=img2
                                )
-        print(main_content)
 
         return render_template('index.html',
                                 username = session['username'],
-                                content = "test.html"
+                                content = main_content
                                )
     else:
         return redirect('/login')
