@@ -27,7 +27,7 @@ def register_order(ID, jsonReq):
     """
 
     print(ID)
-    print(jsonReq)
+    print(type(jsonReq))
     
     timestamp = int(data.timestamp(data.now()))
     
