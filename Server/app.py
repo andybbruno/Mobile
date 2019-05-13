@@ -13,6 +13,11 @@ app.secret_key = os.urandom(16)
 # app.config['UPLOAD_FOLDER'] = "Server/static/live/"
 app.config['UPLOAD_FOLDER'] = "static/live/"
 
+from jinja2 import Environment, PackageLoader
+env = Environment(
+    loader=PackageLoader('templates', 'templates/main_panel')
+)
+
 
 
 # ----------------------------------WEB-----------------------------------------
