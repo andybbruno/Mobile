@@ -17,8 +17,7 @@ duty = 5
 ID = 11222
 
 # Lists
-prod = ["caffe", "cioccolato", "te", "acqua calda",
-        "bicchiere vuoto", "cappucino", "laghine"]
+prod = ["caffe", "cioccolato", "te", "acqua calda","bicchiere vuoto", "cappucino", "laghine"]
 
 trans = ["rfid", "cash", "app"]
 
