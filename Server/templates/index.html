@@ -57,13 +57,18 @@
           </li>
         </ul>
         <ul class="navbar-nav navbar-nav-right">
-          <div style="margin-left: 20px">
-            <a href="./logout">
-              <span class="btn btn-danger btn-rounded">Logout
-                <span class="mdi mdi-close-circle icon-sm" style="color:white"></span>
-              </span>
+          <li class="nav-item dropdown d-none d-xl-inline-block">
+            <a class="nav-link dropdown-toggle" id="UserDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
+              <span class="profile-text">Hello, {{ Username }} !</span>
+              <img class="img-xs rounded-circle" src="images/faces/face1.jpg" alt="Profile image">
             </a>
-          </div>
+            <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="UserDropdown">
+              <a class="dropdown-item mt-2">Manage Accounts</a>
+              <a class="dropdown-item">Change Password</a>
+              <a class="dropdown-item">Check Inbox</a>
+              <a class="dropdown-item">Sign Out</a>
+            </div>
+          </li>
         </ul>
       </div>
     </nav>
