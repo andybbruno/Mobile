@@ -235,7 +235,7 @@ def allData():
         db.transactionTable.drop
         db.detectionTable.drop
 
-    return "Machine\n {} \n\n Transaction\n {} \n\n Detection\n {} \n\nUser\n {} \n\nOperation\n{}".format(
+    return "Machine</br> {} </br></br> Transaction</br> {} </br></br> Detection</br> {} </br></br>User</br> {} </br></br>Operation</br>{}".format(
         str(listMachine), str(listTransaction), str(listDetection), str(listUser), str(listOperazion))
 
 
