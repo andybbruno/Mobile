@@ -21,8 +21,9 @@ def homepage():
     if ('username' in session) and ('logged' in session):
         id = db.machineTable.distinct('ID')
 
-        id_1 = id[0]
-        id_2 = id[1]
+        id_1 = 11222
+        #id_1 = id[0]
+        #id_2 = id[1]
         
         img2 = img1 = "/static/live/" + str(id_1) + ".jpg" 
         # img2 = "/static/live/" + str(id_2) + ".jpg" 
