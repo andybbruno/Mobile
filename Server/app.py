@@ -27,7 +27,7 @@ def homepage():
         img2 = img1 = "/static/live/" + str(id_1) + ".jpg" 
         # img2 = "/static/live/" + str(id_2) + ".jpg" 
 
-        main_content = render_template("main_panel/test,html",  # TODO: retrieve the real IDs 
+        main_content = render_template("main_panel/test.html",  # TODO: retrieve the real IDs 
                                ID1=id_1,
                                ID2=id_2,
                                imgID1=img1,
