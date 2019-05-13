@@ -1,50 +1,36 @@
 {
-  "_args": [
-    [
-      "flag-icon-css@2.9.0",
-      "/var/www/html/star_pro"
-    ]
-  ],
   "_from": "flag-icon-css@2.9.0",
   "_id": "flag-icon-css@2.9.0",
-  "_inCache": true,
-  "_installable": true,
+  "_inBundle": false,
+  "_integrity": "sha512-SeHvGEB43XFPZiJz6lFFRGHfp+Db+s1qGiClW70cZauQVbPM42wImlNUEuXSXs94kPchz7xvoxP0QK1y6FxLfg==",
   "_location": "/flag-icon-css",
-  "_nodeVersion": "9.0.0",
-  "_npmOperationalInternal": {
-    "host": "s3://npm-registry-packages",
-    "tmp": "tmp/flag-icon-css-2.9.0.tgz_1512642284625_0.22436221409589052"
-  },
-  "_npmUser": {
-    "email": "lipiridis@gmail.com",
-    "name": "lipis"
-  },
-  "_npmVersion": "5.5.1",
   "_phantomChildren": {},
   "_requested": {
-    "name": "flag-icon-css",
+    "type": "version",
+    "registry": true,
     "raw": "flag-icon-css@2.9.0",
+    "name": "flag-icon-css",
+    "escapedName": "flag-icon-css",
     "rawSpec": "2.9.0",
-    "scope": null,
-    "spec": "2.9.0",
-    "type": "version"
+    "saveSpec": null,
+    "fetchSpec": "2.9.0"
   },
   "_requiredBy": [
     "/"
   ],
   "_resolved": "https://registry.npmjs.org/flag-icon-css/-/flag-icon-css-2.9.0.tgz",
   "_shasum": "5793c15244e3c63ae36631478a758a3fc29c86be",
-  "_shrinkwrap": null,
   "_spec": "flag-icon-css@2.9.0",
-  "_where": "/var/www/html/star_pro",
+  "_where": "/Applications/XAMPP/xamppfiles/htdocs/Star-Admin/star_pro/3.0",
   "author": {
-    "email": "lipiridis@gmail.com",
-    "name": "Panayiotis Lipiridis"
+    "name": "Panayiotis Lipiridis",
+    "email": "lipiridis@gmail.com"
   },
   "bugs": {
     "url": "https://github.com/lipis/flag-icon-css/issues"
   },
-  "dependencies": {},
+  "bundleDependencies": false,
+  "deprecated": false,
   "description": "[![npm version](https://badge.fury.io/js/flag-icon-css.svg)](https://badge.fury.io/js/flag-icon-css) [![Bower version](https://badge.fury.io/bo/flag-icon-css.svg)](https://badge.fury.io/bo/flag-icon-css)",
   "devDependencies": {
     "grunt": "1.0.1",
@@ -54,13 +40,6 @@
     "grunt-contrib-watch": "1.0.0",
     "svgo": "1.0.3"
   },
-  "directories": {},
-  "dist": {
-    "integrity": "sha512-SeHvGEB43XFPZiJz6lFFRGHfp+Db+s1qGiClW70cZauQVbPM42wImlNUEuXSXs94kPchz7xvoxP0QK1y6FxLfg==",
-    "shasum": "5793c15244e3c63ae36631478a758a3fc29c86be",
-    "tarball": "https://registry.npmjs.org/flag-icon-css/-/flag-icon-css-2.9.0.tgz"
-  },
-  "gitHead": "af63898c1471d79acf5209a6e8f3a553909d3198",
   "homepage": "https://github.com/lipis/flag-icon-css#readme",
   "licenses": [
     {
@@ -68,15 +47,7 @@
       "url": "http://opensource.org/licenses/MIT"
     }
   ],
-  "maintainers": [
-    {
-      "name": "lipis",
-      "email": "lipiridis@gmail.com"
-    }
-  ],
   "name": "flag-icon-css",
-  "optionalDependencies": {},
-  "readme": "ERROR: No README data found!",
   "repository": {
     "type": "git",
     "url": "git+ssh://git@github.com/lipis/flag-icon-css.git"
