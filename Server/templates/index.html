@@ -41,22 +41,16 @@
     }
   </style>
   <script>
-      function openLink() {
-        var x = event.charCode || event.keyCode;
-        var inp = document.getElementById("nav-input-id");
-        if(x == 13 && inp.value != ""){
-          location.href = inp.value+"/maintenance";
-          alert("link  "+inp.value+"/maintenance");
-        }else{
-          console.log("Nope");
-        }
-      }
-//            else
-//              inp.style = "border-bottom: 2px solid rgba(255, 255, 255, 1);"
-//          else
-//            inp.style = "border-bottom: 2px solid #ff6258;"
-//      }
-      </script>
+    function openLink() {
+      var x = event.charCode || event.keyCode;
+      var inp = document.getElementById("nav-input-id");
+      //TODO: controllo se non inserisce numeri
+      if(x == 13 && inp.value != "")
+        location.href = inp.value+"/maintenance";
+      //TODO modificare il css se c'è un errore
+      // border-bottom: 2px solid #ff6258;
+    }
+  </script>
 </head>
 
 <body>
