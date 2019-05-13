@@ -36,7 +36,7 @@ def homepage():
 
         return render_template('index.html',
                                 username = session['username'],
-                                content = main_content
+                                content = "test.html"
                                )
     else:
         return redirect('/login')
