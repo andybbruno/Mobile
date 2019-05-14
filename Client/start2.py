@@ -3,10 +3,8 @@ import time
 import json
 from picamera import PiCamera
 from picamera.array import PiRGBArray
-import cv2
 import os
 import random
-import png
 import numpy as np
 from PIL import Image, ImageDraw
 from io import BytesIO
@@ -112,35 +110,35 @@ try:
 
         url_ord = ec2 + '/' + str(ID) + '/order'
 
-        # trn = trans[random.randint(1, len(trans) - 1)]
-        # prd = prod[random.randint(1, len(prod) - 1)]
+        trn = trans[random.randint(1, len(trans) - 1)]
+        prd = prod[random.randint(1, len(prod) - 1)]
 
-        # # TODO: add products levels
-        # tmp = {"transaction_type": trn,
-        #         "product": prd,
-        #         "satisfaction": random.random(),
-        #         "people_detected": people,
-        #         "face_recognised": faces
-        #         }
+        # TODO: add products levels
+        tmp = {"transaction_type": trn,
+                "product": prd,
+                "satisfaction": random.random(),
+                "people_detected": people,
+                "face_recognised": faces
+                }
 
-        # try:
-        #     requests.post(url_ord, json=json.dumps(tmp))
-        # except Exception as e:
-        #     print('Error:' , e)
-
-
-        # url_frame = ec2 + '/' + str(ID) + '/live'
-        # path = str(ID) + ".jpg"
+        try:
+            requests.post(url_ord, json=json.dumps(tmp))
+        except Exception as e:
+            print('Error:' , e)
 
 
-        # im = Image.fromarray(frame)
-        # im.save(path)
+        url_frame = ec2 + '/' + str(ID) + '/live'
+        path = str(ID) + ".jpg"
+
+
+        im = Image.fromarray(draw)
+        im.save(path)
         
-        # with open(path, 'rb') as f:
-        #     try:
-        #         requests.post(url_frame, files={"frame": f})
-        #     except Exception as e:
-        #         print('Error:' , e)
+        with open(path, 'rb') as f:
+            try:
+                requests.post(url_frame, files={"frame": f})
+            except Exception as e:
+                print('Error:' , e)
         
 
 except Exception as e:
