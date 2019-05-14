@@ -13,7 +13,7 @@ from io import BytesIO
 
 
 # Duty cycle
-duty = 5 
+duty = 5
 
 # Machine ID
 ID = 11222
@@ -65,20 +65,20 @@ camera.resolution = (1280, 720)
 time.sleep(2)
 
 try:
-    while True:        
-        frame = np.empty((1280, 720, 3), dtype=np.uint8)
-        camera.capture(frame, 'bgr')
+    while True:
+        data = np.empty((1280, 720, 3), dtype=np.uint8)
+        camera.capture(data, 'bgr')
 
-        print("FRAME --> " , str(type(frame)))
+        print("FRAME --> ", str(type(data)))
 
         response = requests.post(vision_analyze_url,
                                  headers=headers,
                                  params=params,
-                                 data=frame)
+                                 data=data)
 
         if response.status_code != 200:
             raise Exception("NO 200 ----->>>", response)
         print(response.content)
 
 except Exception as e:
-    print('Error:' , e)
+    print('Error:', e)
