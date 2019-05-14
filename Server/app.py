@@ -158,8 +158,6 @@ def del_machine(machineID):
         JSON in entrata:
         { "ID": <int> }
     """
-    if not Validator.del_machine(request.get_json(silent=True, force=True)):
-        return "You must specify ID of machine to delete"
     
     return 'Machine deleteed' + db.machineTable.delete_one({'ID':machineID})
 
