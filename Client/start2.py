@@ -98,13 +98,11 @@ try:
             print(obj)
             if (obj['object'] == 'person'):
                 people += 1
-                x, y, w, h = getRectangle(obj)
-                draw.rectangle(getRectangle(obj), outline='red', linewidth=2)
+                draw.rectangle(getRectangle(obj), outline='red')
 
         for face in parsed['faces']:
             print(face)
-            x, y, w, h = getRectangle(face)
-            draw.rectangle(getRectangle(obj), outline='green', linewidth=2)
+            draw.rectangle(getRectangle(face), outline='green')
 
         
         elapsed_time = time.time() - start_time
