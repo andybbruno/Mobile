@@ -41,31 +41,6 @@
 
 
 
-
-    var options = {
-        responsive: true,
-        legend: {
-            position: 'right',
-        },
-        title: {
-            display: true,
-            text: ' '
-        },
-        scale: {
-            ticks: {
-                min: 0,
-                max: 100,
-                beginAtZero: true
-            },
-            reverse: false
-        },
-        animation: {
-            animateRotate: false,
-            animateScale: true
-        }
-    };
-
-
     var color_1 = [
         'rgba(255, 0, 0, 0.7)',
         'rgba(255, 165, 0, 0.7)',
@@ -97,6 +72,13 @@
     };
 
 
+    var options2 = {
+        responsive: true,
+        legend: {
+            position: false,
+        },
+    };
+    
     if ($("#Consumable").length) {
         var chartID = $("#Consumable").get(0).getContext("2d");
         // This will get the first returned node in the jQuery collection.
@@ -118,13 +100,20 @@
         }]
     };
 
+    var options2 = {
+        responsive: true,
+        legend: {
+            position: 'right',
+        },
+    };
+
     if ($("#OrdProd").length) {
         var chartID = $("#OrdProd").get(0).getContext("2d");
         // This will get the first returned node in the jQuery collection.
         var ctx = new Chart(chartID, {
             type: 'doughnut',
             data: data2,
-            // options: options
+            options: options
         });
     }
       
