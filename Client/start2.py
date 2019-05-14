@@ -64,38 +64,20 @@ camera = PiCamera()
 camera.resolution = (1280, 720)
 time.sleep(2)
 
-# elapsed_time = 0
 try:
-    while True:
-         # Per evitare di fare più di 20 chiamate al min
-        # if (elapsed_time < duty):
-        #     time.sleep(duty - elapsed_time)
-
-        # start_time = time.time()
-
-        # rawCapture = PiRGBArray(camera)
-        # camera.capture(rawCapture, format="bgr")
-        # frame = rawCapture.array
-
-
-        
-        # Create an in-memory stream
+    while True:        
         frame = np.empty((1280, 720, 3), dtype=np.uint8)
         camera.capture(frame, 'bgr')
 
         print("FRAME --> " , str(type(frame)))
-
-        # print("FRAME --> " , str(type(frame.tobytes())))
-        # ~ frame = cv2.flip(frame, -1)
-
-        # img_str = cv2.imencode('.jpg', frame)[1].tostring()
-        # print("BYTES --> " , str(type(img_str)))
 
         response = requests.post(vision_analyze_url,
                                  headers=headers,
                                  params=params,
                                  data=frame)
 
+        if response.status_code != 200:
+            raise Exception("NO 200 ----->>>", response)
         print(response.content)
 
 except Exception as e:
