@@ -75,8 +75,16 @@
     var options1 = {
         responsive: true,
         legend: {
-            position: false,
+            position: 'right',
         },
+        scales: {
+            xAxes: [{
+                ticks: {
+                    min: 0,
+                    max: 100
+                }
+            }]
+        }
     };
     
     if ($("#Consumable").length) {

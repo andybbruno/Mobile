@@ -101,7 +101,7 @@
       var chartID = $("#Machine-1").get(0).getContext("2d");
       // This will get the first returned node in the jQuery collection.
       var ctx = new Chart(chartID, {
-        type: 'polarArea',
+        type: 'bar',
         data: data1,
         options: options
       });
@@ -122,9 +122,9 @@
       var chartID = $("#Machine-2").get(0).getContext("2d");
       // This will get the first returned node in the jQuery collection.
       var ctx = new Chart(chartID, {
-        type: 'polarArea',
+        type: 'bar',
         data: data2,
-        options: options
+        // options: options
       });
     }
   
