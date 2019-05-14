@@ -75,9 +75,9 @@ try:
 
         rawCapture = PiRGBArray(camera)
         camera.capture(rawCapture, format="bgr")
-        frame = rawCapture.arrayx.tobytes().tostring()
+        frame = rawCapture.array.tobytes()
 
-        # print("FRAME --> " , str(frame))
+        print("FRAME --> " , str(type(frame)), str(frame))
         # ~ frame = cv2.flip(frame, -1)
 
         # img_str = cv2.imencode('.jpg', frame)[1].tostring()
