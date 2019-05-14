@@ -140,7 +140,7 @@ def get_status(ID):
         "off_time_range": mac["management"]["off_time_range"],
         "installation_date": mac["installation_date"],
     }
-    content = render_template("main-panel/infoMachine.html", *all_info)
+    content = render_template("main-panel/infoMachine.html", **all_info)
     return renderWith(content)
 
 
