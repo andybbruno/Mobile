@@ -75,7 +75,7 @@ def machinelist():
             order = "Working"
             order_badge = "success"
 
-        sat = mac["management"]["satisfaction_level"]
+        sat = mac["satisfaction_level"]
         sat_badge = None
         if sat > 0.8:
             sat_badge = "success"
@@ -128,7 +128,7 @@ def get_status(ID):
         "delta_revenue": "Zio",
         "tot_revenue": "Zio",
         "delta_satisfaction": "Zio",
-        "satisfaction": mac["management"]["satisfaction_level"],
+        "satisfaction": mac["satisfaction_level"],
         "state": order,
         "next_ops": 3,
 
