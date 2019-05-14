@@ -42,11 +42,15 @@
     var lbl_2 =  {{ lbl_2 | safe }};
 
   
-    var options = {
-      responsive: true,
-      legend: {
-        position: 'bottom',
-      }
+    var options1 = {
+        scales: {
+            xAxes: [{
+                ticks: {
+                    min: 0,
+                    max: 100
+                }
+            }]
+        }
     };
   
   
@@ -85,7 +89,7 @@
       var chartID = $("#Machine-1").get(0).getContext("2d");
       // This will get the first returned node in the jQuery collection.
       var ctx = new Chart(chartID, {
-        type: 'bar',
+        type: 'horizontalBar',
         data: data1,
         options: options
       });
@@ -106,7 +110,7 @@
       var chartID = $("#Machine-2").get(0).getContext("2d");
       // This will get the first returned node in the jQuery collection.
       var ctx = new Chart(chartID, {
-        type: 'bar',
+        type: 'horizontalBar',
         data: data2,
         options: options
       });
