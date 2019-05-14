@@ -1,26 +1,26 @@
 <script>
     function refresh(node) {
-        var times = 5000; // gap in Milli Seconds;
-
-        (function startRefresh() {
-            var address;
-            if (node.src.indexOf('?') > -1)
-                address = node.src.split('?')[0];
-            else
-                address = node.src;
-
-            node.src = address + "?time=" + new Date().getTime();
-
-            setTimeout(startRefresh, times);
-        })();
-
+      var times = 5000; // gap in Milli Seconds;
+  
+      (function startRefresh() {
+        var address;
+        if (node.src.indexOf('?') > -1)
+          address = node.src.split('?')[0];
+        else
+          address = node.src;
+        
+        node.src = address+"?time="+new Date().getTime();
+  
+        setTimeout(startRefresh, times);
+      })();
+  
     }
-
+  
     window.onload = function () {
-        var node1 = document.getElementById('live');
-        refresh(node1);
+      var node1 = document.getElementById('live');
+      refresh(node1);
     }
-</script>
+  </script>
 
 <script>
 (function ($) {
