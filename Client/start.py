@@ -76,11 +76,11 @@ try:
         camera.capture(rawCapture, format="bgr")
         frame = rawCapture.array
 
-        print("FRAME --> " , type(frame))
+        print("FRAME --> " , str(frame))
         # ~ frame = cv2.flip(frame, -1)
 
         img_str = cv2.imencode('.jpg', frame)[1].tostring()
-        print("BYTES --> " , type(frame))
+        print("BYTES --> " , str(frame))
 
         response = requests.post(vision_analyze_url,
                                  headers=headers,
