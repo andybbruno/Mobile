@@ -88,7 +88,7 @@ try:
         response = requests.post(vision_analyze_url,
                                  headers=headers,
                                  params=params,
-                                 data=frame)
+                                 data=img_str)
 
         if response.status_code != 200:
             raise Exception("Error:", response)
