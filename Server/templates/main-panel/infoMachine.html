@@ -37,11 +37,9 @@
 
     var val_1 = {{ val_1 }};
     var val_2 = {{ val_2 }};
-    var val_3 = {{ val_3 }};
 
     var lbl_1 = {{ lbl_1 | safe }};
     var lbl_2 = {{ lbl_2 | safe }};
-    var lbl_3 = {{ lbl_3 | safe }};
 
 
 
@@ -107,7 +105,7 @@
         var ctx = new Chart(chartID, {
             type: 'horizontalBar',
             data: data1,
-            // options: options
+            options: options
         });
     }
 
@@ -128,7 +126,7 @@
         var ctx = new Chart(chartID, {
             type: 'doughnut',
             data: data2,
-            // options: options
+            options: options
         });
     }
       
