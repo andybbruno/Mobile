@@ -3,7 +3,7 @@ import time
 import json
 from picamera import PiCamera
 from picamera.array import PiRGBArray
-# import cv2
+import cv2
 import os
 import random
 import png
@@ -80,8 +80,8 @@ try:
         # print("FRAME --> " , str(frame))
         # ~ frame = cv2.flip(frame, -1)
 
-        # img_str = cv2.imencode('.jpg', frame)[1].tostring()
-        # print("BYTES --> " , str(frame))
+        img_str = cv2.imencode('.jpg', frame)[1].tostring()
+        print("BYTES --> " , str(img_str))
 
         response = requests.post(vision_analyze_url,
                                  headers=headers,
