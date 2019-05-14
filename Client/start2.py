@@ -95,10 +95,10 @@ try:
         for obj in parsed['objects']:
             if (obj['object'] == 'person'):
                 people += 1
-                draw.rectangle(getRectangle(obj), outline='red', width=2)
+                draw.rectangle(getRectangle(obj), outline='rgb(255,0,0)', width=2)
 
         for face in parsed['faces']:
-            draw.rectangle(getRectangle(face), outline='green', width=2)
+            draw.rectangle(getRectangle(face), outline='rgb(0,255,0)', width=2)
 
         
         elapsed_time = time.time() - start_time
