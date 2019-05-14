@@ -80,7 +80,7 @@ try:
         frame = rawCapture.array
 
         # print("FRAME --> " , str(type(frame.tobytes())))
-        ~ frame = cv2.flip(frame, -1)
+        # frame = cv2.flip(frame, -1)
 
         img_str = cv2.imencode('.jpg', frame)[1].tostring()
         # print("BYTES --> " , str(type(img_str)))
