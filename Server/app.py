@@ -227,7 +227,7 @@ def del_machine(machineID):
         { "ID": <int> }
     """
     
-    return 'Machine deleteed' + db.machineTable.delete_one({'ID':machineID})
+    return 'Machine deleteed' + str(db.machineTable.delete_one({'ID':machineID}))
 
 
 
