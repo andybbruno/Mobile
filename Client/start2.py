@@ -67,7 +67,7 @@ time.sleep(2)
 try:
     while True:
         data = np.empty((1280, 720, 3), dtype=np.uint8)
-        camera.capture(data, 'bgr')
+        camera.capture(data, 'jpeg')
 
         print("FRAME --> ", str(type(data)))
 
@@ -75,9 +75,7 @@ try:
                                  headers=headers,
                                  params=params,
                                  data=data)
-
-        # if response.status_code != 200:
-        #     raise Exception("NO 200 ----->>>", response)
+        
         print(str(response))
 
 except Exception as e:
