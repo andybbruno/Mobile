@@ -48,6 +48,20 @@ def homepage():
 def machinelist():
     return renderWith(render_template("main-panel/listMachines.html"))
 
+@app.route('/<int:ID>/maintenance', methods=['GET'])
+def get_status(ID):
+    """
+        Renderizza la pagina con tutte le info della macchina.
+    """
+    content = render_template("main-panel/infoMachine.html",  # TODO: retrieve the real info 
+                                id=ID,
+                                info="info inutile ma sto provando")
+    return renderWith(content)
+    #machine = db.machineTable.find_one({"ID": ID})
+    #if machine:
+    #    return machine
+    #return "Machine ID not valid"
+
 
 @app.route('/logout', methods=['GET'])
 def logout():
@@ -166,17 +180,6 @@ def new_operation(machineID):
     return "Some error occurred -> " + error
 
 
-@app.route('/<int:ID>/maintenance', methods=['GET'])
-def get_status(ID):
-    """
-        Restituisce tutte le info della macchina.
-    """
-    machine = db.machineTable.find_one({"ID": ID})
-    if machine:
-        return machine
-    return "Machine ID not valid"
-
-
 @app.route('/<int:ID>/order', methods=['POST'])
 def new_order(ID):
     """
@@ -215,13 +218,6 @@ def manage():
 
 
 # ------------------------Funzioni di Test e Gesitone -------------------------
-
-def readTable(table):
-    cursor = table.find()
-    list = []
-    for document in cursor:
-        list.append(document)
-    return list
 
 
 # TODO: Da aliminare
