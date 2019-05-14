@@ -3,9 +3,10 @@ import time
 import json
 from picamera import PiCamera
 from picamera.array import PiRGBArray
-import cv2
+# import cv2
 import os
 import random
+import png
 import numpy as np
 from PIL import Image
 
@@ -74,18 +75,18 @@ try:
 
         rawCapture = PiRGBArray(camera)
         camera.capture(rawCapture, format="bgr")
-        frame = rawCapture.array
+        frame = rawCapture.array.tostring()
 
-        print("FRAME --> " , str(frame))
+        # print("FRAME --> " , str(frame))
         # ~ frame = cv2.flip(frame, -1)
 
-        img_str = cv2.imencode('.jpg', frame)[1].tostring()
-        print("BYTES --> " , str(frame))
+        # img_str = cv2.imencode('.jpg', frame)[1].tostring()
+        # print("BYTES --> " , str(frame))
 
         response = requests.post(vision_analyze_url,
                                  headers=headers,
                                  params=params,
-                                 data=img_str)
+                                 data=frame)
 
         if response.status_code != 200:
             raise Exception("Error:", response)
@@ -99,11 +100,11 @@ try:
             if (obj['object'] == 'person'):
                 people += 1
                 x, y, w, h = getRectangle(obj)
-                cv2.rectangle(frame, (x, y), (w, h), (0, 255, 0), 2)
+                # cv2.rectangle(frame, (x, y), (w, h), (0, 255, 0), 2)
 
         for face in parsed['faces']:
             x, y, w, h = getRectangle(face)
-            cv2.rectangle(frame, (x, y), (w, h), (0, 0, 255), 2)
+            # cv2.rectangle(frame, (x, y), (w, h), (0, 0, 255), 2)
 
         if(debug):
             elapsed_time = time.time() - start_time
@@ -114,9 +115,9 @@ try:
                 b, g, r = img2.split()
                 img2 = Image.merge("RGB", (r, g, b))
                 img2.show()
-            else:
-                cv2.imshow('frame', frame)
-                cv2.waitKey(30)
+            # else:
+                # cv2.imshow('frame', frame)
+                # cv2.waitKey(30)
 
         else:
             elapsed_time = time.time() - start_time
@@ -145,9 +146,11 @@ try:
 
             url_frame = ec2 + '/' + str(ID) + '/live'
             path = str(ID) + ".jpg"
-            res = cv2.resize(frame, (640,360)) 
-            cv2.imwrite(path,res)
-
+            # res = cv2.resize(frame, (640,360)) 
+            # cv2.imwrite(path,res)
+            
+            png.from_array(frame).save(path)
+            
             with open(path, 'rb') as f:
                 try:
                     requests.post(url_frame, files={"frame": f})
