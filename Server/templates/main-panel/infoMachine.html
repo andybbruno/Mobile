@@ -3,15 +3,15 @@
         var times = 5000; // gap in Milli Seconds;
 
         (function startRefresh() {
-        var address;
-        if (node.src.indexOf('?') > -1)
-            address = node.src.split('?')[0];
-        else
-            address = node.src;
-        
-        node.src = address+"?time="+new Date().getTime();
+            var address;
+            if (node.src.indexOf('?') > -1)
+                address = node.src.split('?')[0];
+            else
+                address = node.src;
 
-        setTimeout(startRefresh, times);
+            node.src = address + "?time=" + new Date().getTime();
+
+            setTimeout(startRefresh, times);
         })();
 
     }
@@ -25,20 +25,20 @@
 </script>
 
 <script>
-    (function ($) {
-        'use strict';
-        $(function () {
-            /* ChartJS
-             * -------
-             * Data and config for chartjs
-             */
+        (function ($) {
             'use strict';
+            $(function () {
+                /* ChartJS
+                 * -------
+                 * Data and config for chartjs
+                 */
+                'use strict';
 
 
-            var val_1 = {{ val_1 }
+                var val_1 = {{ val_1 }
+            };
+            var val_2 = {{ val_2 }
         };
-        var val_2 = {{ val_2 }
-    };
     var val_3 = {{ val_3 }};
 
     var lbl_1 = {{ lbl_1 | safe }};
@@ -226,12 +226,34 @@
         <div class="card">
             <div class="card-body" style="text-align: center">
                 <h4 class="card-title">Machine #{{ id }}</h4>
-                position_des: {{ position_des }}</br>
-                position_geo: {{ position_geo }}</br>
-                last_maintenance: {{ last_maintenance }}</br>
-                last_cleaning: {{ last_cleaning }}</br>
-                spegni in time range: {{ off_time_range }}</br>
-                installation_date: {{ installation_date }}</br>
+                <table class="table table-striped">
+                    <tbody>
+                        <tr>
+                            <td> position_des: </td>
+                            <td> {{ position_des }} </td>
+                        </tr>
+                        <tr>
+                            <td> position_geo: </td>
+                            <td> {{ position_geo }} </td>
+                        </tr>
+                        <tr>
+                            <td> last_maintenance: </td>
+                            <td> {{ last_maintenance }} </td>
+                        </tr>
+                        <tr>
+                            <td> last_cleaning: </td>
+                            <td> {{ last_cleaning }} </td>
+                        </tr>
+                        <tr>
+                            <td> off_time_range: </td>
+                            <td> {{ off_time_range }} </td>
+                        </tr>
+                        <tr>
+                            <td> installation_date: </td>
+                            <td> {{ installation_date }} </td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
