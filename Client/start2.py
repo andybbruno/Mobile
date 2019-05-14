@@ -127,7 +127,7 @@ try:
         url_frame = ec2 + '/' + str(ID) + '/live'
         path = str(ID) + ".jpg"
 
-        resized = img.resize((640,320), Image.ANTIALIAS)
+        resized = img.resize((640,360), Image.ANTIALIAS)
         resized.save(path)
 
         with open(path, 'rb') as f:
