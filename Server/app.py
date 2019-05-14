@@ -75,7 +75,7 @@ def machinelist():
             order = "Working"
             order_badge = "success"
 
-        sat = mac["management"]["satisfaction_level"]
+        sat = mac["satisfaction_level"]
         sat_badge = None
         if sat > 0.8:
             sat_badge = "success"
@@ -92,7 +92,7 @@ def machinelist():
             "id": mac["ID"],
             "satisfaction": sat,
             "badge_sat": sat_badge,
-            "delta_satisfaction": dSat,
+            "delta_satisfaction": "%.4f" % dSat,
             "badge_dSat": badge_dSat,
             "arrow": arrow,
             "operarion": order,
@@ -128,7 +128,7 @@ def get_status(ID):
         "delta_revenue": "Zio",
         "tot_revenue": "Zio",
         "delta_satisfaction": "Zio",
-        "satisfaction": mac["management"]["satisfaction_level"],
+        "satisfaction": mac["satisfaction_level"],
         "state": order,
         "next_ops": 3,
 
@@ -140,7 +140,7 @@ def get_status(ID):
         "off_time_range": mac["management"]["off_time_range"],
         "installation_date": mac["installation_date"],
     }
-    content = render_template("main-panel/infoMachine.html", *all_info)
+    content = render_template("main-panel/infoMachine.html", **all_info)
     return renderWith(content)
 
 
