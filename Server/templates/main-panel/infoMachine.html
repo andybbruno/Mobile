@@ -72,7 +72,7 @@
     };
 
 
-    var options2 = {
+    var options1 = {
         responsive: true,
         legend: {
             position: false,
@@ -85,7 +85,7 @@
         var ctx = new Chart(chartID, {
             type: 'horizontalBar',
             data: data1,
-            // options: options
+            options: options1
         });
     }
 
@@ -113,7 +113,7 @@
         var ctx = new Chart(chartID, {
             type: 'doughnut',
             data: data2,
-            options: options
+            options: options2
         });
     }
       
