@@ -62,7 +62,7 @@ def getRectangle(personDict):
 
 camera = PiCamera()
 camera.resolution = (1280, 720)
-time.sleep(2)
+time.sleep(0.5)
 
 elapsed_time = 0
 try:
@@ -91,25 +91,26 @@ try:
         people = 0
         faces = len(parsed['faces'])
         
-        # draw = ImageDraw.Draw(frame)
+        img = Image.open(BytesIO(frame))
+        draw = ImageDraw.Draw(img)
         
-        # for obj in parsed['objects']:
-        #     if (obj['object'] == 'person'):
-        #         people += 1
-        #         x, y, w, h = getRectangle(obj)
-        #         draw.rectangle(getRectangle(obj), outline='red', linewidth=2)
+        for obj in parsed['objects']:
+            if (obj['object'] == 'person'):
+                people += 1
+                x, y, w, h = getRectangle(obj)
+                draw.rectangle(getRectangle(obj), outline='red', linewidth=2)
 
-        # for face in parsed['faces']:
-        #     x, y, w, h = getRectangle(face)
-        #     draw.rectangle(getRectangle(obj), outline='green', linewidth=2)
+        for face in parsed['faces']:
+            x, y, w, h = getRectangle(face)
+            draw.rectangle(getRectangle(obj), outline='green', linewidth=2)
 
         
-        # elapsed_time = time.time() - start_time
+        elapsed_time = time.time() - start_time
 
-        # print("<", people, " people, ", faces,
-        #         "faces> ", elapsed_time, " seconds")
+        print("<", people, " people, ", faces,
+                "faces> ", elapsed_time, " seconds")
 
-        # url_ord = ec2 + '/' + str(ID) + '/order'
+        url_ord = ec2 + '/' + str(ID) + '/order'
 
         # trn = trans[random.randint(1, len(trans) - 1)]
         # prd = prod[random.randint(1, len(prod) - 1)]
