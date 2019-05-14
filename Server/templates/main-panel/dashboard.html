@@ -46,22 +46,6 @@
       responsive: true,
       legend: {
         position: 'bottom',
-      },
-      title: {
-        display: true,
-        text: ' '
-      },
-      scale: {
-        ticks: {
-          min: 0,
-          max: 100,
-          beginAtZero: true
-        },
-        reverse: false
-      },
-      animation: {
-        animateRotate: false,
-        animateScale: true
       }
     };
   
@@ -87,7 +71,7 @@
     ];
   
     var data1 = {
-      // labels: lbl_1,
+      labels: lbl_1,
       datasets: [{
         data: val_1,
         backgroundColor: color_1,
@@ -103,13 +87,13 @@
       var ctx = new Chart(chartID, {
         type: 'bar',
         data: data1,
-        // options: options
+        options: options
       });
     }
   
   
     var data2 = {
-      // labels: lbl_2,
+      labels: lbl_2,
       datasets: [{
         data: val_2,
         backgroundColor: color_1,
@@ -124,7 +108,7 @@
       var ctx = new Chart(chartID, {
         type: 'bar',
         data: data2,
-        // options: options
+        options: options
       });
     }
   
