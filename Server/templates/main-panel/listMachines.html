@@ -10,87 +10,15 @@
         </tr>
         </thead>
         <tbody>
-        <tr>
-            <td><a href="23823/maintenance">23823</a></td>
-            <td>TuaSo</td>
-            <td>molto happy</td>
-            <td>ci sarà un</td>
-            <td>
-                <label class="badge badge-warning">To Refill</label>
-            </td>
-        </tr>
-        <tr>
-            <td><a href="84952/maintenance">84952</a></td>
-            <td>TuaMa</td>
-            <td>molto happy</td>
-            <td>block per ogni </td>
-            <td>
-                <label class="badge badge-danger">Out of Order</label>
-            </td>
-        </tr>
-        <tr>
-            <td><a href="54352/maintenance">54352</a></td>
-            <td>TuaZi</td>
-            <td>molto happy</td>
-            <td>riga</td>
-            <td>
-                <label class="badge badge-success">working</label>
-            </td>
-        </tr>
-        <tr>
-            <td><a href="23823/maintenance">23823</a></td>
-            <td>TuaSo</td>
-            <td>molto happy</td>
-            <td>ci sarà un</td>
-            <td>
-                <label class="badge badge-warning">To Refill</label>
-            </td>
-        </tr>
-        <tr>
-            <td><a href="84952/maintenance">84952</a></td>
-            <td>TuaMa</td>
-            <td>molto happy</td>
-            <td>block per ogni </td>
-            <td>
-                <label class="badge badge-danger">Out of Order</label>
-            </td>
-        </tr>
-        <tr>
-            <td><a href="54352/maintenance">54352</a></td>
-            <td>TuaZi</td>
-            <td>molto happy</td>
-            <td>riga</td>
-            <td>
-                <label class="badge badge-success">working</label>
-            </td>
-        </tr>
-        <tr>
-            <td><a href="23823/maintenance">23823</a></td>
-            <td>TuaSo</td>
-            <td>molto happy</td>
-            <td>ci sarà un</td>
-            <td>
-                <label class="badge badge-warning">To Refill</label>
-            </td>
-        </tr>
-        <tr>
-            <td><a href="84952/maintenance">84952</a></td>
-            <td>TuaMa</td>
-            <td>molto happy</td>
-            <td>block per ogni </td>
-            <td>
-                <label class="badge badge-danger">Out of Order</label>
-            </td>
-        </tr>
-        <tr>
-            <td><a href="54352/maintenance">54352</a></td>
-            <td>TuaZi</td>
-            <td>molto happy</td>
-            <td>riga</td>
-            <td>
-                <label class="badge badge-success">working</label>
-            </td>
-        </tr>
+        {% for machine in machines %}
+            <tr>
+                <td><a href="{{ machine.id }}/maintenance">{{ machine.id }}</a></td>
+                <td>{{ machine.owner }}</td>
+                <td><label class="badge badge-{{ machine.badge_sat }}">{{ machine.satisfaction }}</label></td>
+                <td class="text-{{ machine.badge_dSat }}">{{ machine.delta_satisfaction }}<i class="mdi mdi-arrow-{{ machine.arrow }}"></i></td>
+                <td><label class="badge badge-{{ machine.badge_ops }}">{{ machine.operarion }}</label></td>
+            </tr>
+        {% endfor %}
         </tbody>
     </table>
 </div>

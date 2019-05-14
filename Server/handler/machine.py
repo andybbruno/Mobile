@@ -54,6 +54,7 @@ def new_machine(jsonReq):
         },
         "satisfaction_level": 0.5,
         "installation_date": currTime,
+        "working": True,
     }
 
     # popolare ingredienti_levels

@@ -5,7 +5,7 @@ from json_validator import Validator
 import handler
 import handler.db as db
 import json
-
+import random
 
 
 app = Flask(__name__)
@@ -43,7 +43,7 @@ def homepage():
     img2 = img1 = "/static/live/" + str(id_1) + ".jpg" 
     # img2 = "/static/live/" + str(id_2) + ".jpg" 
     
-    content = render_template("main-panel/dashboard.html",  # TODO: retrieve the real IDs 
+    content = render_template("main-panel/dashboard.html",
                             ID1=id_1,
                             ID2=id_2,
                             imgID1=img1,
@@ -51,29 +51,97 @@ def homepage():
                             val_1 = val_1,
                             val_2 = val_2,
                             lbl_1 = lbl_1,
-                            lbl_2 = lbl_2
-                            )
+                            lbl_2 = lbl_2 )
 
     return renderWith(content)
 
 
 @app.route('/machines')
 def machinelist():
-    return renderWith(render_template("main-panel/listMachines.html"))
+    
+    machines = []
+    machine_list = db.machineTable.find()
+
+    for mac in machine_list:
+        order = mach["working"]
+        order_badge = None
+        if not order:
+            order = "Out of order"
+            order_badge = "danger"
+        elif any([e > 0.5 for e in mac["maintenance"]["consumable_list"].values()])
+            order = "To refill"
+            order_badge = "warning"
+        else:
+            order = "Working"
+            order_badge = "success"
+
+        sat = mach["management"]["satisfaction_level"]
+        sat_badge = None
+        if sat > 0.8:
+            sat_badge = "success"
+        elif sat < 0.4:
+            sat_badge = "danger"
+        else
+            sat_badge = "warning"
+
+        dSat = (random.random() * 2)-1
+        badge_dSat = "danger" if dSat >=0 else "success"
+        arrow = "down" if dSat >=0 else "up"
+
+        machines.append({
+            "id": mac["ID"],
+            "satisfaction": sat,
+            "badge_sat": sat_badge,
+            "delta_satisfaction": dSat,
+            "badge_dSat": badge_dSat,
+            "arrow": arrow,
+            "operarion": order,
+            "badge_ops": order_badge,
+        })
+
+    return renderWith(render_template("main-panel/listMachines.html", machines = machines ))
 
 @app.route('/<int:ID>/maintenance', methods=['GET'])
 def get_status(ID):
     """
         Renderizza la pagina con tutte le info della macchina.
     """
-    content = render_template("main-panel/infoMachine.html",  # TODO: retrieve the real info 
-                                id=ID,
-                                info="info inutile ma sto provando")
+    machine = db.machineTable.find_one({"ID": ID})
+    if not machine:
+        return "Machine ID not valid"
+
+    order = mach["working"]
+    order_badge = None
+    if not order:
+        order = "Out of order"
+        order_badge = "danger"
+    elif any([e > 0.5 for e in mac["maintenance"]["consumable_list"].values()])
+        order = "To Refill"
+        order_badge = "warning"
+    else:
+        order = "Working"
+        order_badge = "success"
+        
+    all_info = {
+        "owner": mac["management"]["owner"],
+        "tot_owner": "Zio",
+        "delta_revenue": "Zio",
+        "tot_revenue": "Zio",
+        "delta_satisfaction": "Zio",
+        "satisfaction": mac["management"]["satisfaction_level"],
+        "state": order,
+        "next_ops": 3,
+
+        "id": mac["ID"],
+        "position_des": mac["position_des"],
+        "position_geo": mac["position_geo"],
+        "last_maintenance": mac["maintenance"]["last_maintenance"],
+        "last_cleaning": mac["maintenance"]["last_cleaning"],
+        "off_time_range": mac["management"]["off_time_range"],
+        "installation_date": mac["installation_date"],
+    }
+    content = render_template("main-panel/infoMachine.html", all_info)
     return renderWith(content)
-    #machine = db.machineTable.find_one({"ID": ID})
-    #if machine:
-    #    return machine
-    #return "Machine ID not valid"
 
 
 @app.route('/logout', methods=['GET'])

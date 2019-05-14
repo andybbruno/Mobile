@@ -42,7 +42,7 @@
       var inp = document.getElementById("nav-input-id");
       //TODO: controllo se non inserisce numeri
       if (x == 13 && inp.value != "")
-        location.href = inp.value + "/maintenance";
+        location.href = "./" + inp.value + "/maintenance";
       //TODO modificare il css se c'è un errore
       // border-bottom: 2px solid #ff6258;
     }
@@ -151,7 +151,7 @@
             <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="UserDropdown">
               <div class="dropdown-header text-center">
                 <img class="img-md rounded-circle" src="/static/images/faces/face8.jpg" alt="Profile image">
-                <p class="mb-1 mt-3 font-weight-semibold">{ username }</p>
+                <p class="mb-1 mt-3 font-weight-semibold">{{ username }}</p>
                 <p class="font-weight-light text-muted mb-0">scemo_chi_legge@gmail.com</p>
               </div>
               <a class="dropdown-item">My Profile <span class="badge badge-pill badge-danger">1</span><i
@@ -180,7 +180,7 @@
                 <div class="dot-indicator bg-success"></div>
               </div>
               <div class="text-wrapper">
-                <p class="profile-name">{ username}</p>
+                <p class="profile-name">{{ username }}</p>
                 <p class="designation">Premium user</p>
               </div>
             </a>

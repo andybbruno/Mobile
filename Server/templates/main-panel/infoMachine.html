@@ -9,12 +9,12 @@
             <div class="float-right">
                 <p class="mb-0 text-right">Owner</p>
                 <div class="fluid-container">
-                <h3 class="font-weight-medium text-right mb-0">TuaMa</h3>
+                <h3 class="font-weight-medium text-right mb-0">{{ owner }}</h3>
                 </div>
             </div>
             </div>
             <p class="text-muted mt-3 mb-0">
-            <i class="mdi mdi-bookmark-outline mr-1" aria-hidden="true"></i> numero di macchientte torali dell'azienda
+             <i class="mdi mdi-bookmark-outline mr-1" aria-hidden="true"></i> {{ tot_owner }}
             </p>
         </div>
         </div>
@@ -29,13 +29,12 @@
             <div class="float-right">
                 <p class="mb-0 text-right">Total Revenue</p>
                 <div class="fluid-container">
-                <h3 class="font-weight-medium text-right mb-0">$1,650</h3>
+                <h3 class="font-weight-medium text-right mb-0">$ {{ delta_revenue }}</h3>
                 </div>
             </div>
             </div>
             <p class="text-muted mt-3 mb-0">
-            <i class="mdi mdi-alert-octagon mr-1" aria-hidden="true"></i> 65% lower growth
-            stat presa dalle transazioni
+            <i class="mdi mdi-alert-octagon mr-1" aria-hidden="true"></i> € {{ tot_revenue }}
             </p>
         </div>
         </div>
@@ -50,12 +49,12 @@
             <div class="float-right">
                 <p class="mb-0 text-right">Satisfaction Level</p>
                 <div class="fluid-container">
-                <h3 class="font-weight-medium text-right mb-0">Variazione rispetto ala settimana</h3>
+                <h3 class="font-weight-medium text-right mb-0">{{ delta_satisfaction }}</h3>
                 </div>
             </div>
             </div>
             <p class="text-muted mt-3 mb-0">
-            <i class="mdi mdi-calendar mr-1" aria-hidden="true"></i> soddisfazione generale
+            <i class="mdi mdi-calendar mr-1" aria-hidden="true"></i> {{ satisfaction }}
             </p>
         </div>
         </div>
@@ -70,12 +69,12 @@
             <div class="float-right">
                 <p class="mb-0 text-right">State</p>
                 <div class="fluid-container">
-                <h3 class="font-weight-medium text-right mb-0">Out of Order</h3>
+                <h3 class="font-weight-medium text-right mb-0">{{ state }}</h3>
                 </div>
             </div>
             </div>
             <p class="text-muted mt-3 mb-0">
-            <i class="mdi mdi-reload mr-1" aria-hidden="true"></i> Manutenzione prevista il 9
+            <i class="mdi mdi-reload mr-1" aria-hidden="true"></i> Manutenzione prevista il {{ next_ops }}
             </p>
         </div>
         </div>
@@ -86,13 +85,12 @@
         <div class="card">
         <div class="card-body" style="text-align: center">
             <h4 class="card-title">Machine #{{ id }}</h4>
-            position_des</br>
-            position_geo</br>
-            last_maintenance</br>
-            last_cleaning</br>
-            spegni in time range</br>
-            installation_date</br>
-            {{ info }}
+            position_des: {{ position_des }}</br>
+            position_geo: {{ position_geo }}</br>
+            last_maintenance: {{ last_maintenance }}</br>
+            last_cleaning: {{ last_cleaning }}</br>
+            spegni in time range: {{ off_time_range }}</br>
+            installation_date: {{ installation_date }}</br>
         </div>
         </div>
     </div>
