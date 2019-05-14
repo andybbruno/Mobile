@@ -34,11 +34,11 @@ def homepage():
 
     tmp_1 = db.machineTable.find_one({'ID':id_1})['maintenance']['consumable_list']
     lbl_1 = list(tmp_1.keys())
-    val_1 = list(tmp_1.values()) * 100
+    val_1 = list(tmp_1.values())
 
     tmp_2 = db.machineTable.find_one({'ID':id_2})['maintenance']['consumable_list']
     lbl_2 = list(tmp_2.keys())
-    val_2 = list(tmp_2.values()) * 100
+    val_2 = list(tmp_2.values())
 
     img2 = img1 = "/static/live/" + str(id_1) + ".jpg" 
     # img2 = "/static/live/" + str(id_2) + ".jpg" 
@@ -92,7 +92,7 @@ def machinelist():
             "id": mac["ID"],
             "satisfaction": sat,
             "badge_sat": sat_badge,
-            "delta_satisfaction": dSat,
+            "delta_satisfaction": "%.4f" % dSat,
             "badge_dSat": badge_dSat,
             "arrow": arrow,
             "operarion": order,
