@@ -63,25 +63,25 @@ def machinelist():
     machine_list = db.machineTable.find()
 
     for mac in machine_list:
-        order = mach["working"]
+        order = mac["working"]
         order_badge = None
         if not order:
             order = "Out of order"
             order_badge = "danger"
-        elif any([e > 0.5 for e in mac["maintenance"]["consumable_list"].values()])
+        elif any([e > 0.5 for e in mac["maintenance"]["consumable_list"].values()]):
             order = "To refill"
             order_badge = "warning"
         else:
             order = "Working"
             order_badge = "success"
 
-        sat = mach["management"]["satisfaction_level"]
+        sat = mac["management"]["satisfaction_level"]
         sat_badge = None
         if sat > 0.8:
             sat_badge = "success"
         elif sat < 0.4:
             sat_badge = "danger"
-        else
+        else:
             sat_badge = "warning"
 
         dSat = (random.random() * 2)-1
@@ -106,11 +106,11 @@ def get_status(ID):
     """
         Renderizza la pagina con tutte le info della macchina.
     """
-    machine = db.machineTable.find_one({"ID": ID})
-    if not machine:
+    mac = db.machineTable.find_one({"ID": ID})
+    if not mac:
         return "Machine ID not valid"
 
-    order = mach["working"]
+    order = mac["working"]
     order_badge = None
     if not order:
         order = "Out of order"
@@ -140,7 +140,7 @@ def get_status(ID):
         "off_time_range": mac["management"]["off_time_range"],
         "installation_date": mac["installation_date"],
     }
-    content = render_template("main-panel/infoMachine.html", all_info)
+    content = render_template("main-panel/infoMachine.html", *all_info)
     return renderWith(content)
 
 
