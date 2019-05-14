@@ -64,14 +64,14 @@ camera = PiCamera()
 camera.resolution = (1280, 720)
 time.sleep(2)
 
-elapsed_time = 0
+# elapsed_time = 0
 try:
     while True:
          # Per evitare di fare più di 20 chiamate al min
-        if (elapsed_time < duty):
-            time.sleep(duty - elapsed_time)
+        # if (elapsed_time < duty):
+        #     time.sleep(duty - elapsed_time)
 
-        start_time = time.time()
+        # start_time = time.time()
 
         # rawCapture = PiRGBArray(camera)
         # camera.capture(rawCapture, format="bgr")
