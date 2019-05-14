@@ -143,6 +143,7 @@ def get_status(ID):
         "next_ops": 3,
 
         "id": mac["ID"],
+        "imgID": "/static/live/" + str(ID) + ".jpg",
         "position_des": mac["position_des"],
         "position_geo": mac["position_geo"],
         "last_maintenance": datetime.fromtimestamp(mac["maintenance"]["last_maintenance"]),
