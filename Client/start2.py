@@ -13,7 +13,7 @@ from io import BytesIO
 
 
 # Duty cycle
-duty = 5
+duty = 3
 
 # Machine ID
 ID = 11222
@@ -95,12 +95,14 @@ try:
         draw = ImageDraw.Draw(img)
         
         for obj in parsed['objects']:
+            print(obj)
             if (obj['object'] == 'person'):
                 people += 1
                 x, y, w, h = getRectangle(obj)
                 draw.rectangle(getRectangle(obj), outline='red', linewidth=2)
 
         for face in parsed['faces']:
+            print(face)
             x, y, w, h = getRectangle(face)
             draw.rectangle(getRectangle(obj), outline='green', linewidth=2)
 
