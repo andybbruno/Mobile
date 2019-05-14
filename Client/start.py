@@ -102,11 +102,11 @@ try:
             if (obj['object'] == 'person'):
                 people += 1
                 x, y, w, h = getRectangle(obj)
-                cv2.rectangle(frame, (x, y), (w, h), (0, 255, 0), 2)
+                cv2.rectangle(frame, (x, y), (w, h), (0, 0, 255), 2)
 
         for face in parsed['faces']:
             x, y, w, h = getRectangle(face)
-            cv2.rectangle(frame, (x, y), (w, h), (0, 0, 255), 2)
+            cv2.rectangle(frame, (x, y), (w, h), (0, 255, 0), 2)
 
         # if(debug):
         #     elapsed_time = time.time() - start_time
