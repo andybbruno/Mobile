@@ -92,8 +92,8 @@ def machinelist():
         machines.append({
             "id": mac["ID"],
             "owner": mac["management"]["owner"],
-            "satisfaction": sat,
-            "badge_sat": "%.4f" % sat_badge,
+            "satisfaction": "%.4f" % sat,
+            "badge_sat":sat_badge,
             "delta_satisfaction": "%.4f" % dSat,
             "badge_dSat": badge_dSat,
             "arrow": arrow,
