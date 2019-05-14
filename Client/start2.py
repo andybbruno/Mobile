@@ -85,60 +85,61 @@ try:
         if response.status_code != 200:
             raise Exception("Error:", response)
 
+        print(response.content)
         parsed = response.json()
         
         people = 0
         faces = len(parsed['faces'])
         
-        draw = ImageDraw.Draw(frame)
+        # draw = ImageDraw.Draw(frame)
         
-        for obj in parsed['objects']:
-            if (obj['object'] == 'person'):
-                people += 1
-                x, y, w, h = getRectangle(obj)
-                draw.rectangle(getRectangle(obj), outline='red', linewidth=2)
+        # for obj in parsed['objects']:
+        #     if (obj['object'] == 'person'):
+        #         people += 1
+        #         x, y, w, h = getRectangle(obj)
+        #         draw.rectangle(getRectangle(obj), outline='red', linewidth=2)
 
-        for face in parsed['faces']:
-            x, y, w, h = getRectangle(face)
-            draw.rectangle(getRectangle(obj), outline='green', linewidth=2)
-
-        
-        elapsed_time = time.time() - start_time
-
-        print("<", people, " people, ", faces,
-                "faces> ", elapsed_time, " seconds")
-
-        url_ord = ec2 + '/' + str(ID) + '/order'
-
-        trn = trans[random.randint(1, len(trans) - 1)]
-        prd = prod[random.randint(1, len(prod) - 1)]
-
-        # TODO: add products levels
-        tmp = {"transaction_type": trn,
-                "product": prd,
-                "satisfaction": random.random(),
-                "people_detected": people,
-                "face_recognised": faces
-                }
-
-        try:
-            requests.post(url_ord, json=json.dumps(tmp))
-        except Exception as e:
-            print('Error:' , e)
-
-
-        url_frame = ec2 + '/' + str(ID) + '/live'
-        path = str(ID) + ".jpg"
+        # for face in parsed['faces']:
+        #     x, y, w, h = getRectangle(face)
+        #     draw.rectangle(getRectangle(obj), outline='green', linewidth=2)
 
         
-        im = Image.fromarray(frame)
-        im.save(path)
+        # elapsed_time = time.time() - start_time
+
+        # print("<", people, " people, ", faces,
+        #         "faces> ", elapsed_time, " seconds")
+
+        # url_ord = ec2 + '/' + str(ID) + '/order'
+
+        # trn = trans[random.randint(1, len(trans) - 1)]
+        # prd = prod[random.randint(1, len(prod) - 1)]
+
+        # # TODO: add products levels
+        # tmp = {"transaction_type": trn,
+        #         "product": prd,
+        #         "satisfaction": random.random(),
+        #         "people_detected": people,
+        #         "face_recognised": faces
+        #         }
+
+        # try:
+        #     requests.post(url_ord, json=json.dumps(tmp))
+        # except Exception as e:
+        #     print('Error:' , e)
+
+
+        # url_frame = ec2 + '/' + str(ID) + '/live'
+        # path = str(ID) + ".jpg"
+
+
+        # im = Image.fromarray(frame)
+        # im.save(path)
         
-        with open(path, 'rb') as f:
-            try:
-                requests.post(url_frame, files={"frame": f})
-            except Exception as e:
-                print('Error:' , e)
+        # with open(path, 'rb') as f:
+        #     try:
+        #         requests.post(url_frame, files={"frame": f})
+        #     except Exception as e:
+        #         print('Error:' , e)
         
 
 except Exception as e:
