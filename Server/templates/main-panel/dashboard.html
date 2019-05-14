@@ -41,18 +41,20 @@
     var lbl_1 =  {{ lbl_1 | safe }};
     var lbl_2 =  {{ lbl_2 | safe }};
 
-  
+    
     var options = {
-        scales: {
-            xAxes: [{
-                ticks: {
-                    min: 0,
-                    max: 100
-                }
-            }]
+      legend: {
+        display:false
+      },
+      scales: {
+          xAxes: [{
+              ticks: {
+                  min: 0,
+                  max: 100
+              }
+          }]
         }
     };
-  
   
     var color_1 = [
       'rgba(255, 0, 0, 0.7)',
