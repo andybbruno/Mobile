@@ -75,13 +75,13 @@ try:
 
         rawCapture = PiRGBArray(camera)
         camera.capture(rawCapture, format="bgr")
-        frame = rawCapture.array.tostring()
+        frame = rawCapture.arrayx.tobytes().tostring()
 
         # print("FRAME --> " , str(frame))
         # ~ frame = cv2.flip(frame, -1)
 
-        img_str = cv2.imencode('.jpg', frame)[1].tostring()
-        print("BYTES --> " , str(img_str))
+        # img_str = cv2.imencode('.jpg', frame)[1].tostring()
+        # print("BYTES --> " , str(img_str))
 
         response = requests.post(vision_analyze_url,
                                  headers=headers,
