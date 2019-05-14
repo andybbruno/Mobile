@@ -9,6 +9,7 @@ import random
 import png
 import numpy as np
 from PIL import Image
+from io import BytesIO
 
 
 # Duty cycle
@@ -77,8 +78,11 @@ try:
         # frame = rawCapture.array
 
 
-        output = np.empty((1280, 720, 3), dtype=np.uint8)
-        frame = camera.capture(output, 'rgb')
+        
+        # Create an in-memory stream
+        frame = BytesIO()
+        camera.capture(frame, 'jpeg')
+
         print("FRAME --> " , str(type(frame)))
 
         # print("FRAME --> " , str(type(frame.tobytes())))
