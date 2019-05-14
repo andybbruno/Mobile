@@ -80,8 +80,8 @@ try:
 
         
         # Create an in-memory stream
-        frame = BytesIO()
-        camera.capture(frame, 'jpeg')
+        frame = np.empty((1280, 720, 3), dtype=np.uint8)
+        camera.capture(frame, 'bgr')
 
         print("FRAME --> " , str(type(frame)))
 
