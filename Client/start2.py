@@ -93,13 +93,11 @@ try:
         draw = ImageDraw.Draw(img)
         
         for obj in parsed['objects']:
-            print(obj)
             if (obj['object'] == 'person'):
                 people += 1
                 draw.rectangle(getRectangle(obj), outline='red')
 
         for face in parsed['faces']:
-            print(face)
             draw.rectangle(getRectangle(face), outline='green')
 
         
@@ -131,8 +129,8 @@ try:
         path = str(ID) + ".jpg"
 
 
-        im = Image.fromarray(draw)
-        im.save(path)
+        
+        img.save(path)
         
         with open(path, 'rb') as f:
             try:
