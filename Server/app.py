@@ -141,6 +141,7 @@ def get_status(ID):
         "installation_date": mac["installation_date"],
     }
     content = render_template("main-panel/infoMachine.html", *all_info)
+    
     return renderWith(content)
 
 
