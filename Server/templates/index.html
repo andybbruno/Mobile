@@ -13,16 +13,12 @@
   <link rel="stylesheet" href="/static/vendors/iconfonts/flag-icon-css/css/flag-icon.min.css">
   <link rel="stylesheet" href="/static/vendors/css/vendor.bundle.base.css">
   <link rel="stylesheet" href="/static/vendors/css/vendor.bundle.addons.css">
-  <!-- endinject -->
-  <!-- plugin css for this page -->
-  <!-- End plugin css for this page -->
-  <!-- inject:css -->
   <link rel="stylesheet" href="/static/css/shared/style.css">
-  <!-- endinject -->
-  <!-- Layout styles -->
   <link rel="stylesheet" href="/static/css/demo_1/style.css">
-  <!-- End Layout styles -->
   <link rel="shortcut icon" href="/static/images/favicon.png" />
+  <script src="/static/vendors/js/vendor.bundle.base.js"></script>
+  <script src="/static/vendors/js/vendor.bundle.addons.js"></script>
+  <script src="/static/js/shared/off-canvas.js"></script>
   <style>
     #nav-input input {
       border: 0;
@@ -35,9 +31,9 @@
       color: rgba(255, 255, 255, 0.8);
     }
 
-    #nav-input input:focus{
-        border-bottom: 2px solid rgba(255, 255, 255, 1);
-        color: #fff
+    #nav-input input:focus {
+      border-bottom: 2px solid rgba(255, 255, 255, 1);
+      color: #fff
     }
   </style>
   <script>
@@ -45,8 +41,8 @@
       var x = event.charCode || event.keyCode;
       var inp = document.getElementById("nav-input-id");
       //TODO: controllo se non inserisce numeri
-      if(x == 13 && inp.value != "")
-        location.href = inp.value+"/maintenance";
+      if (x == 13 && inp.value != "")
+        location.href = inp.value + "/maintenance";
       //TODO modificare il css se c'è un errore
       // border-bottom: 2px solid #ff6258;
     }
@@ -267,11 +263,5 @@
     <!-- page-body-wrapper ends -->
   </div>
 </body>
-
-<script src="/static/vendors/js/vendor.bundle.base.js"></script>
-<script src="/static/vendors/js/vendor.bundle.addons.js"></script>
-<script src="/static/js/shared/off-canvas.js"></script>
-<script src="/static/js/dashboard.js"></script>
-
 
 </html>

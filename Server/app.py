@@ -20,7 +20,7 @@ def renderWith(renderedContent):
     if ('username' in session) and ('logged' in session):
         return render_template('index.html',
                                 username = session['username'],
-                                content = renderedContent )
+                                content = renderedContent)
     else:
         return redirect('/login')
 
@@ -35,11 +35,19 @@ def homepage():
     img2 = img1 = "/static/live/" + str(id_1) + ".jpg" 
     # img2 = "/static/live/" + str(id_2) + ".jpg" 
 
-    content = render_template("main-panel/test.html",  # TODO: retrieve the real IDs 
+    val1 = [80, 32, 45, 14, 52, 29, 96]
+    val2 = [12, 42, 75, 23, 78, 32, 67]
+    lbl = ['bicchiere', 'palettina', 'caffe', 'zucchero', 'latte', 'te', 'cioccolato']
+    
+    content = render_template("main-panel/dashboard.html",  # TODO: retrieve the real IDs 
                             ID1=id_1,
                             ID2=id_2,
                             imgID1=img1,
-                            imgID2=img2 )
+                            imgID2=img2,
+                            val_1 = val1,
+                            val_2 = val2,
+                            lbl = lbl
+                            )
 
     return renderWith(content)
 
