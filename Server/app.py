@@ -28,25 +28,30 @@ def renderWith(renderedContent):
 def homepage():
     id = db.machineTable.distinct('ID')
 
-    id_1 = 11222
-    # id_1 = id[0]
+    id_1 = id[0]
     id_2 = id[1]
     
+
+    tmp_1 = db.machineTable.find_one({'ID':id_1})['maintenance']['consumable_list']
+    lbl_1 = list(tmp_1.keys())
+    val_1 = list(tmp_1.values())
+
+    tmp_2 = db.machineTable.find_one({'ID':id_2})['maintenance']['consumable_list']
+    lbl_2 = list(tmp_2.keys())
+    val_2 = list(tmp_2.values())
+
     img2 = img1 = "/static/live/" + str(id_1) + ".jpg" 
     # img2 = "/static/live/" + str(id_2) + ".jpg" 
-
-    val1 = [80, 32, 45, 14, 52, 29, 96]
-    val2 = [12, 42, 75, 23, 78, 32, 67]
-    lbl = ['bicchiere', 'palettina', 'caffe', 'zucchero', 'latte', 'te', 'cioccolato']
     
     content = render_template("main-panel/dashboard.html",  # TODO: retrieve the real IDs 
                             ID1=id_1,
                             ID2=id_2,
                             imgID1=img1,
                             imgID2=img2,
-                            val_1 = val1,
-                            val_2 = val2,
-                            lbl = lbl
+                            val_1 = val_1,
+                            val_2 = val_2,
+                            lbl_1 = lbl_1,
+                            lbl_2 = lbl_2
                             )
 
     return renderWith(content)
