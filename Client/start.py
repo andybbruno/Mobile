@@ -12,7 +12,7 @@ from PIL import Image
 
 
 # Duty cycle
-duty = 5 
+duty = 5
 
 # Machine ID
 ID = 11222
@@ -67,6 +67,8 @@ elapsed_time = 0
 try:
     while True:
 
+        print(elapsed_time)
+
         # Per evitare di fare più di 20 chiamate al min
         if (elapsed_time < duty):
             time.sleep(duty - elapsed_time)
@@ -77,11 +79,11 @@ try:
         camera.capture(rawCapture, format="bgr")
         frame = rawCapture.array
 
-        print("FRAME --> " , str(type(frame.tobytes())))
-        # ~ frame = cv2.flip(frame, -1)
+        # print("FRAME --> " , str(type(frame.tobytes())))
+        ~ frame = cv2.flip(frame, -1)
 
         img_str = cv2.imencode('.jpg', frame)[1].tostring()
-        print("BYTES --> " , str(type(img_str)))
+        # print("BYTES --> " , str(type(img_str)))
 
         response = requests.post(vision_analyze_url,
                                  headers=headers,
@@ -100,30 +102,29 @@ try:
             if (obj['object'] == 'person'):
                 people += 1
                 x, y, w, h = getRectangle(obj)
-                # cv2.rectangle(frame, (x, y), (w, h), (0, 255, 0), 2)
+                cv2.rectangle(frame, (x, y), (w, h), (0, 255, 0), 2)
 
         for face in parsed['faces']:
             x, y, w, h = getRectangle(face)
-            # cv2.rectangle(frame, (x, y), (w, h), (0, 0, 255), 2)
+            cv2.rectangle(frame, (x, y), (w, h), (0, 0, 255), 2)
 
-        if(debug):
-            elapsed_time = time.time() - start_time
-            print("<", people, " people, ", faces,
-                  " faces> ", elapsed_time, " seconds")
-            if(ssh):
-                img2 = Image.fromarray(frame, 'RGB')
-                b, g, r = img2.split()
-                img2 = Image.merge("RGB", (r, g, b))
-                img2.show()
-            # else:
-                # cv2.imshow('frame', frame)
-                # cv2.waitKey(30)
+        # if(debug):
+        #     elapsed_time = time.time() - start_time
+        #     print("<", people, " people, ", faces,
+        #           " faces> ", elapsed_time, " seconds")
+        #     if(ssh):
+        #         img2 = Image.fromarray(frame, 'RGB')
+        #         b, g, r = img2.split()
+        #         img2 = Image.merge("RGB", (r, g, b))
+        #         img2.show()
+        #     else:
+        #         cv2.imshow('frame', frame)
+        #         cv2.waitKey(30)
 
         else:
             elapsed_time = time.time() - start_time
 
-            print("<", people, " people, ", faces,
-                  "faces> ", elapsed_time, " seconds")
+            print("<", people, " people, ", faces, "faces> ")
 
             url_ord = ec2 + '/' + str(ID) + '/order'
 
@@ -146,11 +147,9 @@ try:
 
             url_frame = ec2 + '/' + str(ID) + '/live'
             path = str(ID) + ".jpg"
-            # res = cv2.resize(frame, (640,360)) 
-            # cv2.imwrite(path,res)
-            
-            png.from_array(frame).save(path)
-            
+            res = cv2.resize(frame, (640,360)) 
+            cv2.imwrite(path,res)
+                        
             with open(path, 'rb') as f:
                 try:
                     requests.post(url_frame, files={"frame": f})

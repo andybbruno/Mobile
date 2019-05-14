@@ -65,15 +65,17 @@ time.sleep(0.5)
 elapsed_time = 0
 try:
     while True:
+
+        print(elapsed_time)
+
         # Per evitare di fare più di 20 chiamate al min
         if (elapsed_time < duty):
             time.sleep(duty - elapsed_time)
-        
+
         start_time = time.time()
 
         frame = np.empty((1280, 720, 3), dtype=np.uint8)
         camera.capture(frame, format='jpeg')
-
 
         response = requests.post(vision_analyze_url,
                                  headers=headers,
@@ -83,28 +85,26 @@ try:
         if response.status_code != 200:
             raise Exception("Error:", response)
 
-        print(response.content)
         parsed = response.json()
-        
+
         people = 0
         faces = len(parsed['faces'])
-        
+
         img = Image.open(BytesIO(frame))
         draw = ImageDraw.Draw(img)
-        
+
         for obj in parsed['objects']:
             if (obj['object'] == 'person'):
                 people += 1
-                draw.rectangle(getRectangle(obj), outline='rgb(255,0,0)', width=2)
+                draw.rectangle(getRectangle(
+                    obj), outline='rgb(255,0,0)', width=2)
 
         for face in parsed['faces']:
             draw.rectangle(getRectangle(face), outline='rgb(0,255,0)', width=2)
 
-        
         elapsed_time = time.time() - start_time
 
-        print("<", people, " people, ", faces,
-                "faces> ", elapsed_time, " seconds")
+        print("<", people, " people, ", faces, "faces> ")
 
         url_ord = ec2 + '/' + str(ID) + '/order'
 
@@ -113,31 +113,28 @@ try:
 
         # TODO: add products levels
         tmp = {"transaction_type": trn,
-                "product": prd,
-                "satisfaction": random.random(),
-                "people_detected": people,
-                "face_recognised": faces
-                }
+               "product": prd,
+               "satisfaction": random.random(),
+               "people_detected": people,
+               "face_recognised": faces
+               }
 
         try:
             requests.post(url_ord, json=json.dumps(tmp))
         except Exception as e:
-            print('Error:' , e)
-
+            print('Error:', e)
 
         url_frame = ec2 + '/' + str(ID) + '/live'
         path = str(ID) + ".jpg"
 
-
-        
         img.save(path)
-        
+
         with open(path, 'rb') as f:
             try:
                 requests.post(url_frame, files={"frame": f})
             except Exception as e:
-                print('Error:' , e)
-        
+                print('Error:', e)
+
 
 except Exception as e:
     print('Error:', e)
