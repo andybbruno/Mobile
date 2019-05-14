@@ -6,6 +6,7 @@ import handler
 import handler.db as db
 import json
 import random
+from datetime import datetime
 
 
 app = Flask(__name__)
@@ -68,7 +69,7 @@ def machinelist():
         if not order:
             order = "Out of order"
             order_badge = "danger"
-        elif any([e > 0.5 for e in mac["maintenance"]["consumable_list"].values()]):
+        elif any([e > 0.2 for e in mac["maintenance"]["consumable_list"].values()]):
             order = "To refill"
             order_badge = "warning"
         else:
@@ -90,8 +91,9 @@ def machinelist():
 
         machines.append({
             "id": mac["ID"],
+            "owner": mac["management"]["owner"],
             "satisfaction": sat,
-            "badge_sat": sat_badge,
+            "badge_sat": "%.4f" % sat_badge,
             "delta_satisfaction": "%.4f" % dSat,
             "badge_dSat": badge_dSat,
             "arrow": arrow,
@@ -115,12 +117,20 @@ def get_status(ID):
     if not order:
         order = "Out of order"
         order_badge = "danger"
-    elif any([e > 0.5 for e in mac["maintenance"]["consumable_list"].values()]):
+    elif any([e > 0.2 for e in mac["maintenance"]["consumable_list"].values()]):
         order = "To Refill"
         order_badge = "warning"
     else:
         order = "Working"
         order_badge = "success"
+
+    tmp_1 = db.machineTable.find_one({'ID': ID})['maintenance']['consumable_list']
+    lbl_1 = list(tmp_1.keys())
+    val_1 = list(tmp_1.values())
+
+    tmp_2 = db.machineTable.find_one({'ID': ID})['management']['count_orders']
+    lbl_2 = list(tmp_2.keys())
+    val_2 = list(tmp_2.values())
         
     all_info = {
         "owner": mac["management"]["owner"],
@@ -128,17 +138,23 @@ def get_status(ID):
         "delta_revenue": "Zio",
         "tot_revenue": "Zio",
         "delta_satisfaction": "Zio",
-        "satisfaction": mac["satisfaction_level"],
+        "satisfaction": "%.4f" % mac["satisfaction_level"],
         "state": order,
         "next_ops": 3,
 
         "id": mac["ID"],
         "position_des": mac["position_des"],
         "position_geo": mac["position_geo"],
-        "last_maintenance": mac["maintenance"]["last_maintenance"],
-        "last_cleaning": mac["maintenance"]["last_cleaning"],
+        "last_maintenance": datetime.fromtimestamp(mac["maintenance"]["last_maintenance"]),
+        "last_cleaning": datetime.fromtimestamp(mac["maintenance"]["last_cleaning"]),
         "off_time_range": mac["management"]["off_time_range"],
-        "installation_date": mac["installation_date"],
+        "installation_date": datetime.fromtimestamp(mac["installation_date"]),
+
+        #grafico consumabili
+        "val_1": val_1,
+        "lbl_1": lbl_1,
+        "val_2": val_2,
+        "lbl_2": lbl_2,
     }
     content = render_template("main-panel/infoMachine.html", **all_info)
     return renderWith(content)

@@ -14,7 +14,7 @@
             <tr>
                 <td><a href="{{ machine.id }}/maintenance">{{ machine.id }}</a></td>
                 <td>{{ machine.owner }}</td>
-                <td><label class="badge badge-{{ machine.badge_sat }}">{{ machine.satisfaction }}</label></td>
+                <td class="text-{{ machine.badge_sat }}">{{ machine.satisfaction }}</td>
                 <td class="text-{{ machine.badge_dSat }}">{{ machine.delta_satisfaction }}<i class="mdi mdi-arrow-{{ machine.arrow }}"></i></td>
                 <td><label class="badge badge-{{ machine.badge_ops }}">{{ machine.operarion }}</label></td>
             </tr>
