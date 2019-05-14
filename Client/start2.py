@@ -61,7 +61,7 @@ def getRectangle(personDict):
 
 camera = PiCamera()
 camera.resolution = (1280, 720)
-time.sleep(0.1)
+time.sleep(2)
 
 elapsed_time = 0
 try:
