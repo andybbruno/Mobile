@@ -76,9 +76,9 @@ try:
                                  params=params,
                                  data=data)
 
-        if response.status_code != 200:
-            raise Exception("NO 200 ----->>>", response)
-        print(response.content)
+        # if response.status_code != 200:
+        #     raise Exception("NO 200 ----->>>", response)
+        print(str(response))
 
 except Exception as e:
     print('Error:', e)
