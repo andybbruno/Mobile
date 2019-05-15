@@ -15,12 +15,12 @@ all_consumable_S = Schema({
     Optional('palettina'): And(Or(float, int), lambda x: x > 0 and x < 100),
     Optional('caffe'): And(Or(float, int), lambda x: x > 0 and x < 100),
     Optional('zucchero'): And(Or(float, int), lambda x: x > 0 and x < 100),
-    Optional('te concentrato'): And(Or(float, int), lambda x: x > 0 and x < 100),
-    Optional('cioccolato concentrato'): And(Or(float, int), lambda x: x > 0 and x < 100),
+    Optional('te'): And(Or(float, int), lambda x: x > 0 and x < 100),
+    Optional('cioccolato'): And(Or(float, int), lambda x: x > 0 and x < 100),
 })
 
 all_consumable_L = ("bicchiere", "palettina", "caffe", "zucchero",
-                    "latte", "te concentrato", "cioccolato concentrato")
+                    "latte", "te", "cioccolato")
 
 possible_transaction = ("rfid", "cash", "app")
 possible_operation = ("refill", "cleaning", "repair", "standard check")
