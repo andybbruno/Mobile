@@ -1,0 +1,277 @@
+<script>
+    function refresh(node) {
+      var times = 5000; // gap in Milli Seconds;
+  
+      (function startRefresh() {
+        var address;
+        if (node.src.indexOf('?') > -1)
+          address = node.src.split('?')[0];
+        else
+          address = node.src;
+        
+        node.src = address+"?time="+new Date().getTime();
+  
+        setTimeout(startRefresh, times);
+      })();
+  
+    }
+  
+    window.onload = function () {
+      var node1 = document.getElementById('live');
+      refresh(node1);
+    }
+</script>
+
+<script>
+(function ($) {
+    'use strict';
+    $(function () {
+        /* ChartJS
+            * -------
+            * Data and config for chartjs
+            */
+        'use strict';
+
+
+    var val_1 = {{ val_1 }};
+    var val_2 = {{ val_2 }};
+
+    var lbl_1 = {{ lbl_1 | safe }};
+    var lbl_2 = {{ lbl_2 | safe }};
+
+
+
+    var color_1 = [
+        'rgba(255, 0, 0, 0.7)',
+        'rgba(255, 165, 0, 0.7)',
+        'rgba(255, 230, 0, 0.7)',
+        'rgba(0, 180, 0, 0.7)',
+        'rgba(90, 200, 255, 0.7)',
+        'rgba(0, 0, 255, 0.7)',
+        'rgba(238, 130, 238, 0.7)'
+    ];
+
+    var color_2 = [
+        'rgba(255, 0, 0, 1)',
+        'rgba(255, 165, 0, 1)',
+        'rgba(255, 230, 0, 1)',
+        'rgba(0, 180, 0, 1)',
+        'rgba(90, 200, 255, 1)',
+        'rgba(0, 0, 255, 1)',
+        'rgba(238, 130, 238, 1)'
+    ];
+
+    var data1 = {
+        labels: lbl_1,
+        datasets: [{
+            data: val_1,
+            backgroundColor: color_1,
+            borderColor: '#fff',
+            borderWidth: 2
+        }]
+    };
+
+
+    var options1 = {
+      legend: {
+        display:false
+      },
+      scales: {
+          xAxes: [{
+              ticks: {
+                  min: 0,
+                  max: 100
+              }
+          }]
+        }
+    };
+    
+    if ($("#Consumable").length) {
+        var chartID = $("#Consumable").get(0).getContext("2d");
+        // This will get the first returned node in the jQuery collection.
+        var ctx = new Chart(chartID, {
+            type: 'horizontalBar',
+            data: data1,
+            options: options1
+        });
+    }
+
+
+    var data2 = {
+        labels: lbl_2,
+        datasets: [{
+            data: val_2,
+            backgroundColor: color_1,
+            borderColor: '#fff',
+            borderWidth: 2
+        }]
+    };
+
+    var options2 = {
+        responsive: true,
+        legend: {
+            position: 'right',
+        },
+    };
+
+    if ($("#OrdProd").length) {
+        var chartID = $("#OrdProd").get(0).getContext("2d");
+        // This will get the first returned node in the jQuery collection.
+        var ctx = new Chart(chartID, {
+            type: 'doughnut',
+            data: data2,
+            options: options2
+        });
+    }
+      
+    });
+}) (jQuery);
+
+</script>
+
+<div class="row">
+    <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 grid-margin stretch-card">
+        <div class="card card-statistics">
+            <div class="card-body">
+                <div class="clearfix">
+                    <div class="float-left">
+                        <i class="mdi mdi-receipt text-warning icon-lg"></i>
+                    </div>
+                    <div class="float-right">
+                        <p class="mb-0 text-right">Owner</p>
+                        <div class="fluid-container">
+                            <h3 class="font-weight-medium text-right mb-0">{{ owner }}</h3>
+                        </div>
+                    </div>
+                </div>
+                <p class="text-muted mt-3 mb-0">
+                    <i class="mdi mdi-bookmark-outline mr-1" aria-hidden="true"></i> {{ tot_owner }}
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 grid-margin stretch-card">
+        <div class="card card-statistics">
+            <div class="card-body">
+                <div class="clearfix">
+                    <div class="float-left">
+                        <i class="mdi mdi-cube text-danger icon-lg"></i>
+                    </div>
+                    <div class="float-right">
+                        <p class="mb-0 text-right">Total Revenue</p>
+                        <div class="fluid-container">
+                            <h3 class="font-weight-medium text-right mb-0">$ {{ delta_revenue }}</h3>
+                        </div>
+                    </div>
+                </div>
+                <p class="text-muted mt-3 mb-0">
+                    <i class="mdi mdi-alert-octagon mr-1" aria-hidden="true"></i> € {{ tot_revenue }}
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 grid-margin stretch-card">
+        <div class="card card-statistics">
+            <div class="card-body">
+                <div class="clearfix">
+                    <div class="float-left">
+                        <i class="mdi mdi-poll-box text-success icon-lg"></i>
+                    </div>
+                    <div class="float-right">
+                        <p class="mb-0 text-right">Satisfaction Level</p>
+                        <div class="fluid-container">
+                            <h3 class="font-weight-medium text-right mb-0">{{ delta_satisfaction }}</h3>
+                        </div>
+                    </div>
+                </div>
+                <p class="text-muted mt-3 mb-0">
+                    <i class="mdi mdi-calendar mr-1" aria-hidden="true"></i> {{ satisfaction }}
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 grid-margin stretch-card">
+        <div class="card card-statistics">
+            <div class="card-body">
+                <div class="clearfix">
+                    <div class="float-left">
+                        <i class="mdi mdi-account-location text-info icon-lg"></i>
+                    </div>
+                    <div class="float-right">
+                        <p class="mb-0 text-right">State</p>
+                        <div class="fluid-container">
+                            <h3 class="font-weight-medium text-right mb-0">{{ state }}</h3>
+                        </div>
+                    </div>
+                </div>
+                <p class="text-muted mt-3 mb-0">
+                    <i class="mdi mdi-reload mr-1" aria-hidden="true"></i> Manutenzione prevista il {{ next_ops }}
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-4 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body" style="text-align: center">
+                <h4 class="card-title">Machine #{{ id }}</h4>
+                <table class="table table-striped">
+                    <tbody>
+                        <tr>
+                            <td> position_des: </td>
+                            <td> {{ position_des }} </td>
+                        </tr>
+                        <tr>
+                            <td> position_geo: </td>
+                            <td> {{ position_geo }} </td>
+                        </tr>
+                        <tr>
+                            <td> last_maintenance: </td>
+                            <td> {{ last_maintenance }} </td>
+                        </tr>
+                        <tr>
+                            <td> last_cleaning: </td>
+                            <td> {{ last_cleaning }} </td>
+                        </tr>
+                        <tr>
+                            <td> off_time_range: </td>
+                            <td> {{ off_time_range }} </td>
+                        </tr>
+                        <tr>
+                            <td> installation_date: </td>
+                            <td> {{ installation_date }} </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-8 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body" style="text-align: center">
+                <h4 class="card-title">Machine #{{ ID }}</h4>
+                <img id="live" src="{{ imgID }}" width="100%">
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-6 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body" style="text-align: center">
+                <h4 class="card-title">Consumable</h4>
+                <canvas id="Consumable" style="height:230px"></canvas>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-6 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body" style="text-align: center">
+                <h4 class="card-title">Orders by product</h4>
+                <canvas id="OrdProd" style="height:230px"></canvas>
+            </div>
+        </div>
+    </div>
+
+</div>
