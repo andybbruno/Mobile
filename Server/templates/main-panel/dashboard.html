@@ -1,3 +1,5 @@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
 <script>
   function refresh(node) {
     var times = 5000; // gap in Milli Seconds;
@@ -124,122 +126,170 @@
 </script>
 
 
+<!-- Page Heading -->
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
+    <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
+        class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
+</div>
+
+
+<!-- Content Row -->
+<div class="row">
+    <!-- Earnings (Monthly) Card Example -->
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-primary shadow h-100 py-2">
+        <div class="card-body">
+            <div class="row no-gutters align-items-center">
+            <div class="col mr-2">
+                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Owner</div>
+                <div class="h5 mb-0 font-weight-bold text-gray-800">MegaCompany SRL</div>
+            </div>
+            <div class="col-auto">
+                <i class="fas fa-user fa-2x text-gray-300"></i>
+            </div>
+            </div>
+        </div>
+        </div>
+    </div>
+
+    <!-- Earnings (Monthly) Card Example -->
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-success shadow h-100 py-2">
+        <div class="card-body">
+            <div class="row no-gutters align-items-center">
+            <div class="col mr-2">
+                <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Earnings (Annual)</div>
+                <div class="h5 mb-0 font-weight-bold text-gray-800">€7647,50</div>
+            </div>
+            <div class="col-auto">
+                <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+            </div>
+            </div>
+        </div>
+        </div>
+    </div>
+
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-info shadow h-100 py-2">
+        <div class="card-body">
+            <div class="row no-gutters align-items-center">
+            <div class="col mr-2">
+                <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Satisfaction</div>
+                <div class="row no-gutters align-items-center">
+                <div class="col-auto">
+                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">83%</div>
+                </div>
+                <div class="col">
+                    <div class="progress progress-sm mr-2">
+                    <div class="progress-bar bg-info" role="progressbar" style="width: 83%" aria-valuenow="83"
+                        aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                </div>
+                </div>
+            </div>
+            <div class="col-auto">
+                <i class="fas fa-smile fa-2x text-gray-300"></i>
+            </div>
+            </div>
+        </div>
+        </div>
+    </div>
+
+    <!-- Pending Requests Card Example -->
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-warning shadow h-100 py-2">
+        <div class="card-body">
+            <div class="row no-gutters align-items-center">
+            <div class="col mr-2">
+                <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Requests</div>
+                <div class="h5 mb-0 font-weight-bold text-gray-800">Nothing</div>
+            </div>
+            <div class="col-auto">
+                <i class="fas fa-comments fa-2x text-gray-300"></i>
+            </div>
+            </div>
+        </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- First row -->
+<div class="row">
+    <div class="col-xl-6 col-lg-7">
+      <div class="card shadow mb-4">
+        <!-- Card Header - Dropdown -->
+        <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+          <h6 class="m-0 font-weight-bold text-primary">Machine #{{ ID1 }}</h6>
+        </div>
+        <!-- Card Body -->
+        <div class="card-body">
+          <div>
+            <img id="live_1" src="{{ imgID1 }}" width="100%">
+          </div>
+          <hr>
+          Therea are <code>XXX</code> people in queue.
+        </div>
+      </div>
+    </div>
+    
+    <div class="col-xl-6 col-lg-5">
+      <div class="card shadow mb-4">
+        <!-- Card Header - Dropdown -->
+        <div class="card-header py-3">
+          <h6 class="m-0 font-weight-bold text-primary">Status #{{ ID1 }}</h6>
+        </div>
+        <!-- Card Body -->
+        <div class="card-body">
+          <div>
+              <canvas id="Machine-1"></canvas>
+          </div>
+          <hr>
+          <a class="btn btn-success btn-circle text-white">
+            <i class="fas fa-check"></i>
+          </a>
+          No problems found!
+        </div>
+      </div>
+    </div>
+</div>
 
 <div class="row">
-    <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 grid-margin stretch-card">
-        <div class="card card-statistics">
+    <div class="col-xl-6 col-lg-7">
+      <div class="card shadow mb-4">
+        <!-- Card Header - Dropdown -->
+        <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+          <h6 class="m-0 font-weight-bold text-primary">Machine #{{ ID2 }}</h6>
+        </div>
+        <!-- Card Body -->
         <div class="card-body">
-            <div class="clearfix">
-            <div class="float-left">
-                <i class="mdi mdi-cube text-danger icon-lg"></i>
-            </div>
-            <div class="float-right">
-                <p class="mb-0 text-right">Total Revenue</p>
-                <div class="fluid-container">
-                <h3 class="font-weight-medium text-right mb-0">$65,650</h3>
-                </div>
-            </div>
-            </div>
-            <p class="text-muted mt-3 mb-0">
-            <i class="mdi mdi-alert-octagon mr-1" aria-hidden="true"></i> 65% lower growth
-            </p>
-        </div>
-        </div>
-    </div>
-    <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 grid-margin stretch-card">
-        <div class="card card-statistics">
-        <div class="card-body">
-            <div class="clearfix">
-            <div class="float-left">
-                <i class="mdi mdi-receipt text-warning icon-lg"></i>
-            </div>
-            <div class="float-right">
-                <p class="mb-0 text-right">Orders</p>
-                <div class="fluid-container">
-                <h3 class="font-weight-medium text-right mb-0">3455</h3>
-                </div>
-            </div>
-            </div>
-            <p class="text-muted mt-3 mb-0">
-            <i class="mdi mdi-bookmark-outline mr-1" aria-hidden="true"></i> Product-wise sales
-            </p>
-        </div>
-        </div>
-    </div>
-    <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 grid-margin stretch-card">
-        <div class="card card-statistics">
-        <div class="card-body">
-            <div class="clearfix">
-            <div class="float-left">
-                <i class="mdi mdi-poll-box text-success icon-lg"></i>
-            </div>
-            <div class="float-right">
-                <p class="mb-0 text-right">Sales</p>
-                <div class="fluid-container">
-                <h3 class="font-weight-medium text-right mb-0">5693</h3>
-                </div>
-            </div>
-            </div>
-            <p class="text-muted mt-3 mb-0">
-            <i class="mdi mdi-calendar mr-1" aria-hidden="true"></i> Weekly Sales
-            </p>
-        </div>
-        </div>
-    </div>
-    <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 grid-margin stretch-card">
-        <div class="card card-statistics">
-        <div class="card-body">
-            <div class="clearfix">
-            <div class="float-left">
-                <i class="mdi mdi-account-location text-info icon-lg"></i>
-            </div>
-            <div class="float-right">
-                <p class="mb-0 text-right">Employees</p>
-                <div class="fluid-container">
-                <h3 class="font-weight-medium text-right mb-0">246</h3>
-                </div>
-            </div>
-            </div>
-            <p class="text-muted mt-3 mb-0">
-            <i class="mdi mdi-reload mr-1" aria-hidden="true"></i> Product-wise sales
-            </p>
-        </div>
-        </div>
-    </div>
-</div>
-<div class="row">
-    <div class="col-lg-6 grid-margin stretch-card">
-        <div class="card">
-        <div class="card-body" style="text-align: center">
-            <h4 class="card-title">Machine #{{ ID1 }}</h4>
-            <img id="live_1" src="{{ imgID1 }}" width="100%">
-        </div>
-        </div>
-    </div>
-    <div class="col-lg-6 grid-margin stretch-card">
-        <div class="card">
-        <div class="card-body" style="text-align: center">
-            <h4 class="card-title">Machine #{{ ID2 }}</h4>
+          <div>
             <img id="live_2" src="{{ imgID2 }}" width="100%">
+          </div>
+          <hr>
+          Therea are <code>XXX</code> people in queue.
         </div>
-        </div>
+      </div>
     </div>
-</div>
-<div class="row">
-    <div class="col-lg-6 grid-margin stretch-card">
-        <div class="card">
+    
+    <div class="col-xl-6 col-lg-5">
+      <div class="card shadow mb-4">
+        <!-- Card Header - Dropdown -->
+        <div class="card-header py-3">
+          <h6 class="m-0 font-weight-bold text-primary">Status #{{ ID2 }}</h6>
+        </div>
+        <!-- Card Body -->
         <div class="card-body">
-            <h4 class="card-title">Machine #{{ ID1 }}</h4>
-            <canvas id="Machine-1" style="height:230px"></canvas>
+          <div>
+              <canvas id="Machine-2"></canvas>
+          </div>
+          <hr>
+          <a class="btn btn-success btn-circle text-white">
+            <i class="fas fa-check"></i>
+          </a>
+          No problems found!
         </div>
-        </div>
-    </div>
-    <div class="col-lg-6 grid-margin stretch-card">
-        <div class="card">
-        <div class="card-body">
-            <h4 class="card-title">Machine #{{ ID2 }}</h4>
-            <canvas id="Machine-2" style="height:230px"></canvas>
-        </div>
-        </div>
+      </div>
     </div>
 </div>

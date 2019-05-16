@@ -2,73 +2,76 @@
 <html lang="en">
 
 <head>
-  <!-- Required meta tags -->
+
   <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
   <title>Register</title>
-  <link rel="stylesheet" href="/static/css/shared/style.css">
+
+  <!-- Custom fonts for this template-->
+  <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+
+  <!-- Custom styles for this template-->
+  <link href="static/css/sb-admin-2.css" rel="stylesheet">
+
 </head>
 
-<body>
-  <div class="container-scroller">
-    <div class="container-fluid page-body-wrapper full-page-wrapper auth-page">
-      <div class="content-wrapper d-flex align-items-center auth register-bg-1 theme-one">
-        <div class="row w-100">
-          <div class="col-lg-4 mx-auto">
-            <h2 class="text-center mb-4">Register</h2>
-            <div class="auto-form-wrapper">
-              <form action="" method="POST">
-                <div class="form-group">
-                  <div class="input-group">
-                    <input type="text" class="form-control" name="username" placeholder="Username">
-                    <div class="input-group-append">
-                      <span class="input-group-text">
-                      </span>
-                    </div>
+<body class="bg-gradient-primary">
+
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-xl-10 col-lg-12 col-md-9">
+        <div class="card o-hidden border-0 shadow-lg my-5">
+          <div class="card-body p-0">
+            <!-- Nested Row within Card Body -->
+            <div class="row">
+              <div class="col-lg-6 d-none d-lg-block bg-register-image"></div>
+              <div class="col-lg-6">
+                <div class="p-5">
+                  <div class="text-center">
+                    <h1 class="h4 text-gray-900 mb-4">Create an Account!</h1>
                   </div>
-                </div>
-                <div class="form-group">
-                  <div class="input-group">
-                    <input type="password" class="form-control" name="password1" placeholder="Password">
-                    <div class="input-group-append">
-                      <span class="input-group-text">
-                      </span>
+                  <form class="user" method="POST">
+                    <div class="form-group">
+                      <input type="username" name="username" class="form-control form-control-user" placeholder="Username">
                     </div>
-                  </div>
-                </div>
-                <div class="form-group">
-                  <div class="input-group">
-                    <input type="password" class="form-control" name="password2" placeholder="Confirm Password">
-                    <div class="input-group-append">
-                      <span class="input-group-text">
-                      </span>
+
+                    <div class="form-group">
+                        <input type="password" name="password1" class="form-control form-control-user" placeholder="Password">
                     </div>
-                  </div>
-                </div>
-                <div class="form-group">
-                  <button class="btn btn-primary submit-btn btn-block">Register</button>
-                </div>
-                <div class="text-block text-center my-3">
-                  <span class="text-small font-weight-semibold">Already have and account ?</span>
-                  <a href="./login" class="text-black text-small">Login</a>
-                </div>
-                {% if error %}
-                <div class="row purchace-popup">
-                  <div class="col-12">
-                    <span class="d-block d-md-flex align-items-center">
-                      <p style="color: red;"> {{ error }} </p>
-                    </span>
+
+                    <div class="form-group">
+                      <input type="password" name="password2" class="form-control form-control-user" placeholder="Confirm Password">
+                    </div>
+
+                    <button class="btn btn-primary btn-user btn-block text-white">
+                      Register Account
+                    </button>
+                  </form>
+                  <hr>
+                  {% if error %}
+                  <div class="card mb-4 border-left-danger">
+                    <div class="card-body">
+                      {{ error }}
+                    </div>
                   </div>
                   {%  endif %}
-              </form>
+                  <div class="text-center">
+                    <a class="small" href="/login">Already have an account? Login!</a>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </div>
-      <!-- content-wrapper ends -->
     </div>
-    <!-- page-body-wrapper ends -->
   </div>
+
 </body>
 
 </html>

@@ -5,7 +5,7 @@
 
 <head>
   <script type="text/javascript">
-    var count = 5;
+    var count = 6;
     var redirect = "./";
 
     function countDown() {
@@ -20,36 +20,57 @@
     }
   </script>
 
-  <!-- Required meta tags -->
   <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>404</title>
-  <link rel="stylesheet" href="/static/css/shared/style.css">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>Registration completed!</title>
+
+  <!-- Custom fonts for this template-->
+  <link href="static/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+
+  <!-- Custom styles for this template-->
+  <link href="static/css/sb-admin-2.css" rel="stylesheet">
 </head>
 
-<body>
-  <div class="container-scroller">
-    <div class="container-fluid page-body-wrapper full-page-wrapper auth-page">
-      <div class="content-wrapper d-flex align-items-center text-center error-page bg-primary">
-        <div class="row flex-grow">
-          <div class="col-lg-7 mx-auto text-white">
-            <h2>{{ user }}</h2>
-            <h3>Registration completed!</h3>
-            <div class="row mt-5">
-              <div class="col-12 text-center mt-xl-2">        
-                <div id="timer">
-                  <script type="text/javascript">countDown();</script>
-                </div>
-                <a class="text-white font-weight-medium" href="./login">Back to login</a>
+
+
+
+<body id="page-top">
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+      <!-- Content Wrapper -->
+      <div id="content-wrapper" class="d-flex flex-column" style="background: white; margin-top: 10%">
+  
+        <!-- Main Content -->
+        <div id="content">
+  
+          <!-- Begin Page Content -->
+          <div class="container-fluid">
+  
+            <!-- 404 Error Text -->
+            <div class="text-center">
+              <h1 style="font-size: 7rem">{{user}}</h1>
+              <p class="lead text-gray-800 mb-5">Registration completed!</p>
+              <a href="/">&larr; Back to login</a>
+            
+              <div id="timer">
+                <script type="text/javascript">countDown();</script>
               </div>
             </div>
           </div>
+          <!-- /.container-fluid -->
+  
         </div>
+        <!-- End of Main Content -->
+  
       </div>
-      <!-- content-wrapper ends -->
+      <!-- End of Content Wrapper -->
+  
     </div>
-    <!-- page-body-wrapper ends -->
-  </div>
-</body>
-
+    <!-- End of Page Wrapper -->
+  </body>
 </html>
