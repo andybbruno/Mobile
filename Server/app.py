@@ -176,8 +176,12 @@ def register():
         # TODO inserire un id personalizzato all'utente
         if db.userTable.find_one({"username": username}):
             return render_template('register.html', error='Username already in use!')
-        elif password1 != password2:
+        if password1 != password2:
             return render_template('register.html', error="Please check the passwords")
+        if (username == ""):
+            return render_template('register.html', error="Please enter a valid username")
+        if (password1 == "") or (password2 == ""):
+            return render_template('register.html', error="Please enter a valid password")
         else:
             db.userTable.insert_one(
                 {"username": username, "password": password1})
