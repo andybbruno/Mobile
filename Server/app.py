@@ -41,8 +41,8 @@ def homepage():
     lbl_2 = list(tmp_2.keys())
     val_2 = list(tmp_2.values())
 
-    img2 = img1 = "/static/live/" + str(id_1) + ".jpg" 
-    # img2 = "/static/live/" + str(id_2) + ".jpg" 
+    img1 = "/static/live/" + str(id_1) + ".jpg" 
+    img2 = "/static/live/" + str(id_2) + ".jpg" 
     
     content = render_template("main-panel/dashboard.html",
                             ID1=id_1,
