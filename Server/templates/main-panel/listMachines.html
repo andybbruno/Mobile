@@ -1,24 +1,36 @@
-<div class="table-responsive">
-    <table class="table table-striped">
-        <thead>
-        <tr>
-            <th>ID</th>
-            <th>Owner</th>
-            <th>Satisfaction</th>
-            <th>delta Satisfaction</th>
-            <th>Status</th> 
-        </tr>
-        </thead>
-        <tbody>
-        {% for machine in machines %}
-            <tr>
-                <td><a href="{{ machine.id }}/maintenance">{{ machine.id }}</a></td>
-                <td>{{ machine.owner }}</td>
-                <td class="text-{{ machine.badge_sat }}">{{ machine.satisfaction }}</td>
-                <td class="text-{{ machine.badge_dSat }}">{{ machine.delta_satisfaction }}<i class="mdi mdi-arrow-{{ machine.arrow }}"></i></td>
-                <td><label class="badge badge-{{ machine.badge_ops }}">{{ machine.operarion }}</label></td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+<!-- Page Heading -->
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">List Machines</h1>
+</div>
+
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Table</h6>
+    </div>
+    <div class="card-body">        
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Owner</th>
+                    <th>Satisfaction</th>
+                    <th>delta Satisfaction</th>
+                    <th>Status</th> 
+                </tr>
+                </thead>
+                <tbody>
+                {% for machine in machines %}
+                    <tr>
+                        <td><a href="{{ machine.id }}/maintenance">{{ machine.id }}</a></td>
+                        <td>{{ machine.owner }}</td>
+                        <td class="text-{{ machine.badge_sat }}">{{ machine.satisfaction }}</td>
+                        <td class="text-{{ machine.badge_dSat }}">{{ machine.delta_satisfaction }}<i class="mdi mdi-arrow-{{ machine.arrow }}"></i></td>
+                        <td><label class="badge badge-{{ machine.badge_ops }}">{{ machine.operarion }}</label></td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>
