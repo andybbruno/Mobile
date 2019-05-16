@@ -98,7 +98,7 @@ def machinelist():
         if not order:
             order = "Out of order"
             order_badge = "danger"
-        elif any([e > 0.2 for e in mac["maintenance"]["consumable_list"].values()]):
+        elif any([e < 20 for e in mac["maintenance"]["consumable_list"].values()]):
             order = "To refill"
             order_badge = "warning"
         else:
@@ -146,7 +146,7 @@ def get_status(ID):
     if not order:
         order = "Out of order"
         order_badge = "danger"
-    elif any([e > 0.2 for e in mac["maintenance"]["consumable_list"].values()]):
+    elif any([e < 20 for e in mac["maintenance"]["consumable_list"].values()]):
         order = "To Refill"
         order_badge = "warning"
     else:
