@@ -57,6 +57,35 @@ def homepage():
     return renderWith(content)
 
 
+
+@app.route('/statistics')
+def statistics():
+    id = db.machineTable.distinct('ID')
+
+    id_1 = id[0]
+    id_2 = id[1]
+    
+
+    tmp_1 = db.machineTable.find_one({'ID':id_1})['management']['count_orders']
+    lbl_1 = list(tmp_1.keys())
+    val_1 = list(tmp_1.values())
+
+    tmp_2 = db.machineTable.find_one({'ID':id_2})['management']['count_orders']
+    lbl_2 = list(tmp_2.keys())
+    val_2 = list(tmp_2.values())
+
+    content = render_template("main-panel/stats.html",
+                            ID1=id_1,
+                            ID2=id_2,
+                            val_1 = val_1,
+                            val_2 = val_2,
+                            lbl_1 = lbl_1,
+                            lbl_2 = lbl_2 )
+
+    return renderWith(content)
+
+
+
 @app.route('/machines')
 def machinelist():
     
@@ -110,7 +139,7 @@ def get_status(ID):
     """
     mac = db.machineTable.find_one({"ID": ID})
     if not mac:
-        return "Machine ID not valid"
+        return renderWith(render_template("main-panel/not_found.html"))
 
     order = mac["working"]
     order_badge = None
@@ -361,7 +390,7 @@ def addUser():
 @app.errorhandler(404)
 def page_not_found(e):
     # note that we set the 404 status explicitly
-    return render_template('404.html'), 404
+    return render_template('404.html')
 
 
 app.run(host='0.0.0.0', port='3000', debug=True)

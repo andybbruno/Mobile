@@ -1,3 +1,5 @@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
 <script>
     function refresh(node) {
       var times = 5000; // gap in Milli Seconds;
@@ -129,7 +131,6 @@
 
 </script>
 
-
 <!-- Page Heading -->
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
     <h1 class="h3 mb-0 text-gray-800">#{{ id }}</h1>
@@ -215,67 +216,110 @@
     </div>
 </div>
 
+
 <div class="row">
-    <div class="col-xl-6 col-lg-7">
-        <div class="card shadow mb-4">
-            <div class="card-body" style="text-align: center">
-                <h4 class="card-title">Machine #{{ id }}</h4>
-                <table class="table table-striped">
-                    <tbody>
-                        <tr>
-                            <td> position_des: </td>
-                            <td> {{ position_des }} </td>
-                        </tr>
-                        <tr>
-                            <td> position_geo: </td>
-                            <td> {{ position_geo }} </td>
-                        </tr>
-                        <tr>
-                            <td> last_maintenance: </td>
-                            <td> {{ last_maintenance }} </td>
-                        </tr>
-                        <tr>
-                            <td> last_cleaning: </td>
-                            <td> {{ last_cleaning }} </td>
-                        </tr>
-                        <tr>
-                            <td> off_time_range: </td>
-                            <td> {{ off_time_range }} </td>
-                        </tr>
-                        <tr>
-                            <td> installation_date: </td>
-                            <td> {{ installation_date }} </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+    <div class="col-xl-7 col-lg-7">
+      <div class="card shadow mb-4">
+        <!-- Card Header - Dropdown -->
+        <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+          <h6 class="m-0 font-weight-bold text-primary">Machine #{{ id }}</h6>
         </div>
+        <!-- Card Body -->
+        <div class="card-body">
+            <table class="table table-striped">
+                <tbody>
+                    <tr>
+                        <td> position_des: </td>
+                        <td> {{ position_des }} </td>
+                    </tr>
+                    <tr>
+                        <td> position_geo: </td>
+                        <td> {{ position_geo }} </td>
+                    </tr>
+                    <tr>
+                        <td> last_maintenance: </td>
+                        <td> {{ last_maintenance }} </td>
+                    </tr>
+                    <tr>
+                        <td> last_cleaning: </td>
+                        <td> {{ last_cleaning }} </td>
+                    </tr>
+                    <tr>
+                        <td> off_time_range: </td>
+                        <td> {{ off_time_range }} </td>
+                    </tr>
+                    <tr>
+                        <td> installation_date: </td>
+                        <td> {{ installation_date }} </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+      </div>
     </div>
-    <div class="col-lg-8 grid-margin stretch-card">
-        <div class="card">
-            <div class="card-body" style="text-align: center">
-                <h4 class="card-title">Machine #{{ ID }}</h4>
+    
+    <div class="col-xl-5 col-lg-5">
+      <div class="card shadow mb-4">
+        <!-- Card Header - Dropdown -->
+        <div class="card-header py-3">
+          <h6 class="m-0 font-weight-bold text-primary">Live #{{ id }}</h6>
+        </div>
+        <!-- Card Body -->
+        <div class="card-body">
+            <div>
                 <img id="live" src="{{ imgID }}" width="100%">
             </div>
         </div>
+      </div>
     </div>
 </div>
+
+
 <div class="row">
-    <div class="col-lg-6 grid-margin stretch-card">
-        <div class="card">
-            <div class="card-body" style="text-align: center">
-                <h4 class="card-title">Consumable</h4>
-                <canvas id="Consumable" style="height:230px"></canvas>
+
+    <div class="col-xl-5 col-lg-5">
+        <div class="card shadow mb-4">
+            <!-- Card Header - Dropdown -->
+            <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Consumable #{{ id }}</h6>
             </div>
-        </div>
-    </div>
-    <div class="col-lg-6 grid-margin stretch-card">
-        <div class="card">
-            <div class="card-body" style="text-align: center">
-                <h4 class="card-title">Orders by product</h4>
-                <canvas id="OrdProd" style="height:230px"></canvas>
+            <!-- Card Body -->
+            <div class="card-body">
+                <div>
+                    <canvas id="Consumable" style="height:230px"></canvas>
+                </div>
             </div>
         </div>
     </div>
 
+    <div class="col-xl-5 col-lg-5">
+        <div class="card shadow mb-4">
+            <!-- Card Header - Dropdown -->
+            <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Order by product #{{ id }}</h6>
+            </div>
+            <!-- Card Body -->
+            <div class="card-body">
+                <div>
+                    <canvas id="OrdProd" style="height:230px"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xl-2 col-lg-5">
+        <div class="card shadow mb-4">
+            <!-- Card Header - Dropdown -->
+            <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Status #{{ id }}</h6>
+            </div>
+            <!-- Card Body -->
+            <div class="card-body">
+                <div class="px-3 py-5 bg-gradient-success text-white text-center">
+                        <i class="fas fa-check-circle" style="font-size: 1.6rem;"></i></br>
+                        No problems found!
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

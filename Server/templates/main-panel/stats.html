@@ -1,0 +1,134 @@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
+
+<script>
+(function ($) {
+    'use strict';
+    $(function () {
+        /* ChartJS
+            * -------
+            * Data and config for chartjs
+            */
+        'use strict';
+
+
+    var val_1 = {{ val_1 }};
+    var val_2 = {{ val_2 }};
+
+    var lbl_1 = {{ lbl_1 | safe }};
+    var lbl_2 = {{ lbl_2 | safe }};
+
+
+
+    var color_1 = [
+        'rgba(255, 0, 0, 0.7)',
+        'rgba(255, 165, 0, 0.7)',
+        'rgba(255, 230, 0, 0.7)',
+        'rgba(0, 180, 0, 0.7)',
+        'rgba(90, 200, 255, 0.7)',
+        'rgba(0, 0, 255, 0.7)',
+        'rgba(238, 130, 238, 0.7)'
+    ];
+
+    var color_2 = [
+        'rgba(255, 0, 0, 1)',
+        'rgba(255, 165, 0, 1)',
+        'rgba(255, 230, 0, 1)',
+        'rgba(0, 180, 0, 1)',
+        'rgba(90, 200, 255, 1)',
+        'rgba(0, 0, 255, 1)',
+        'rgba(238, 130, 238, 1)'
+    ];
+
+
+    var data1 = {
+        labels: lbl_1,
+        datasets: [{
+            data: val_1,
+            backgroundColor: color_1,
+            borderColor: '#fff',
+            borderWidth: 2
+        }]
+    };
+
+    var options1 = {
+        responsive: true,
+        legend: {
+            position: 'right',
+        },
+    };
+
+    if ($("#OrdProd1").length) {
+        var chartID = $("#OrdProd1").get(0).getContext("2d");
+        // This will get the first returned node in the jQuery collection.
+        var ctx = new Chart(chartID, {
+            type: 'doughnut',
+            data: data1,
+            options: options1
+        });
+    }
+
+
+    var data2 = {
+        labels: lbl_2,
+        datasets: [{
+            data: val_2,
+            backgroundColor: color_1,
+            borderColor: '#fff',
+            borderWidth: 2
+        }]
+    };
+
+    var options2 = {
+        responsive: true,
+        legend: {
+            position: 'right',
+        },
+    };
+
+    if ($("#OrdProd2").length) {
+        var chartID = $("#OrdProd2").get(0).getContext("2d");
+        // This will get the first returned node in the jQuery collection.
+        var ctx = new Chart(chartID, {
+            type: 'doughnut',
+            data: data2,
+            options: options2
+        });
+    }
+        
+    });
+}) (jQuery);
+        
+</script>
+
+<div class="row">
+    <div class="col-xl-6 col-lg-5">
+        <div class="card shadow mb-4">
+            <!-- Card Header - Dropdown -->
+            <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Order by product #{{ ID1 }}</h6>
+            </div>
+            <!-- Card Body -->
+            <div class="card-body">
+                <div>
+                    <canvas id="OrdProd1" style="height:230px"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xl-6 col-lg-5">
+        <div class="card shadow mb-4">
+            <!-- Card Header - Dropdown -->
+            <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Order by product #{{ ID2 }}</h6>
+            </div>
+            <!-- Card Body -->
+            <div class="card-body">
+                <div>
+                    <canvas id="OrdProd2" style="height:230px"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
