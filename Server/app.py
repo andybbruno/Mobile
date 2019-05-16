@@ -193,7 +193,7 @@ def register():
 
 @app.route('/reg', methods=['GET'])
 def reg_complete():
-    print(session['username'])
+    # print(session['username'])
     return render_template('regcomplete.html', user=session['username'])
 
 

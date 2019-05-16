@@ -26,8 +26,8 @@ def register_order(ID, jsonReq):
             TRUE se la rigistrazione è avventua FALSE altrimenti
     """
 
-    print(ID)
-    print(type(jsonReq))
+    # print(ID)
+    # print(type(jsonReq))
     
     timestamp = int(data.timestamp(data.now()))
     
