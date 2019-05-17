@@ -18,7 +18,7 @@
       var xmlHttp = new XMLHttpRequest();
       xmlHttp.onreadystatechange = function() {
         if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
-          document.getElementById(tagId).innerHTML = xmlHttp.responseText;
+          document.getElementById(tagId).innerHTML = JSON.parse(xmlHttp.responseText).people_detected;
       }
       xmlHttp.open("GET", "http://ec2-18-212-110-170.compute-1.amazonaws.com:3000/11222/people", true);
       xmlHttp.send(null);
@@ -279,11 +279,7 @@
             <img id="live_2" src="{{ imgID2 }}" width="100%">
           </div>
           <hr>
-<<<<<<< HEAD
-          Therea are <code id="live_1_P">{{people2}}</code> people in queue.
-=======
-          Therea are <code id="people2">XXX</code> people in queue.
->>>>>>> c21f434b3371fabe7911df2e5e660a74907afb52
+          Therea are <code id="live_2_P">{{people2}}</code> people in queue.
         </div>
       </div>
     </div>
