@@ -1,10 +1,11 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
 
 <script>
-  function refresh(node) {
+  function refresh(node, tagId) {
     var times = 5000; // gap in Milli Seconds;
 
     (function startRefresh() {
+      // Image
       var address;
       if (node.src.indexOf('?') > -1)
         address = node.src.split('?')[0];
@@ -13,6 +14,15 @@
       
       node.src = address+"?time="+new Date().getTime();
 
+      // People counter
+      var xmlHttp = new XMLHttpRequest();
+      xmlHttp.onreadystatechange = function() { 
+        if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
+          document.getElementById(tagId).innerHTML = xmlHttp.responseText;
+      }
+      xmlHttp.open("GET", "http://ec2-18-212-110-170.compute-1.amazonaws.com:3000/11222/people", true);
+      xmlHttp.send(null);
+
       setTimeout(startRefresh, times);
     })();
 
@@ -20,9 +30,10 @@
 
   window.onload = function () {
     var node1 = document.getElementById('live_1');
-    refresh(node1);
+    refresh(node1, "live_1_P");
     var node2 = document.getElementById('live_2');
-    refresh(node2);
+    refresh(node2, "live_2_P");
+
   }
 </script>
 
@@ -229,7 +240,7 @@
             <img id="live_1" src="{{ imgID1 }}" width="100%">
           </div>
           <hr>
-          Therea are <code>{{people1}}</code> people in queue.
+          Therea are <code id="live_1_P">{{people1}}</code> people in queue.
         </div>
       </div>
     </div>
@@ -268,7 +279,7 @@
             <img id="live_2" src="{{ imgID2 }}" width="100%">
           </div>
           <hr>
-          Therea are <code>{{people2}}</code> people in queue.
+          Therea are <code id="live_1_P">{{people2}}</code> people in queue.
         </div>
       </div>
     </div>
