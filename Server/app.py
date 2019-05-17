@@ -43,6 +43,9 @@ def homepage():
 
     img1 = "/static/live/" + str(id_1) + ".jpg" 
     img2 = "/static/live/" + str(id_2) + ".jpg" 
+
+    people1 = str(db.detectionTable.find({'machineID':id_1}).sort([('timestamp', -1)]).limit(1).next()['people_detected'])
+    people2 = str(db.detectionTable.find({'machineID':id_2}).sort([('timestamp', -1)]).limit(1).next()['people_detected'])
     
     content = render_template("main-panel/dashboard.html",
                             ID1=id_1,
@@ -52,7 +55,9 @@ def homepage():
                             val_1 = val_1,
                             val_2 = val_2,
                             lbl_1 = lbl_1,
-                            lbl_2 = lbl_2 )
+                            lbl_2 = lbl_2,
+                            people1=people1,
+                            people2=people2 )
 
     return renderWith(content)
 
