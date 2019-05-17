@@ -1,7 +1,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
 
 <script>
-  function refresh(node, tagId) {
+  function refresh(node, tagId, ID) {
     var times = 5000; // gap in Milli Seconds;
 
     (function startRefresh() {
@@ -20,7 +20,7 @@
         if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
           document.getElementById(tagId).innerHTML = JSON.parse(xmlHttp.responseText).people_detected;
       }
-      xmlHttp.open("GET", "http://ec2-18-212-110-170.compute-1.amazonaws.com:3000/11222/people", true);
+      xmlHttp.open("GET", "http://ec2-18-212-110-170.compute-1.amazonaws.com:3000/" + ID + "/people", true);
       xmlHttp.send(null);
 
       setTimeout(startRefresh, times);
@@ -30,9 +30,9 @@
 
   window.onload = function () {
     var node1 = document.getElementById('live_1');
-    refresh(node1, "live_1_P");
+    refresh(node1, "live_1_P", {{ID1}});
     var node2 = document.getElementById('live_2');
-    refresh(node2, "live_2_P");
+    refresh(node2, "live_2_P",{{ID2}});
 
   }
 </script>
