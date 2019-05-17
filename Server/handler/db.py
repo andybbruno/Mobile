@@ -1,6 +1,7 @@
 import pymongo
 
-_mongoDB = pymongo.MongoClient("mongodb://localhost:27017/")
+# _mongoDB = pymongo.MongoClient("mongodb://localhost:27017/")
+_mongoDB = pymongo.MongoClient("mongodb://ec2-18-212-110-170.compute-1.amazonaws.com:27017")
 
 _mobile_db = _mongoDB["test_db"]
 
