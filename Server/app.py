@@ -1,4 +1,4 @@
-from flask import Flask, request, render_template, redirect, session, url_for
+from flask import Flask, request, render_template, redirect, session, url_for, jsonify
 import os
 from werkzeug.utils import secure_filename
 from json_validator import Validator
@@ -20,10 +20,11 @@ app.config['UPLOAD_FOLDER'] = "static/live/"
 def renderWith(renderedContent):
     if ('username' in session) and ('logged' in session):
         return render_template('index.html',
-                                username = session['username'],
-                                content = renderedContent)
+                               username=session['username'],
+                               content=renderedContent)
     else:
         return redirect('/login')
+
 
 @app.route('/')
 def homepage():
@@ -31,36 +32,31 @@ def homepage():
 
     id_1 = id[0]
     id_2 = id[1]
-    
 
-    tmp_1 = db.machineTable.find_one({'ID':id_1})['maintenance']['consumable_list']
+    tmp_1 = db.machineTable.find_one(
+        {'ID': id_1})['maintenance']['consumable_list']
     lbl_1 = list(tmp_1.keys())
     val_1 = list(tmp_1.values())
 
-    tmp_2 = db.machineTable.find_one({'ID':id_2})['maintenance']['consumable_list']
+    tmp_2 = db.machineTable.find_one(
+        {'ID': id_2})['maintenance']['consumable_list']
     lbl_2 = list(tmp_2.keys())
     val_2 = list(tmp_2.values())
 
-    img1 = "/static/live/" + str(id_1) + ".jpg" 
-    img2 = "/static/live/" + str(id_2) + ".jpg" 
+    img1 = "/static/live/" + str(id_1) + ".jpg"
+    img2 = "/static/live/" + str(id_2) + ".jpg"
 
-    people1 = str(db.detectionTable.find({'machineID':id_1}).sort([('timestamp', -1)]).limit(1).next()['people_detected'])
-    people2 = str(db.detectionTable.find({'machineID':id_2}).sort([('timestamp', -1)]).limit(1).next()['people_detected'])
-    
     content = render_template("main-panel/dashboard.html",
-                            ID1=id_1,
-                            ID2=id_2,
-                            imgID1=img1,
-                            imgID2=img2,
-                            val_1 = val_1,
-                            val_2 = val_2,
-                            lbl_1 = lbl_1,
-                            lbl_2 = lbl_2,
-                            people1=people1,
-                            people2=people2 )
+                              ID1=id_1,
+                              ID2=id_2,
+                              imgID1=img1,
+                              imgID2=img2,
+                              val_1=val_1,
+                              val_2=val_2,
+                              lbl_1=lbl_1,
+                              lbl_2=lbl_2)
 
     return renderWith(content)
-
 
 
 @app.route('/statistics')
@@ -69,31 +65,37 @@ def statistics():
 
     id_1 = id[0]
     id_2 = id[1]
-    
 
-    tmp_1 = db.machineTable.find_one({'ID':id_1})['management']['count_orders']
+    tmp_1 = db.machineTable.find_one(
+        {'ID': id_1})['management']['count_orders']
     lbl_1 = list(tmp_1.keys())
     val_1 = list(tmp_1.values())
 
-    tmp_2 = db.machineTable.find_one({'ID':id_2})['management']['count_orders']
+    tmp_2 = db.machineTable.find_one(
+        {'ID': id_2})['management']['count_orders']
     lbl_2 = list(tmp_2.keys())
     val_2 = list(tmp_2.values())
 
     content = render_template("main-panel/stats.html",
-                            ID1=id_1,
-                            ID2=id_2,
-                            val_1 = val_1,
-                            val_2 = val_2,
-                            lbl_1 = lbl_1,
-                            lbl_2 = lbl_2 )
+                              ID1=id_1,
+                              ID2=id_2,
+                              val_1=val_1,
+                              val_2=val_2,
+                              lbl_1=lbl_1,
+                              lbl_2=lbl_2)
 
     return renderWith(content)
 
 
+@app.route('/<int:machineID>/people')
+def people(machineID):
+    people = db.detectionTable.find({'machineID': machineID}).sort([('timestamp', -1)]).limit(1).next()['people_detected']
+    return jsonify(machineID=machineID, people_detected=people)
+
 
 @app.route('/machines')
 def machinelist():
-    
+
     machines = []
     machine_list = db.machineTable.find()
 
@@ -120,14 +122,14 @@ def machinelist():
             sat_badge = "warning"
 
         dSat = (random.random() * 2)-1
-        badge_dSat = "danger" if dSat >=0 else "success"
-        arrow = "down" if dSat >=0 else "up"
+        badge_dSat = "danger" if dSat >= 0 else "success"
+        arrow = "down" if dSat >= 0 else "up"
 
         machines.append({
             "id": mac["ID"],
             "owner": mac["management"]["owner"],
             "satisfaction": "%.4f" % sat,
-            "badge_sat":sat_badge,
+            "badge_sat": sat_badge,
             "delta_satisfaction": "%.4f" % dSat,
             "badge_dSat": badge_dSat,
             "arrow": arrow,
@@ -135,7 +137,8 @@ def machinelist():
             "badge_ops": order_badge,
         })
 
-    return renderWith(render_template("main-panel/listMachines.html", machines = machines ))
+    return renderWith(render_template("main-panel/listMachines.html", machines=machines))
+
 
 @app.route('/<int:ID>/maintenance', methods=['GET'])
 def get_status(ID):
@@ -158,14 +161,15 @@ def get_status(ID):
         order = "Working"
         order_badge = "success"
 
-    tmp_1 = db.machineTable.find_one({'ID': ID})['maintenance']['consumable_list']
+    tmp_1 = db.machineTable.find_one(
+        {'ID': ID})['maintenance']['consumable_list']
     lbl_1 = list(tmp_1.keys())
     val_1 = list(tmp_1.values())
 
     tmp_2 = db.machineTable.find_one({'ID': ID})['management']['count_orders']
     lbl_2 = list(tmp_2.keys())
     val_2 = list(tmp_2.values())
-        
+
     all_info = {
         "owner": mac["management"]["owner"],
         "tot_owner": "Zio",
@@ -185,7 +189,7 @@ def get_status(ID):
         "off_time_range": mac["management"]["off_time_range"],
         "installation_date": datetime.fromtimestamp(mac["installation_date"]),
 
-        #grafico consumabili
+        # grafico consumabili
         "val_1": val_1,
         "lbl_1": lbl_1,
         "val_2": val_2,
@@ -281,10 +285,8 @@ def del_machine(machineID):
         JSON in entrata:
         { "ID": <int> }
     """
-    
-    return 'Machine deleteed' + str(db.machineTable.delete_one({'ID':machineID}))
 
-
+    return 'Machine deleteed' + str(db.machineTable.delete_one({'ID': machineID}))
 
 
 @app.route('/<int:machineID>/live', methods=['POST'])
@@ -293,10 +295,9 @@ def live(machineID):
         file = request.files['frame']
         filename = secure_filename(file.filename)
         file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-        return '200',200
+        return '200', 200
     else:
-        return '404',404
-
+        return '404', 404
 
 
 @app.route('/<int:machineID>/maintenance', methods=['POST'])

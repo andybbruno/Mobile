@@ -11,12 +11,12 @@
         address = node.src.split('?')[0];
       else
         address = node.src;
-      
+
       node.src = address+"?time="+new Date().getTime();
 
       // People counter
       var xmlHttp = new XMLHttpRequest();
-      xmlHttp.onreadystatechange = function() { 
+      xmlHttp.onreadystatechange = function() {
         if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
           document.getElementById(tagId).innerHTML = xmlHttp.responseText;
       }
@@ -46,15 +46,15 @@
      * Data and config for chartjs
      */
     'use strict';
-  
-  
+
+
     var val_1 = {{ val_1 }} ;
     var val_2 =  {{ val_2 }} ;
-    
+
     var lbl_1 =  {{ lbl_1 | safe }};
     var lbl_2 =  {{ lbl_2 | safe }};
 
-    
+
     var options = {
       legend: {
         display:false
@@ -68,7 +68,7 @@
           }]
         }
     };
-  
+
     var color_1 = [
       'rgba(255, 0, 0, 0.7)',
       'rgba(255, 165, 0, 0.7)',
@@ -78,7 +78,7 @@
       'rgba(0, 0, 255, 0.7)',
       'rgba(238, 130, 238, 0.7)'
     ];
-  
+
     var color_2 = [
       'rgba(255, 0, 0, 1)',
       'rgba(255, 165, 0, 1)',
@@ -88,7 +88,7 @@
       'rgba(0, 0, 255, 1)',
       'rgba(238, 130, 238, 1)'
     ];
-  
+
     var data1 = {
       labels: lbl_1,
       datasets: [{
@@ -98,8 +98,8 @@
         borderWidth: 2
       }]
     };
-  
-  
+
+
     if ($("#Machine-1").length) {
       var chartID = $("#Machine-1").get(0).getContext("2d");
       // This will get the first returned node in the jQuery collection.
@@ -109,8 +109,8 @@
         options: options
       });
     }
-  
-  
+
+
     var data2 = {
       labels: lbl_2,
       datasets: [{
@@ -120,7 +120,7 @@
         borderWidth: 2
       }]
     };
-  
+
     if ($("#Machine-2").length) {
       var chartID = $("#Machine-2").get(0).getContext("2d");
       // This will get the first returned node in the jQuery collection.
@@ -130,7 +130,7 @@
         options: options
       });
     }
-  
+
   });
 })(jQuery);
 
@@ -244,7 +244,7 @@
         </div>
       </div>
     </div>
-    
+
     <div class="col-xl-6 col-lg-5">
       <div class="card shadow mb-4">
         <!-- Card Header - Dropdown -->
@@ -279,11 +279,15 @@
             <img id="live_2" src="{{ imgID2 }}" width="100%">
           </div>
           <hr>
+<<<<<<< HEAD
           Therea are <code id="live_1_P">{{people2}}</code> people in queue.
+=======
+          Therea are <code id="people2">XXX</code> people in queue.
+>>>>>>> c21f434b3371fabe7911df2e5e660a74907afb52
         </div>
       </div>
     </div>
-    
+
     <div class="col-xl-6 col-lg-5">
       <div class="card shadow mb-4">
         <!-- Card Header - Dropdown -->
