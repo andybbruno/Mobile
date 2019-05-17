@@ -89,8 +89,8 @@ def statistics():
 
 @app.route('/<int:machineID>/people')
 def people(machineID):
-    tmp = db.detectionTable.find({'machineID': machineID}).sort([('timestamp', -1)]).limit(1).next()['people_detected']
-    return str(tmp)
+    people = db.detectionTable.find({'machineID': machineID}).sort([('timestamp', -1)]).limit(1).next()['people_detected']
+    return jsonify(machineID=machineID, people_detected=people)
 
 
 @app.route('/machines')
