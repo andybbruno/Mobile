@@ -21,23 +21,34 @@
   <link rel="icon" href="/static/images/logo.png">
 
   <script>
-      function openLink() {
+      function openLink(ID) {
         var x = event.charCode || event.keyCode;
-        var inp = document.getElementById("search-bar");
+        var inp = document.getElementById(ID);
         //TODO: controllo se non inserisce numeri
         if (x == 13 && inp.value != "")
           location.href = "/" + inp.value + "/maintenance";
       }
   </script>
+
+  <script>
+    function openLinkButton(ID) {
+      // var x = event.charCode || event.keyCode;
+      // alert(event.charCode + " -- " + event.keyCode);
+      var inp = document.getElementById(ID);
+      //TODO: controllo se non inserisce numeri
+      if (inp.value != "")
+        location.href = "/" + inp.value + "/maintenance";
+    }
+  </script>
 </head>
 
-<body id="page-top">
+<body id="page-top" class="sidebar-toggled"> 
 
   <!-- Page Wrapper -->
   <div id="wrapper">
 
     <!-- Sidebar -->
-    <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+    <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion toggled" id="accordionSidebar">
 
       <!-- Sidebar - Brand -->
       <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/">
@@ -115,9 +126,9 @@
           <div class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
             <div class="input-group">
               <input type="text" class="form-control bg-light border-0 small" placeholder="Search machine by ID..."
-                aria-label="Search" aria-describedby="basic-addon2" id="search-bar" onkeypress="openLink()" required>
+                aria-label="Search" aria-describedby="basic-addon2" id="search-bar" onkeypress="openLink('search-bar')">
               <div class="input-group-append">
-                <button class="btn btn-primary" type="button">
+                <button class="btn btn-primary" type="button" onclick="openLinkButton('search-bar')">
                   <i class="fas fa-search fa-sm"></i>
                 </button>
               </div>
@@ -129,24 +140,24 @@
 
             <!-- Nav Item - Search Dropdown (Visible Only XS) -->
             <li class="nav-item dropdown no-arrow d-sm-none">
-              <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button" data-toggle="dropdown"
+              <a class="nav-link dropdown-toggle" id="searchDropdown" role="button" data-toggle="dropdown"
                 aria-haspopup="true" aria-expanded="false">
                 <i class="fas fa-search fa-fw"></i>
               </a>
               <!-- Dropdown - Messages -->
               <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in"
                 aria-labelledby="searchDropdown">
-                <form class="form-inline mr-auto w-100 navbar-search">
+                <!-- <form class="form-inline mr-auto w-100 navbar-search"> -->
                   <div class="input-group">
-                    <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..."
-                      aria-label="Search" aria-describedby="basic-addon2">
+                    <input type="text" class="form-control bg-light border-0 small" placeholder="Search by ID..."
+                      aria-label="Search" aria-describedby="basic-addon2" id="search-bar2" onkeypress="openLink('search-bar2')">
                     <div class="input-group-append">
-                      <button class="btn btn-primary" type="button">
+                      <button class="btn btn-primary" type="button" onclick="openLinkButton('search-bar2')">
                         <i class="fas fa-search fa-sm"></i>
                       </button>
                     </div>
                   </div>
-                </form>
+                <!-- </form> -->
               </div>
             </li>
 
