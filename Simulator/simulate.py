@@ -73,7 +73,7 @@ def order():
 
     if maint:
         data = {
-            "operatorID" : 12345
+            "operatorID" : 12345,
             "type" : man_type
         }
 
