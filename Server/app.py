@@ -311,7 +311,7 @@ def new_operation(machineID):
         }
     """
     is_ok, error = handler.register_operation(
-        machineID, request.get_json(silent=True, force=True))
+        machineID, dict(request.get_json(silent=True, force=True)))
     if is_ok:
         return "Opertion registered"
     return "Some error occurred -> " + error
