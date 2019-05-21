@@ -310,7 +310,7 @@ def new_operation(machineID):
             "type": <str, in ["refill", "cleaning", "repair", "standard check"]>
         }
     """
-    var = request.get_json(silent=True, force=True)
+    var = json.loads(request.get_json(silent=True, force=True))
     print(var, type(var))
     is_ok, error = handler.register_operation(
         machineID, var)
