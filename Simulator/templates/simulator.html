@@ -47,14 +47,14 @@
                     <button class="btn btn-primary btn-user btn-block text-white" name="Caffe">
                       <i class="fas fa-fw fa-coffee"></i> Caffè
                     </button>
-                    <button class="btn btn-primary btn-user btn-block text-white" name="Cappuccino">
-                      <i class="fas fa-fw fa-coffee"></i> Latte
-                    </button>
                     <button class="btn btn-primary btn-user btn-block text-white" name="Cioccolata">
                       <i class="fas fa-fw fa-coffee"></i> Cioccolata
                     </button>
                     <button class="btn btn-primary btn-user btn-block text-white" name="Te">
                       <i class="fas fa-fw fa-coffee"></i> Tè
+                    </button>
+                    <button class="btn btn-primary btn-user btn-block text-white" name="Acquacalda">
+                      <i class="fas fa-fw fa-coffee"></i> Acqua Calda
                     </button>
                     <hr>
                     <button class="btn btn-secondary btn-user btn-block text-white" name="manutenzione">
@@ -69,6 +69,17 @@
                     <button class="btn btn-secondary btn-user btn-block text-white" name="rottura">
                       <i class="fas fa-fw fa-wrench"></i> Simula rottura
                     </button>
+
+                    {% if message %}
+                    <hr>
+                    <div class="card mb-4 border-left-success">
+                      <div class="card-body">
+                        {{ message }}
+                      </div>
+                    </div>
+                    {%  endif %}
+
+
                   </form>
                 </div>
               </div>
