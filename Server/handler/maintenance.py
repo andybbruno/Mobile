@@ -19,10 +19,10 @@ def register_operation(machineID, jsonReq):
     if not Validator.validate_operation(jsonReq):
         return False, "Not Valid JSON"
 
-    operatorID = int(jsonReq["operatorID"])
-    if machineTable.find_one({"ID": machineID}):
+    operatorID = jsonReq["operatorID"]
+    if not machineTable.find_one({"ID": machineID}):
         return False, "Machine ID not valid"
-    if userTable.find_one({"ID": operatorID}):
+    if not userTable.find_one({"ID": operatorID}):
         return False, "Operator ID not valid"
 
     op_type = jsonReq["type"]
