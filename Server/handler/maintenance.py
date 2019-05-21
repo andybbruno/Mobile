@@ -20,7 +20,7 @@ def register_operation(machineID, jsonReq):
         return False, "Not Valid JSON"
 
     operatorID = int(jsonReq["operatorID"])
-    if machineTable.find_one({"ID": machineID}):
+    if machineTable.find_one({"ID": int(machineID)}):
         return False, "Machine ID not valid"
     if userTable.find_one({"ID": operatorID}):
         return False, "Operator ID not valid"
