@@ -67,7 +67,7 @@ def order():
     if ("manutenzione" in request.form.keys()):
         # modifica data di manutenzione della macchina
         machineTable.update_one({"ID": id}, {
-                                "$set": {"maintenance.last_maintenance": time.timestamp(time.now())}})
+                                "$set": {"maintenance.last_maintenance": time.timestamp(time.now()), "working": True}})
         man_type = "repair"
         maint = True
 
