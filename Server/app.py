@@ -194,6 +194,9 @@ def get_status(ID):
         "lbl_1": lbl_1,
         "val_2": val_2,
         "lbl_2": lbl_2,
+        
+        "order": order,
+        "order_badge": order_badge
     }
     content = render_template("main-panel/infoMachine.html", **all_info)
     return renderWith(content)
