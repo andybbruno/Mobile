@@ -74,7 +74,7 @@ class Validator(object):
         try:
             Schema({
                 "operatorID": str,
-                "type": And(list, lambda x: any([True if e in possible_operation else False for e in x])),
+                "type": And(str, lambda x: any([True if e in possible_operation else False for e in x])),
             }).validate(toValidate)
         except SchemaError as e:
             print("new_machine -> ", e)
