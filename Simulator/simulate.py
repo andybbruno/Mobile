@@ -108,7 +108,7 @@ def order():
     if (maint):
         if man_type is not None:
             data = {
-                "operatorID": str(12345),
+                "operatorID": 12345,
                 "type": str(man_type)
             }
 
