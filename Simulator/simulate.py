@@ -71,21 +71,21 @@ def order():
         man_type = "repair"
         maint = True
 
-    elif ("refill" in request.form.keys()):
+    elif ("fine" in request.form.keys()):
         # modifica valori dell
         machineTable.update_one({"ID": id}, {"$set": {"maintenance.consumable_list": {
-            "bicchiere": 20 + randint(-10, 10),
-            "palettina": 20 + randint(-10, 10),
-            "caffe": 20 + randint(-10, 10),
-            "zucchero": 20 + randint(-10, 10),
-            "latte": 20 + randint(-10, 10),
-            "te": 20 + randint(-10, 10),
-            "cioccolato": 45
+            "bicchiere": 10 + randint(-10, 10),
+            "palettina": 10 + randint(-10, 10),
+            "caffe": 10 + randint(-10, 10),
+            "zucchero": 10 + randint(-10, 10),
+            "latte": 10 + randint(-10, 10),
+            "te": 10 + randint(-10, 10),
+            "cioccolato": 10 + randint(-10, 10)
         }}})
         man_type = "refill"
         maint = True
 
-    elif ("fine" in request.form.keys()):
+    elif ("refill" in request.form.keys()):
         # simulazione della fine consumabili
         machineTable.update_one({"ID": id}, {"$set": {"maintenance.consumable_list": {
             "bicchiere": 100,
