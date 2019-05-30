@@ -1,7 +1,11 @@
 from picamera import PiCamera
 from picamera.array import PiRGBArray
-import cv2, time, requests, os
-
+import cv2
+import time
+import requests
+import os
+import random
+import json
 
 looptime = 5
 
@@ -17,8 +21,8 @@ trans = ["rfid", "cash", "app"]
 ec2 = 'http://ec2-18-212-110-170.compute-1.amazonaws.com:3000'
 
 # Microsoft API
-subscription_key = os.environ['API_KEY_2']
-vision_base_url = "https://westcentralus.api.cognitive.microsoft.com/vision/v2.0"
+subscription_key = os.environ['API_KEY']
+vision_base_url = "https://westcentralus.api.cognitive.microsoft.com/vision/v2.0/"
 vision_analyze_url = vision_base_url + "analyze"
 
 
@@ -95,23 +99,34 @@ try:
             x, y, w, h = getRectangle(face)
             cv2.rectangle(frame, (x, y), (w, h), (0, 0, 255), 2)
 
-        
-        
         print("<", people, " people, ", faces, "faces> ")
 
+        url_ord = ec2 + '/' + str(ID) + '/order'
+
+        trn = trans[random.randint(1, len(trans) - 1)]
+        prd = prod[random.randint(1, len(prod) - 1)]
+
+        # TODO: add products levels
+        tmp = {"transaction_type": trn,
+               "product": prd,
+               "satisfaction": random.random(),
+               "people_detected": people,
+               "face_recognised": faces
+               }
 
         url_frame = ec2 + '/' + str(ID) + '/live'
         path = str(ID) + ".jpg"
-        res = cv2.resize(frame, (640,360)) 
-        cv2.imwrite(path,res)
-                    
+        res = cv2.resize(frame, (640, 360))
+        cv2.imwrite(path, res)
+
         with open(path, 'rb') as f:
             try:
+                requests.post(url_ord, json=json.dumps(tmp))
                 requests.post(url_frame, files={"frame": f})
             except Exception as e:
-                print('Error:' , e)
-        
+                print('Error:', e)
+
         elapsed_time = time.time() - start_time
 
 except Exception as e:
-    print('Error:' , e)
+    print('Error:', e)
