@@ -21,7 +21,7 @@ trans = ["rfid", "cash", "app"]
 ec2 = 'http://ec2-18-212-110-170.compute-1.amazonaws.com:3000'
 
 # Microsoft API
-subscription_key = os.environ['API_KEY']
+subscription_key = os.environ['API_KEY_2']
 vision_base_url = "https://westcentralus.api.cognitive.microsoft.com/vision/v2.0/"
 vision_analyze_url = vision_base_url + "analyze"
 
