@@ -11,12 +11,12 @@ all_products = Schema({
 })
 
 all_consumable_S = Schema({
-    Optional('bicchiere'): And(Or(float, int), lambda x: x > 0 and x < 100),
-    Optional('palettina'): And(Or(float, int), lambda x: x > 0 and x < 100),
-    Optional('caffe'): And(Or(float, int), lambda x: x > 0 and x < 100),
-    Optional('zucchero'): And(Or(float, int), lambda x: x > 0 and x < 100),
-    Optional('te'): And(Or(float, int), lambda x: x > 0 and x < 100),
-    Optional('cioccolato'): And(Or(float, int), lambda x: x > 0 and x < 100),
+    Optional('bicchiere'): And(Or(float, int), lambda x: x >= 0 and x <= 100),
+    Optional('palettina'): And(Or(float, int), lambda x: x >= 0 and x <= 100),
+    Optional('caffe'): And(Or(float, int), lambda x: x >= 0 and x <= 100),
+    Optional('zucchero'): And(Or(float, int), lambda x: x >= 0 and x <= 100),
+    Optional('te'): And(Or(float, int), lambda x: x >= 0 and x <= 100),
+    Optional('cioccolato'): And(Or(float, int), lambda x: x >= 0 and x <= 100),
 })
 
 all_consumable_L = ("bicchiere", "palettina", "caffe", "zucchero",

@@ -54,12 +54,16 @@ def order():
         order = True
 
     if (order):
-        data = {"transaction_type": "cash",
+        data = {
+                "transaction_type": "cash",
                 "product": val,
                 "satisfaction": 0.99,
                 "people_detected": 99,
-                "face_recognised": 99
-                }
+                "face_recognised": 99,
+                "new_levels": {
+                    str(val) : 1
+                } 
+            }
         msg = requests.post(url+"order", json=json.dumps(data))
         return render_template("simulator.html", message="<" + str(msg.status_code) + "> - " + msg.text)
 
